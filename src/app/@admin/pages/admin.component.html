@@ -1,13 +1,21 @@
-<h1>Admin</h1>
-<ul>
-    <li>
-        <a [routerLink]="['/home']" routerLinkActive="router-link-active"> Volver a Home</a> 
-    </li>
-    <li>
-        <a [routerLink]="['/admin']" routerLinkActive="router-link-active">Dashboard</a> 
-    </li>
-    <li>
-        <a [routerLink]="['/admin/users']" routerLinkActive="router-link-active">Users</a> 
-    </li>
-</ul>
-<router-outlet></router-outlet>
+<div class="d-flex admin-page" id="wrapper">
+    <!--https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp-->
+      <!-- Sidebar -->
+      <app-sidebar *ngIf="toggledValue"></app-sidebar>
+      <!-- /#sidebar-wrapper -->
+  
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+  
+        <app-header (toggledCheck)="toggled($event)"></app-header>
+  
+        <div class="container-fluid">
+          <app-title></app-title>
+          <router-outlet></router-outlet>
+          
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+  
+    </div>
+  
