@@ -1,0 +1,64 @@
+form {
+  border: 1px solid #ccc;
+  padding: 16px;
+  height: 100%;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.signup-btn {
+  background-color: #4caf50;
+}
+
+.signup-btn:disabled {
+  background-color: #7c7d7c;
+  cursor: not-allowed
+}
+
+.signup-btn:hover, .cancel-btn:hover {
+  opacity: 1;
+}
+
+/* Extra styles for the cancel button */
+.cancel-btn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+.signup-btn, .cancel-btn {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancel-btn, .signup-btn {
+  width: 100%;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancel-btn, .signup-btn {
+    width: 100%;
+  }
+}

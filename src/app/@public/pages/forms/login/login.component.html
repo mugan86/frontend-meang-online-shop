@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg"></div>
+      <div class="col-lg-6">
+        <form (ngSubmit)="init()" #forma="ngForm">
+          <h1>Inicio de sesión</h1>
+          <p>Introduzca los credenciales para iniciar la sesión</p>
+          <p class="psw">
+            ¿No tienes cuenta? Entra
+            <a href="#">aquí</a> para crearla gratis
+          </p>
+          <hr />
+          <label for="email"><b>Correo electrónico</b></label>
+          <input
+            type="email"
+            #email="ngModel" 
+            [(ngModel)]="login.email"
+            placeholder="Introduzca la correo electrónico"
+            name="email"
+            class="form-control"
+            required
+            [ngClass]="{'is-valid': !email.invalid, 'is-invalid': email.invalid}"
+            pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+          />
+          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors.required">
+              Introduzca un correo electrónico válido por favor
+            </div>
+            <div *ngIf="email.errors && email.errors.pattern">
+              El correo electrónico no sigue el formato correcto. Sigue este ejemplo: anartz@mugika.com
+            </div>
+          </div>
+
+          <label for="psw"><b>Contraseña</b></label>
+          <input
+            type="password"
+            placeholder="Introduzca la contraseña"
+            #password="ngModel"
+            [(ngModel)]="login.password"
+            name="password"
+            class="form-control"
+            [ngClass]="{'is-valid': !password.invalid, 'is-invalid': password.invalid}"
+            required
+          />
+          <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div *ngIf="password.errors.required">
+              Introduzca una contraseña por favor
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg">
+              <button type="submit" [disabled]="!forma.valid" class="signup-btn">Iniciar sesión</button>
+            </div>
+          </div>
+          <div class="more-options">
+            <p class="psw">
+              ¿Has olvidado la <a [routerLink]="['/forgot']">contraseña?</a>
+            </p>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg"></div>
+    </div>
+  </div>
