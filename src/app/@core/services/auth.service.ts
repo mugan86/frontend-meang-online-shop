@@ -62,22 +62,24 @@ export class AuthService extends ApiService{
     }));
   }
 
-  setSession(token: string, expiresTimeInHours = 24) {
+  setSession(token: string, role: string = 'CLIENT', expiresTimeInHours = 24) {
     const date = new Date();
     date.setHours(date.getHours() + expiresTimeInHours);
 
     const session: ISession = {
       expiresIn: new Date(date).toISOString(),
-      token
+      token,
+      role
     };
     localStorage.setItem('session', JSON.stringify(session));
   }
 
-  getSession() {
+  getSession(): ISession {
     return JSON.parse(localStorage.getItem('session'));
   }
 
   resetSession() {
     localStorage.removeItem('session');
+    this.updateSession({status: false});
   }
 }

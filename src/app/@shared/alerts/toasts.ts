@@ -7,7 +7,13 @@ export function basicAlert(icon = TYPE_ALERT.SUCCESS, title: string = '') {
         title,
         icon,
         position: 'top',
-        confirmButtonText: 'X',
-        toast: true
+        showConfirmButton: false,
+        toast: true,
+        timer: 5000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
       });
 }

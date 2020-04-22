@@ -13,17 +13,14 @@ export class HomeComponent implements OnInit {
   constructor(private usersApi: UsersService, private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.auth.login('mugan86@gmail.com', '1234').subscribe(result => {
-      console.log(result);
-    });
 
-    this.usersApi.getUsers().subscribe( result => {
+    /*this.usersApi.getUsers().subscribe( result => {
       console.log(result); // { { status message users: []}
     });
 
     this.auth.getMe().subscribe( result => {
       console.log(result); // { status message user: {}}
-    });
+    });*/
   }
 
 }

@@ -13,16 +13,22 @@ export class NavbarComponent implements OnInit {
   };
   access = false;
   role: string;
+  userLabel = '';
   constructor(private authService: AuthService) {
     this.authService.accessVar$.subscribe((result) => {
       console.log(result.status);
       this.session = result;
       this.access = this.session.status;
-      this.role = this.session.user.role;
+      this.role = this.session.user?.role;
+      this.userLabel = `${ this.session.user?.name } ${ this.session.user?.lastname }`;
     });
   }
 
   ngOnInit(): void {
+  }
+
+  logout() {
+    this.authService.resetSession();
   }
 
 }

@@ -1,5 +1,4 @@
-import { IMeData } from '@core/interfaces/session.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ILoginForm, IResultLogin } from '@core/interfaces/login.interface';
 import { AuthService } from '@core/services/auth.service';
 import { basicAlert } from '@shared/alerts/toasts';
@@ -10,16 +9,12 @@ import { TYPE_ALERT } from '@shared/alerts/values.config';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   login: ILoginForm = {
     email: '',
     password: ''
   };
   constructor(private auth: AuthService) { }
-
-  ngOnInit(): void {
-    this.auth.start();
-  }
 
   init() {
     console.log(this.login);
@@ -29,7 +24,7 @@ export class LoginComponent implements OnInit {
         if (result.status) {
           if (result.token !== null) {
             basicAlert(TYPE_ALERT.SUCCESS, result.message);
-            this.auth.setSession(result.token);
+            this.auth.setSession(result.token, result.user?.role);
             this.auth.updateSession(result);
             return;
           }
