@@ -6,7 +6,6 @@ import { LOGIN_QUERY, ME_DATA_QUERY } from '@graphql/operations/query/user';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/internal/operators/map';
 import { Subject } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -62,19 +61,18 @@ export class AuthService extends ApiService{
     }));
   }
 
-  setSession(token: string, role: string = 'CLIENT', expiresTimeInHours = 24) {
+  setSession(token: string, expiresTimeInHours = 24) {
     const date = new Date();
     date.setHours(date.getHours() + expiresTimeInHours);
 
     const session: ISession = {
       expiresIn: new Date(date).toISOString(),
-      token,
-      role
+      token
     };
     localStorage.setItem('session', JSON.stringify(session));
   }
 
-  getSession(): ISession {
+  getSession() {
     return JSON.parse(localStorage.getItem('session'));
   }
 

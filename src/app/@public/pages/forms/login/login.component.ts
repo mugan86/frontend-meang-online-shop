@@ -24,7 +24,7 @@ export class LoginComponent {
         if (result.status) {
           if (result.token !== null) {
             basicAlert(TYPE_ALERT.SUCCESS, result.message);
-            this.auth.setSession(result.token, result.user?.role);
+            this.auth.setSession(result.token);
             this.auth.updateSession(result);
             return;
           }
