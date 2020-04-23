@@ -1,0 +1,9 @@
+<input
+  type="text"
+  ngbDatepicker
+  #d="ngbDatepicker"
+  [(ngModel)]="model"
+  (click)="d.toggle()"
+  (ngModelChange)="selectDateChange()"
+/>
+{{ model | json }}

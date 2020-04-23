@@ -72,7 +72,7 @@ export class AuthService extends ApiService{
     localStorage.setItem('session', JSON.stringify(session));
   }
 
-  getSession() {
+  getSession(): ISession {
     return JSON.parse(localStorage.getItem('session'));
   }
 
