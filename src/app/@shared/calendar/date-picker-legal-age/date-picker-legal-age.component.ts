@@ -8,9 +8,23 @@ import { Component, OnInit, Output, EventEmitter, ComponentFactoryResolver } fro
 })
 export class DatePickerLegalAgeComponent implements OnInit {
   model: NgbDateStruct;
+  CURRENTDAY = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate()
+  };
+  minDate: NgbDateStruct = {
+    year: this.CURRENTDAY.year - 100,
+    month: this.CURRENTDAY.month,
+    day: this.CURRENTDAY.day
+  };
+  maxDate: NgbDateStruct = {
+    year: this.CURRENTDAY.year - 18,
+    month: this.CURRENTDAY.month,
+    day: this.CURRENTDAY.day
+  };
   @Output() newDate = new EventEmitter<NgbDateStruct>();
   constructor() { }
-
   ngOnInit(): void {
   }
 

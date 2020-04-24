@@ -1,2 +1,86 @@
-<p>register works!</p>
-<app-date-picker-legal-age (newDate)="dataAsign($event)"></app-date-picker-legal-age>
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg-6">
+      <form (ngSubmit)="registerUser()" #forma="ngForm">
+        <h1>Registro de usuario</h1>
+        <p>
+          Rellena los datos del formulario para efectuar el registro de tu
+          cuenta de usuario.
+        </p>
+        <hr />
+        <label for="name"><b>Nombre</b></label>
+        <input
+          type="text"
+          placeholder="Introduzca su nombre"
+          #name="ngModel"
+          [(ngModel)]="register.name"
+          name="name"
+          required
+        />
+        <label for="lastname"><b>Apellido/s</b></label>
+        <input
+          type="text"
+          placeholder="Introduzca su apellido/s"
+          #lastname="ngModel"
+          [(ngModel)]="register.lastname"
+          name="lastname"
+          required
+        />
+        <label for="birthday"><b>Fecha de nacimiento</b></label>
+        <app-date-picker-legal-age
+          (newDate)="dataAsign($event)"
+        ></app-date-picker-legal-age>
+        <label for="email"><b>Email</b></label>
+        <input
+          type="email"
+          #email="ngModel"
+          [(ngModel)]="register.email"
+          placeholder="Introduzca el correo electrónico"
+          name="email"
+          required
+        />
+
+        <label for="password"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Introduzca la contraseña"
+          #password="ngModel"
+          [(ngModel)]="register.password"
+          name="password"
+          required
+        />
+
+        <label for="password-repeat"><b>Repetir la contraseña</b></label>
+        <input
+          type="password"
+          placeholder="Repetir la contraseña"
+          #repeatPassword="ngModel"
+          [(ngModel)]="register.repeatPassword"
+          name="password-repeat"
+          required
+        />
+
+        <p>
+          By creating an account you agree to our
+          <a href="#" style="color: dodgerblue;">Terms & Privacy</a>.
+        </p>
+        <p>
+          ¿Ya tiene una cuenta?
+          <a [routerLink]="['/login']" style="color: dodgerblue;"
+            >Iniciar sesión</a
+          >.
+        </p>
+        <div class="row">
+          <div class="col-lg">
+            <button [disabled]="forma.invalid" type="submit" class="signup-btn">
+              Registrarse
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg"></div>
+  </div>
+</div>

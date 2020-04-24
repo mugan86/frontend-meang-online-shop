@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +11,8 @@ import { DatePickerLegalAgeModule } from '@shared/calendar/date-picker-legal-age
   imports: [
     CommonModule,
     RegisterRoutingModule,
-    DatePickerLegalAgeModule
+    DatePickerLegalAgeModule,
+    FormsModule
   ]
 })
 export class RegisterModule { }
