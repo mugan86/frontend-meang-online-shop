@@ -3,6 +3,5 @@ export interface IRegisterForm {
     lastname: string;
     email: string;
     password: string;
-    repeatPassword: string;
     birthday: string;
 }

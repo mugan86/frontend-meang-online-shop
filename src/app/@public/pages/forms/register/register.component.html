@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg"></div>
     <div class="col-lg-6">
-      <form (ngSubmit)="registerUser()" #forma="ngForm">
+      <form (ngSubmit)="add()" #forma="ngForm">
         <h1>Registro de usuario</h1>
         <p>
           Rellena los datos del formulario para efectuar el registro de tu
@@ -13,31 +13,31 @@
         <input
           type="text"
           placeholder="Introduzca su nombre"
+          name="name"
           #name="ngModel"
           [(ngModel)]="register.name"
-          name="name"
           required
         />
-        <label for="lastname"><b>Apellido/s</b></label>
+        <label for="lastname"><b>Apellido / s</b></label>
         <input
           type="text"
           placeholder="Introduzca su apellido/s"
+          name="lastname"
           #lastname="ngModel"
           [(ngModel)]="register.lastname"
-          name="lastname"
           required
         />
-        <label for="birthday"><b>Fecha de nacimiento</b></label>
+        <label for="email"><b>Fecha de nacimiento</b></label>
         <app-date-picker-legal-age
           (newDate)="dataAsign($event)"
         ></app-date-picker-legal-age>
         <label for="email"><b>Email</b></label>
         <input
-          type="email"
+          type="text"
+          placeholder="Introduzca su email"
+          name="email"
           #email="ngModel"
           [(ngModel)]="register.email"
-          placeholder="Introduzca el correo electrónico"
-          name="email"
           required
         />
 
@@ -45,19 +45,9 @@
         <input
           type="password"
           placeholder="Introduzca la contraseña"
+          name="password"
           #password="ngModel"
           [(ngModel)]="register.password"
-          name="password"
-          required
-        />
-
-        <label for="password-repeat"><b>Repetir la contraseña</b></label>
-        <input
-          type="password"
-          placeholder="Repetir la contraseña"
-          #repeatPassword="ngModel"
-          [(ngModel)]="register.repeatPassword"
-          name="password-repeat"
           required
         />
 
@@ -73,9 +63,7 @@
         </p>
         <div class="row">
           <div class="col-lg">
-            <button [disabled]="forma.invalid" type="submit" class="signup-btn">
-              Registrarse
-            </button>
+            <button type="submit" class="signup-btn">Registrarse</button>
           </div>
         </div>
       </form>
