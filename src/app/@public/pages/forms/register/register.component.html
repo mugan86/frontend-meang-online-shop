@@ -16,8 +16,15 @@
           name="name"
           #name="ngModel"
           [(ngModel)]="register.name"
+          class="form-control"
+          [ngClass]="{'is-valid': name.valid, 'is-invalid': name.invalid}"
           required
         />
+        <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors.required">
+            Introduzca un nombre por favor
+          </div>
+        </div>
         <label for="lastname"><b>Apellido / s</b></label>
         <input
           type="text"
@@ -25,8 +32,15 @@
           name="lastname"
           #lastname="ngModel"
           [(ngModel)]="register.lastname"
+          class="form-control"
+          [ngClass]="{'is-valid': lastname.valid, 'is-invalid': lastname.invalid}"
           required
         />
+        <div class="alert alert-danger" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+          <div *ngIf="lastname.errors.required">
+            Introduzca un apellido o apellidos por favor
+          </div>
+        </div>
         <label for="email"><b>Fecha de nacimiento</b></label>
         <app-date-picker-legal-age
           (newDate)="dataAsign($event)"
@@ -38,8 +52,19 @@
           name="email"
           #email="ngModel"
           [(ngModel)]="register.email"
+          class="form-control"
+          [ngClass]="{'is-valid': email.valid, 'is-invalid': email.invalid}"
+          pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
           required
         />
+        <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div *ngIf="email.errors.required">
+            Introduzca email por favor
+          </div>
+          <div *ngIf="email.errors.pattern">
+            Introduzca un email con el formato correcto por favor. Pj: contacto@anartz-mugika.com
+          </div>
+        </div>
 
         <label for="password"><b>Password</b></label>
         <input
@@ -48,8 +73,15 @@
           name="password"
           #password="ngModel"
           [(ngModel)]="register.password"
+          class="form-control"
+          [ngClass]="{'is-valid': password.valid, 'is-invalid': password.invalid}"
           required
         />
+        <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+          <div *ngIf="password.errors.required">
+            Introduzca una contraseña por favor
+          </div>
+        </div>
 
         <p>
           By creating an account you agree to our
@@ -63,7 +95,7 @@
         </p>
         <div class="row">
           <div class="col-lg">
-            <button type="submit" class="signup-btn">Registrarse</button>
+            <button [disabled]="forma.invalid" type="submit" class="signup-btn">Registrarse</button>
           </div>
         </div>
       </form>
