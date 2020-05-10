@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DocumentNode } from 'graphql';
+import { IResultData } from '@core/interfaces/result-data.interface';
 
 @Component({
   selector: 'app-users',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
-  constructor() { }
+  query: DocumentNode;
+  context: object;
+  itemsPage: number;
+  resultData: IResultData;
+  include: boolean;
 
   ngOnInit(): void {
   }
