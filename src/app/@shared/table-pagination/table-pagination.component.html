@@ -1,2 +1,35 @@
-<p *ngFor="let data of data$ | async">{{ data.name }}</p>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Lastname</th>
+        <th scope="col">EMail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of data$ | async">
+        <th scope="row">{{ data.id }}</th>
+        <td>{{ data.name }}</td>
+        <td>{{ data.lastname }}</td>
+        <td>{{ data.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-between p-2" *ngIf="infoPage.pages > 1">
+  <ngb-pagination
+    [collectionSize]="infoPage.total"
+    [(page)]="infoPage.page"
+    (pageChange)="changePage()"
+    [pageSize]="infoPage.itemsPage"
+  >
+  </ngb-pagination>
 
+  <!--<select class="custom-select" style="width: auto;" [(ngModel)]="pageSize">
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>-->
+</div>
