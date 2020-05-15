@@ -2,18 +2,12 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Lastname</th>
-        <th scope="col">EMail</th>
+        <th scope="col" *ngFor="let column of tableColumns"> {{ column.label }}</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of data$ | async">
-        <th scope="row">{{ data.id }}</th>
-        <td>{{ data.name }}</td>
-        <td>{{ data.lastname }}</td>
-        <td>{{ data.email }}</td>
+        <td *ngFor="let val of tableColumns">{{ data[val.property] }}</td>
       </tr>
     </tbody>
   </table>
@@ -27,9 +21,12 @@
   >
   </ngb-pagination>
 
-  <!--<select class="custom-select" style="width: auto;" [(ngModel)]="pageSize">
-    <option [ngValue]="2">2 items per page</option>
-    <option [ngValue]="4">4 items per page</option>
-    <option [ngValue]="6">6 items per page</option>
-  </select>-->
+  <select class="custom-select" style="width: auto;" 
+  [(ngModel)]="infoPage.itemsPage"
+  (ngModelChange)="loadData()">
+    <option [ngValue]="5">5 items per page</option>
+    <option [ngValue]="10">10 items per page</option>
+    <option [ngValue]="15">15 items per page</option>
+    <option [ngValue]="20">20 items per page</option>
+  </select>
 </div>

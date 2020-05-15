@@ -2,6 +2,7 @@ import { GENRE_LIST_QUERY } from '@graphql/operations/query/genre';
 import { Component, OnInit } from '@angular/core';
 import { DocumentNode } from 'graphql';
 import { IResultData } from '@core/interfaces/result-data.interface';
+import { ITableColumns } from '@core/interfaces/table-columns.interface';
 
 @Component({
   selector: 'app-genres',
@@ -14,7 +15,7 @@ export class GenresComponent implements OnInit {
   itemsPage: number;
   resultData: IResultData;
   include: boolean;
-
+  columns: Array<ITableColumns>;
   ngOnInit(): void {
     this.context = {};
     this.itemsPage = 10;
@@ -23,6 +24,20 @@ export class GenresComponent implements OnInit {
       definitionKey: 'genres'
     };
     this.include = false;
+    this.columns = [
+      {
+        property: 'id',
+        label: '#'
+      },
+      {
+        property: 'name',
+        label: 'Nombre del género'
+      },
+      {
+        property: 'slug',
+        label: 'Slug'
+      }
+    ];
   }
 
 }
