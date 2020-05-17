@@ -40,4 +40,8 @@ export class GenresComponent implements OnInit {
     ];
   }
 
+  takeAction($event) {
+    console.log($event[0], $event[1]);
+  }
+
 }
