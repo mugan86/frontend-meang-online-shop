@@ -1,13 +1,36 @@
+<button
+  class="btn btn-success float-right mr-3 mb-2"
+  (click)="manageAction('add', '')"
+>
+  <i class="fas fa-plus-circle"></i> &nbsp; Añadir
+</button>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col" *ngFor="let column of tableColumns"> {{ column.label }}</th>
+        <th scope="col" *ngFor="let column of tableColumns">
+          {{ column.label }}
+        </th>
+        <th scope="col">Gestionar Información</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of data$ | async">
         <td *ngFor="let val of tableColumns">{{ data[val.property] }}</td>
+        <td>
+          <button type="button" class="btn btn-secondary"
+          (click)="manageAction('edit', data)">
+            <i class="fas fa-edit"></i></button
+          >&nbsp;
+          <button type="button" class="btn btn-info"
+          (click)="manageAction('info', data)">
+            <i class="fas fa-info"></i></button
+          >&nbsp;
+          <button type="button" class="btn btn-danger"
+          (click)="manageAction('block', data)">
+            <i class="fas fa-lock"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -21,9 +44,12 @@
   >
   </ngb-pagination>
 
-  <select class="custom-select" style="width: auto;" 
-  [(ngModel)]="infoPage.itemsPage"
-  (ngModelChange)="loadData()">
+  <select
+    class="custom-select"
+    style="width: auto;"
+    [(ngModel)]="infoPage.itemsPage"
+    (ngModelChange)="loadData()"
+  >
     <option [ngValue]="5">5 items per page</option>
     <option [ngValue]="10">10 items per page</option>
     <option [ngValue]="15">15 items per page</option>

@@ -63,4 +63,8 @@ export class TablePaginationComponent implements OnInit {
     this.loadData();
   }
 
+  manageAction(action: string, data: any) {
+    console.log(action, data);
+  }
+
 }
