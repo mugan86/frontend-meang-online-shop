@@ -5,18 +5,27 @@ export async function formBasicDialog(
   html: string,
   property: string
 ) {
-  const { value: formValues } = await Swal.fire({
+  return await Swal.fire({
     title,
     html,
-    focusConfirm: true,
+    focusConfirm: false,
     cancelButtonText: 'Cancelar',
     showCancelButton: true,
     preConfirm: () => {
-      return [(document.getElementById('name') as HTMLInputElement).value];
+        const value = (document.getElementById('name') as HTMLInputElement).value;
+        if (value) {
+            return value;
+        }
+        Swal.showValidationMessage('Tienes que añadir un género para poder almacenarlo');
+        return;
     },
   });
+}
 
-  if (formValues) {
-    Swal.fire(JSON.stringify(formValues));
-  }
+export function infoDetailsBasic(title, html, width) {
+    Swal.fire({
+        title,
+        text: html,
+        width: `200px`
+    });
 }
