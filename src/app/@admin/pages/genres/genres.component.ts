@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentNode } from 'graphql';
 import { IResultData } from '@core/interfaces/result-data.interface';
 import { ITableColumns } from '@core/interfaces/table-columns.interface';
+import { formBasicDialog } from '@shared/alerts/alerts';
 
 @Component({
   selector: 'app-genres',
@@ -42,6 +43,11 @@ export class GenresComponent implements OnInit {
 
   takeAction($event) {
     console.log($event[0], $event[1]);
+    const action = $event[0];
+    const html = '<input id="name" class="swal2-input">';
+    if (action === 'add') {
+      formBasicDialog('Añadir género', html, 'name');
+    }
   }
 
 }
