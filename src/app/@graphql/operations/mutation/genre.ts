@@ -26,3 +26,13 @@ export const MODIFY_GENRE = gql`
     }
     ${ GENRE_FRAGMENT }
 `;
+
+
+export const BLOCK_GENRE = gql`
+    mutation bloquearGenero($id: ID!) {
+        blockGenre(id: $id) {
+            status
+            message
+        }
+    }
+`;

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { DocumentNode } from 'graphql';
 import { IResultData } from '@core/interfaces/result-data.interface';
 import { ITableColumns } from '@core/interfaces/table-columns.interface';
-import { formBasicDialog, infoDetailsBasic } from '@shared/alerts/alerts';
+import { formBasicDialog, optionsWithDetails } from '@shared/alerts/alerts';
 import { GenresService } from './genres.service';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 
@@ -50,13 +50,13 @@ export class GenresComponent implements OnInit {
     const action = $event[0];
     const genre = $event[1];
     console.log(genre);
+    let defaultValue = '';
+    if (genre.name !== undefined && genre.name !== '') {
+      defaultValue = genre.name;
+    }
+    const html = `<input id="name" value="${defaultValue}" class="swal2-input" required>`;
+    console.log(html);
     if (action === 'edit' || action === 'add') {
-      let defaultValue = '';
-      if (genre.name !== undefined && genre.name !== '') {
-        defaultValue = genre.name;
-      }
-      const html = `<input id="name" value="${defaultValue}" class="swal2-input" required>`;
-      console.log(html);
       if (action === 'add') {
         const result = await formBasicDialog('Añadir género', html, 'name');
         console.log(result);
@@ -64,14 +64,27 @@ export class GenresComponent implements OnInit {
         return;
       }
       if (action === 'edit') {
-        const result = await formBasicDialog('Modificar género', html, 'name');
-        console.log(result);
-        this.updateGenre(genre.id, result);
+        this.updateForm(html, genre);
         return;
       }
     } else {
       if (action === 'info') {
-        infoDetailsBasic('Detalles', `${genre.name} (${genre.slug})`, 375);
+        const result = await optionsWithDetails(
+          'Detalles',
+          `${genre.name} (${genre.slug})`,
+          375,
+          '<i class="fas fa-edit"></i> Editar', // true
+          '<i class="fas fa-lock"></i> Bloquear'
+        ); // false
+        if (result) {
+          this.updateForm(html, genre);
+        } else if (result === false) {
+          this.blockForm(genre);
+        }
+        return;
+      }
+      if (action === 'block') {
+        this.blockForm(genre);
         return;
       }
     }
@@ -90,6 +103,12 @@ export class GenresComponent implements OnInit {
     }
   }
 
+  async updateForm(html: string, genre: any) {
+    const result = await formBasicDialog('Modificar género', html, 'name');
+    console.log(result);
+    this.updateGenre(genre.id, result);
+  }
+
   updateGenre(id: string, result) {
     console.log(id, result.value);
     if (result.value) {
@@ -101,6 +120,31 @@ export class GenresComponent implements OnInit {
         }
         basicAlert(TYPE_ALERT.WARNING, res.message);
       });
+    }
+  }
+
+  blockGenre(id: string) {
+    this.service.block(id).subscribe((res: any) => {
+      console.log(res);
+      if (res.status) {
+        basicAlert(TYPE_ALERT.SUCCESS, res.message);
+        return;
+      }
+      basicAlert(TYPE_ALERT.WARNING, res.message);
+    });
+  }
+
+  async blockForm(genre: any) {
+    const result = await optionsWithDetails(
+      '¿Bloquear?',
+      `Si bloqueas el item seleccionado, no se mostrará en la lista`,
+      430,
+      'No, no bloquear',
+      'Si, bloquear'
+    );
+    if (result === false) {
+      // Si resultado falso, queremos bloquear
+      this.blockGenre(genre.id);
     }
   }
 }
