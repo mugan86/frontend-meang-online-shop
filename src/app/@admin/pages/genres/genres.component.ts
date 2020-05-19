@@ -46,29 +46,23 @@ export class GenresComponent implements OnInit {
   }
 
   async takeAction($event) {
-    console.log($event[0], $event[1]);
+    // Coger la información para las acciones
     const action = $event[0];
     const genre = $event[1];
-    console.log(genre);
-    let defaultValue = '';
-    if (genre.name !== undefined && genre.name !== '') {
-      defaultValue = genre.name;
-    }
+    // Cogemos el valor por defecto
+    const defaultValue =
+      genre.name !== undefined && genre.name !== '' ? genre.name : '';
     const html = `<input id="name" value="${defaultValue}" class="swal2-input" required>`;
-    console.log(html);
-    if (action === 'edit' || action === 'add') {
-      if (action === 'add') {
-        const result = await formBasicDialog('Añadir género', html, 'name');
-        console.log(result);
-        this.addGenre(result);
-        return;
-      }
-      if (action === 'edit') {
+    // Teniendo en cuenta el caso, ejecutar una acción
+    switch (action) {
+      case 'add':
+        // Añadir el item
+        this.addForm(html);
+        break;
+      case 'edit':
         this.updateForm(html, genre);
-        return;
-      }
-    } else {
-      if (action === 'info') {
+        break;
+      case 'info':
         const result = await optionsWithDetails(
           'Detalles',
           `${genre.name} (${genre.slug})`,
@@ -81,16 +75,20 @@ export class GenresComponent implements OnInit {
         } else if (result === false) {
           this.blockForm(genre);
         }
-        return;
-      }
-      if (action === 'block') {
+        break;
+      case 'block':
         this.blockForm(genre);
-        return;
-      }
+        break;
+      default:
+        break;
     }
   }
-
-  addGenre(result) {
+  private async addForm(html: string) {
+    const result = await formBasicDialog('Añadir género', html, 'name');
+    console.log(result);
+    this.addGenre(result);
+  }
+  private addGenre(result) {
     if (result.value) {
       this.service.add(result.value).subscribe((res: any) => {
         console.log(res);
@@ -103,13 +101,13 @@ export class GenresComponent implements OnInit {
     }
   }
 
-  async updateForm(html: string, genre: any) {
+  private async updateForm(html: string, genre: any) {
     const result = await formBasicDialog('Modificar género', html, 'name');
     console.log(result);
     this.updateGenre(genre.id, result);
   }
 
-  updateGenre(id: string, result) {
+  private updateGenre(id: string, result) {
     console.log(id, result.value);
     if (result.value) {
       this.service.update(id, result.value).subscribe((res: any) => {
@@ -123,7 +121,7 @@ export class GenresComponent implements OnInit {
     }
   }
 
-  blockGenre(id: string) {
+  private blockGenre(id: string) {
     this.service.block(id).subscribe((res: any) => {
       console.log(res);
       if (res.status) {
@@ -134,7 +132,7 @@ export class GenresComponent implements OnInit {
     });
   }
 
-  async blockForm(genre: any) {
+  private async blockForm(genre: any) {
     const result = await optionsWithDetails(
       '¿Bloquear?',
       `Si bloqueas el item seleccionado, no se mostrará en la lista`,
