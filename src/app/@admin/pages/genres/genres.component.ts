@@ -71,7 +71,7 @@ export class GenresComponent implements OnInit {
       }
     } else {
       if (action === 'info') {
-        infoDetailsBasic('Detalles', `${genre.name} (${genre.slug})`, 200);
+        infoDetailsBasic('Detalles', `${genre.name} (${genre.slug})`, 375);
         return;
       }
     }

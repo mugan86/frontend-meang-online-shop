@@ -22,10 +22,22 @@ export async function formBasicDialog(
   });
 }
 
-export function infoDetailsBasic(title, html, width) {
+export function infoDetailsBasic(title: string, html: string, width: number | string) {
     Swal.fire({
         title,
         text: html,
-        width: `200px`
+        width: `${ width }px`,
+        showCancelButton: true,
+        confirmButtonColor: '#6c757d',
+        cancelButtonColor: '#dc3545',
+        confirmButtonText: '<i class="fas fa-edit"></i> Editar',
+        cancelButtonText: '<i class="fas fa-lock"></i> Bloquear'
+    }).then((result) => {
+      console.log(result);
+      if (result.value) {
+        console.log('Editar');
+      } else if (result.dismiss.toString() === 'cancel') {
+        console.log('Bloquear');
+      }
     });
 }
