@@ -1,16 +1,19 @@
 import Swal from 'sweetalert2';
 
-export async function formBasicDialog(
-  title: string,
-  html: string,
-  property: string
-) {
-  return await Swal.fire({
+const swalWithBasicOptions = (title: string, html: string) =>
+  Swal.mixin({
     title,
     html,
     focusConfirm: false,
     cancelButtonText: 'Cancelar',
     showCancelButton: true,
+  });
+export async function formBasicDialog(
+  title: string,
+  html: string,
+  property: string
+) {
+  return await swalWithBasicOptions(title, html).fire({
     preConfirm: () => {
       const value = (document.getElementById('name') as HTMLInputElement).value;
       if (value) {
@@ -24,6 +27,43 @@ export async function formBasicDialog(
   });
 }
 
+export async function userFormBasicDialog(
+  title: string,
+  html: string
+) {
+  return await swalWithBasicOptions(title, html).fire({
+    preConfirm: () => {
+      let error = '';
+      const name = (document.getElementById('name') as HTMLInputElement).value;
+      if (!name) {
+        error += 'Usuario es obligatorio<br/>';
+      }
+      const lastname = (document.getElementById('lastname') as HTMLInputElement).value;
+      if (!lastname) {
+        error += 'Apellido es obligatorio<br/>';
+      }
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      if (!email) {
+        error += 'Email es obligatorio';
+      }
+      const role = (document.getElementById('role') as HTMLInputElement).value;
+      if (error !== '') {
+        Swal.showValidationMessage(
+          error
+        );
+        return;
+      }
+      return {
+        name,
+        lastname,
+        email,
+        role,
+        birthday: new Date().toISOString()
+      };
+    },
+  });
+}
+
 export async function optionsWithDetails(
   title: string,
   html: string,
@@ -33,7 +73,7 @@ export async function optionsWithDetails(
 ) {
   return await Swal.fire({
     title,
-    text: html,
+    html,
     width: `${width}px`,
     showCloseButton: true,
     showCancelButton: true,
