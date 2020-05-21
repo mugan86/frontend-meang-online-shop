@@ -45,7 +45,7 @@ export async function userFormBasicDialog(
       }
       const email = (document.getElementById('email') as HTMLInputElement).value;
       if (!email) {
-        error += 'Email es obligatorio';
+        error += 'Email es obligatorio<br/>';
       }
       if (!EMAIL_PATTERN.test(email)) {
         error += 'Email no es correcto en su formato';

@@ -98,13 +98,13 @@ export class UsersComponent implements OnInit {
           '<i class="fas fa-lock"></i> Bloquear'
         ); // false
         if (result) {
-          // this.updateForm(html, genre);
+          this.updateForm(html, user);
         } else if (result === false) {
-          // this.blockForm(genre);
+          this.blockForm(user);
         }
         break;
       case 'block':
-        // this.blockForm(genre);
+        this.blockForm(user);
         break;
       default:
         break;
@@ -136,6 +136,48 @@ export class UsersComponent implements OnInit {
   private async updateForm(html: string, user: any) {
     const result = await userFormBasicDialog('Modificar usuario', html);
     console.log(result);
+    this.updateUser(result, user.id);
+  }
+
+  private updateUser(result, id: string) {
+    if (result.value) {
+      const user = result.value;
+      user.id = id;
+      console.log(user);
+      this.service.update(result.value).subscribe((res: any) => {
+        console.log(res);
+        if (res.status) {
+          basicAlert(TYPE_ALERT.SUCCESS, res.message);
+          return;
+        }
+        basicAlert(TYPE_ALERT.WARNING, res.message);
+      });
+    }
+  }
+
+  private async blockForm(user: any) {
+    const result = await optionsWithDetails(
+      '¿Bloquear?',
+      `Si bloqueas el usuario seleccionado, no se mostrará en la lista`,
+      430,
+      'No, no bloquear',
+      'Si, bloquear'
+    );
+    if (result === false) {
+      // Si resultado falso, queremos bloquear
+      this.blockUser(user.id);
+    }
+  }
+
+  private blockUser(id: string) {
+    this.service.block(id).subscribe((res: any) => {
+      console.log(res);
+      if (res.status) {
+        basicAlert(TYPE_ALERT.SUCCESS, res.message);
+        return;
+      }
+      basicAlert(TYPE_ALERT.WARNING, res.message);
+    });
   }
 
 }
