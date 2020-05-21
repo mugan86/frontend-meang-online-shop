@@ -1,3 +1,4 @@
+import { EMAIL_PATTERN } from './../../@core/constants/regex';
 import Swal from 'sweetalert2';
 
 const swalWithBasicOptions = (title: string, html: string) =>
@@ -45,6 +46,9 @@ export async function userFormBasicDialog(
       const email = (document.getElementById('email') as HTMLInputElement).value;
       if (!email) {
         error += 'Email es obligatorio';
+      }
+      if (!EMAIL_PATTERN.test(email)) {
+        error += 'Email no es correcto en su formato';
       }
       const role = (document.getElementById('role') as HTMLInputElement).value;
       if (error !== '') {

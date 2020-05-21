@@ -51,7 +51,7 @@ export class UsersComponent implements OnInit {
 
   private initializeForm(user: any) {
     return `
-      <input id="name" value="" class="swal2-input" placeholder="Usuario" required>
+      <input id="name" value="" class="swal2-input" placeholder="Nombre" required>
       <input id="lastname" value="" class="swal2-input" placeholder="Apellidos" required>
       <input id="email" value="" class="swal2-input" placeholder="Correo Electrónico" required>
       <select id="role" class="swal2-input">
