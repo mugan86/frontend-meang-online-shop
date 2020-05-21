@@ -1,9 +1,13 @@
+import { IRegisterForm } from '@core/interfaces/register.interface';
 import { USERS_LIST_QUERY } from '@graphql/operations/query/user';
 import { Component, OnInit } from '@angular/core';
 import { DocumentNode } from 'graphql';
 import { IResultData } from '@core/interfaces/result-data.interface';
 import { ITableColumns } from '@core/interfaces/table-columns.interface';
-import { optionsWithDetails, formBasicDialog, userFormBasicDialog } from '@shared/alerts/alerts';
+import { optionsWithDetails, userFormBasicDialog } from '@shared/alerts/alerts';
+import { UsersAdminService } from './users-admin.service';
+import { basicAlert } from '@shared/alerts/toasts';
+import { TYPE_ALERT } from '@shared/alerts/values.config';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +21,7 @@ export class UsersComponent implements OnInit {
   resultData: IResultData;
   include: boolean;
   columns: Array<ITableColumns>;
+  constructor(private service: UsersAdminService) {}
   ngOnInit(): void {
     this.context = {};
     this.itemsPage = 10;
@@ -50,13 +55,22 @@ export class UsersComponent implements OnInit {
   }
 
   private initializeForm(user: any) {
+    const defaultName =
+      user.name !== undefined && user.name !== '' ? user.name : '';
+    const defaultLastname =
+      user.lastname !== undefined && user.lastname !== '' ? user.lastname : '';
+    const defaultEmail =
+      user.email !== undefined && user.email !== '' ? user.email : '';
+    const roles = new Array(2);
+    roles[0] = user.role !== undefined && user.role === 'ADMIN' ? 'selected' : '';
+    roles[1] = user.role !== undefined && user.role === 'CLIENT' ? 'selected' : '';
     return `
-      <input id="name" value="" class="swal2-input" placeholder="Nombre" required>
-      <input id="lastname" value="" class="swal2-input" placeholder="Apellidos" required>
-      <input id="email" value="" class="swal2-input" placeholder="Correo Electrónico" required>
+      <input id="name" value="${defaultName}" class="swal2-input" placeholder="Nombre" required>
+      <input id="lastname" value="${defaultLastname}" class="swal2-input" placeholder="Apellidos" required>
+      <input id="email" value="${defaultEmail}" class="swal2-input" placeholder="Correo Electrónico" required>
       <select id="role" class="swal2-input">
-        <option value="ADMIN">Administrador</option>
-        <option value="CLIENT">Cliente</option>
+        <option value="ADMIN" ${roles[0]}>Administrador</option>
+        <option value="CLIENT" ${roles[1]}>Cliente</option>
       </select>
     `;
   }
@@ -65,10 +79,6 @@ export class UsersComponent implements OnInit {
     const action = $event[0];
     const user = $event[1];
     // Cogemos el valor por defecto
-    /*const defaultValue =
-      genre.name !== undefined && genre.name !== '' ? genre.name : '';*/
-    // const html = `<input id="name" value="${defaultValue}" class="swal2-input" required>`;
-    // Teniendo en cuenta el caso, ejecutar una acción
     const html = this.initializeForm(user);
     switch (action) {
       case 'add':
@@ -76,7 +86,7 @@ export class UsersComponent implements OnInit {
         this.addForm(html);
         break;
       case 'edit':
-        // this.updateForm(html, genre);
+        this.updateForm(html, user);
         break;
       case 'info':
         const result = await optionsWithDetails(
@@ -104,7 +114,28 @@ export class UsersComponent implements OnInit {
   private async addForm(html: string) {
     const result = await userFormBasicDialog('Añadir usuario', html);
     console.log(result);
-    // this.addGenre(result);
+    this.addUser(result);
+  }
+
+  private addUser(result) {
+    if (result.value) {
+      const user: IRegisterForm = result.value;
+      user.password = '1234';
+      user.active = false;
+      this.service.register(user).subscribe((res: any) => {
+        console.log(res);
+        if (res.status) {
+          basicAlert(TYPE_ALERT.SUCCESS, res.message);
+          return;
+        }
+        basicAlert(TYPE_ALERT.WARNING, res.message);
+      });
+    }
+  }
+
+  private async updateForm(html: string, user: any) {
+    const result = await userFormBasicDialog('Modificar usuario', html);
+    console.log(result);
   }
 
 }
