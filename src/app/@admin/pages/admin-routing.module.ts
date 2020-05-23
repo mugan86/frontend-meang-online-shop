@@ -20,6 +20,10 @@ const routes: Routes = [
       {
         path: 'genres',
         loadChildren: () => import('./genres/genres.module').then(m => m.GenresModule)
+      },
+      {
+        path: 'tags',
+        loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule)
       }
     ]
   }
