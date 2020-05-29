@@ -27,6 +27,10 @@ const routes: Routes = [
         path: 'active/:token',
         loadChildren: () => import('./forms/active/active.module').then(m => m.ActiveModule)
       },
+      {
+        path: 'forgot',
+        loadChildren: () => import('./forms/forgot/forgot.module').then(m => m.ForgotModule)
+      },
     ]
   }
 ];

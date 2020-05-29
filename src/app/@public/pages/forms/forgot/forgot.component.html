@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg"></div>
+      <div class="col-lg-6">
+        <form>
+          <h2>Añade tu correo electrónico</h2>
+          <p>
+            Te enviaremos un enlace a tu correo electrónico para resetear tu
+            contraseña y cambiarla
+          </p>
+          <hr />
+          <div class="row">
+            <div class="col-lg">
+                <form (ngSubmit)="reset()" #forma="ngForm">
+                    <label for="email"><b>Correo electrónico</b></label>
+                    <input
+                      type="email"
+                      #email="ngModel" 
+                      [(ngModel)]="emailValue"
+                      placeholder="Introduzca la correo electrónico"
+                      name="email"
+                      class="form-control"
+                      required
+                      [ngClass]="{'is-valid': !email.invalid, 'is-invalid': email.invalid}"
+                      [pattern]="pattern"
+                    />
+                    <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                      <div *ngIf="email.errors.required">
+                        Introduzca un correo electrónico válido por favor
+                      </div>
+                      <div *ngIf="email.errors && email.errors.pattern">
+                        El correo electrónico no sigue el formato correcto. Sigue este ejemplo: anartz@mugika.com
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg">
+                          <button type="submit" [disabled]="!forma.valid" class="signup-btn">Enviar para resetear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg"></div>
+    </div>
+  </div>
