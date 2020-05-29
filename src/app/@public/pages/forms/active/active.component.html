@@ -3,6 +3,8 @@
     <div class="col-lg"></div>
     <div class="col-lg-6">
       <form (ngSubmit)="add()" #forma="ngForm">
+        <h1>Activar usuario</h1>
+        <p>Introduzca el password y verificalo antes de activar el usuario. Selecciona tu fecha de nacimiento.</p>
         <label for="email"><b>Fecha de nacimiento</b></label>
         <app-date-picker-legal-age
           (newDate)="dataAsign($event)"
