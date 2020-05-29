@@ -1,4 +1,4 @@
-import { EMAIL_PATTERN } from './../../@core/constants/regex';
+import { EMAIL_PATTERN } from '@core/constants/regex';
 import Swal from 'sweetalert2';
 
 const swalWithBasicOptions = (title: string, html: string) =>
