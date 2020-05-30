@@ -41,7 +41,6 @@ export class ActiveComponent implements OnInit {
     this.values.birthday = fecha;
   }
   add() {
-    console.log(this.values);
     if (this.values.password !== this.values.passwordTwo) {
       basicAlert(TYPE_ALERT.WARNING, 'Las contraseñas no coinciden y no es válido para activar el usuario. Procura asegurarte que las contraseñas son iguales');
       return;
@@ -50,7 +49,6 @@ export class ActiveComponent implements OnInit {
     // servicio => active
     this.userService.active(this.token, this.values.birthday, this.values.password).subscribe(
       result => {
-        console.log(result);
         if (result.status) {
           basicAlert(TYPE_ALERT.SUCCESS, result.message);
           this.router.navigate(['login']);

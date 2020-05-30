@@ -31,6 +31,10 @@ const routes: Routes = [
         path: 'forgot',
         loadChildren: () => import('./forms/forgot/forgot.module').then(m => m.ForgotModule)
       },
+      {
+        path: 'reset/:token',
+        loadChildren: () => import('./forms/change-password/change-password.module').then(m => m.ChangePasswordModule)
+      },
     ]
   }
 ];
