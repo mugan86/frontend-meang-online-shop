@@ -75,6 +75,7 @@ export class YourComponent implements OnInit {
 
 ```
 
+![Carousel](https://raw.githubusercontent.com/mugan86/frontend-meang-online-shop/shop-ui-library/src/assets/screens/carousel.png?token=ABGYW4XXAVOGXMN75MDEN4S62VZ2M)
 ## Item del producto
 
 Lo primero que necesitamos es importar el módulo que tenemos para utilizar el componente y visualizar la información del producto, como el precio, imagen, posible descuento, valoración,...
@@ -127,3 +128,5 @@ export class YourComponent implements OnInit {
           (itemDetails)="showProductDetails($event)"
         ></shop-product-item>
 ```
+
+![Product Item](https://raw.githubusercontent.com/mugan86/frontend-meang-online-shop/shop-ui-library/src/assets/screens/products.png?token=ABGYW4QIM7N2ZZNDO2O6MY262V2MC)
