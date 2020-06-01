@@ -1,9 +1,11 @@
 {
   "name": "shop-ui",
   "version": "0.0.1",
+  "description": "Librería para crear los componentes de una tienda",
   "peerDependencies": {
     "@angular/common": "^9.1.0",
     "@angular/core": "^9.1.0",
-    "tslib": "^1.10.0"
+    "tslib": "^1.10.0",
+    "@ng-bootstrap/ng-bootstrap": "^6.1.0"
   }
 }

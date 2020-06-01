@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
-import { ShopUiComponent } from './shop-ui.component';
-
-
+import { RatingModule } from './components/rating/rating.module';
+import { CarouselItemsModule } from './components/carousel-items/carousel-items.module';
+import { ProductItemModule } from './components/product-item/product-item.module';
 
 @NgModule({
-  declarations: [ShopUiComponent],
+  declarations: [],
   imports: [
+    RatingModule,
+    CarouselItemsModule,
+    ProductItemModule
   ],
-  exports: [ShopUiComponent]
+  exports: [
+    RatingModule,
+    CarouselItemsModule,
+    ProductItemModule
+  ]
 })
 export class ShopUiModule { }

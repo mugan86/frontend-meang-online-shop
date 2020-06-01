@@ -1,0 +1,32 @@
+<div class="product-grid">
+  <div class="product-image">
+    <a (click)="showDetails(product)">
+      <img src="{{ product.img }}" class="pic-1" alt="{{ product.name }}" />
+    </a>
+  </div>
+  <div class="product-content">
+    <h3 class="title">{{ product.name }}</h3>
+    <shop-rating *ngIf="product.rating" [value]="product.rating"></shop-rating>
+    <div class="price">
+      {{ selectCurrency }} {{ product.price }}
+      <span *ngIf="product.discount">$14.00</span>
+    </div>
+  </div>
+  <ul class="social">
+    <!--<li><a href="" data-tip="Añadir a lista de deseos"><i class="fa fa-shopping-bag"></i></a></li>-->
+    <li>
+      <a
+        class="item-button-options"
+        (click)="addToCart(product.id, product.qty)"
+        data-tip="Añadir a la cesta"
+        ><i class="fas fa-cart-plus"></i
+      ></a>
+    </li>
+    <li>
+      <a class="item-button-options"
+        (click)="showDetails(product)" data-tip="Detalles del producto"
+        ><i class="fas fa-info"></i
+      ></a>
+    </li>
+  </ul>
+</div>
