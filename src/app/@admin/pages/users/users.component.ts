@@ -134,9 +134,15 @@ export class UsersComponent implements OnInit {
       user.password = '1234';
       user.active = false;
       this.service.register(user).subscribe((res: any) => {
-        console.log(res);
         if (res.status) {
+          const createUser = res.user;
           basicAlert(TYPE_ALERT.SUCCESS, res.message);
+          // Especificar acción para enviar email de activación al usuario
+          this.service.sendEmailActive(createUser.id, createUser.email).subscribe((emailRes: any) => {
+            basicAlert((emailRes.status) ?
+                        TYPE_ALERT.SUCCESS :
+                        TYPE_ALERT.WARNING, emailRes.message);
+          });
           return;
         }
         basicAlert(TYPE_ALERT.WARNING, res.message);
