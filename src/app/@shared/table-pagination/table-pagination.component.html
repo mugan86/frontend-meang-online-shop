@@ -26,7 +26,15 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of data$ | async">
-        <td *ngFor="let val of tableColumns">{{ data[val.property] }}</td>
+        <td *ngFor="let val of tableColumns">
+          <span *ngIf="val.property != 'active'; else activeValue">
+            {{ data[val.property] }}
+          </span>
+          <ng-template #activeValue>
+            <i class="fas fa-check-circle" *ngIf="data[val.property] != false"></i>
+            <i class="fas fa-times-circle" *ngIf="data[val.property] == false"></i>
+          </ng-template>
+        </td>
         <td>
           <button type="button" class="btn btn-secondary"
           (click)="manageAction('edit', data)">
