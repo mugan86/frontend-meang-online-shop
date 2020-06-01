@@ -108,12 +108,15 @@ export class UsersComponent implements OnInit {
         if (result) {
           this.updateForm(html, user);
         } else if (result === false) {
-          this.blockForm(user);
+          this.unblockForm(user, user.active);
         }
         break;
       case 'block':
-        this.blockForm(user);
+        this.unblockForm(user, false);
         break;
+      case 'unblock':
+          this.unblockForm(user, true);
+          break;
       default:
         break;
     }
@@ -163,14 +166,24 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  private async blockForm(user: any) {
-    const result = await optionsWithDetails(
+  private async unblockForm(user: any, unblock: boolean) {
+    const result =
+    (unblock) ?
+    await optionsWithDetails(
+      '¿Desbloquear?',
+      `Si desbloqueas el usuario seleccionado, podrás comprar y realizar otras gestiones dentro de la tienda`,
+      490,
+      'No, no desbloquear',
+      'Si, desbloquear'
+    ) :
+    await optionsWithDetails(
       '¿Bloquear?',
       `Si bloqueas el usuario seleccionado, no se mostrará en la lista`,
       430,
       'No, no bloquear',
       'Si, bloquear'
     );
+
     if (result === false) {
       // Si resultado falso, queremos bloquear
       this.blockUser(user.id);
