@@ -4,6 +4,16 @@
 >
   <i class="fas fa-plus-circle"></i> &nbsp; Añadir
 </button>
+<select
+    class="custom-select float-right mr-3 mb-2"
+    style="width: auto;"
+    [(ngModel)]="filterValues"
+    (ngModelChange)="loadData()"
+  >
+    <option [ngValue]="'ALL'">Todos</option>
+    <option [ngValue]="'ACTIVE'">Activos</option>
+    <option [ngValue]="'INACTIVE'">Inactivos</option>
+  </select>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
