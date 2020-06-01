@@ -1,8 +1,8 @@
-import { products } from 'projects/shop-ui/src/lib/constants/products';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { UsersService } from '@core/services/users.service';
-import { CarouselItem } from 'projects/shop-ui/src/lib/interfaces/carousel-item.interface';
+import { CarouselItem } from '@mugan86/ng-shop-ui/lib/interfaces/carousel-item.interface';
+import { products } from 'projects/shop-ui/src/lib/constants/products';
 
 @Component({
   selector: 'app-home',
@@ -45,6 +45,10 @@ export class HomeComponent implements OnInit {
   }
 
   addToCart($event) {
+    console.log($event);
+  }
+
+  showProductDetails($event) {
     console.log($event);
   }
 
