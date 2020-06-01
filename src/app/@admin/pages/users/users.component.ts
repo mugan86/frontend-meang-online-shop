@@ -1,3 +1,4 @@
+import { ACTIVE_FILTERS } from '@core/constants/filters';
 import { IRegisterForm } from '@core/interfaces/register.interface';
 import { USERS_LIST_QUERY } from '@graphql/operations/query/user';
 import { Component, OnInit } from '@angular/core';
@@ -21,6 +22,7 @@ export class UsersComponent implements OnInit {
   resultData: IResultData;
   include: boolean;
   columns: Array<ITableColumns>;
+  filterValues = ACTIVE_FILTERS.ACTIVE;
   constructor(private service: UsersAdminService) {}
   ngOnInit(): void {
     this.context = {};
