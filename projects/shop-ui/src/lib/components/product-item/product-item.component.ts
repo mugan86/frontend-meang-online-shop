@@ -73,6 +73,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
         margin-left: 7px;
         display: inline-block;
       }
+      .product-grid .price span.discount-percentage {
+        text-decoration: none;
+      }
       .product-grid .social {
         background-color: #fff;
         width: 100%;
