@@ -186,12 +186,12 @@ export class UsersComponent implements OnInit {
 
     if (result === false) {
       // Si resultado falso, queremos bloquear
-      this.blockUser(user.id);
+      this.unblockUser(user.id, unblock);
     }
   }
 
-  private blockUser(id: string) {
-    this.service.block(id).subscribe((res: any) => {
+  private unblockUser(id: string, unblock: boolean) {
+    this.service.unblock(id, unblock, true).subscribe((res: any) => {
       console.log(res);
       if (res.status) {
         basicAlert(TYPE_ALERT.SUCCESS, res.message);

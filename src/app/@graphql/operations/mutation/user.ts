@@ -27,8 +27,8 @@ export const UPDATE_USER = gql`
 `;
 
 export const BLOCK_USER = gql`
-  mutation blockUser($id: ID!) {
-    blockUser(id: $id) {
+  mutation blockUser($id: ID!, $unblock: Boolean = false, $admin: Boolean = false) {
+    blockUser(id: $id, admin: $admin, unblock: $unblock) {
       status
       message
     }

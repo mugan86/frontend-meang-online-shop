@@ -31,9 +31,9 @@ export class UsersAdminService extends ApiService{
     }));
   }
 
-  block(id: string) {
+  unblock(id: string, unblock: boolean = false, admin: boolean = false) {
     return this.set(
-      BLOCK_USER, { id }
+      BLOCK_USER, { id, unblock, admin }
     ).pipe(map((result: any) => {
       return result.blockUser;
     }));
