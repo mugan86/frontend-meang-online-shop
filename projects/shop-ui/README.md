@@ -1,11 +1,9 @@
-# ShopUi
+# Angular Shop Ui
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+Librería que tendrá los elementos de una tienda con lista de productos, carrito, carousel,...
 
-## Code scaffolding
+## Instrucciones de uso
 
-Run `ng generate component component-name --project shop-ui` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project shop-ui`.
-> Note: Don't forget to add `--project shop-ui` or else it will be added to the default project in your `angular.json` file. 
 
 ## Build
 

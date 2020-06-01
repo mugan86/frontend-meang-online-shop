@@ -10,12 +10,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './product-item.component.html',
   styles: [
     `
-      $links-title: #333;
-
-      $links-title-hover: #ae8156;
-
-      $price-label: #111 !important;
-
       /********************* Shopping Demo-6 **********************/
       .product-grid,
       .product-grid .product-image {
@@ -26,6 +20,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
         text-align: center;
         position: relative;
         transition: all 0.5s ease 0s;
+        border: 1px solid #afa3a338;
+        border-radius: 8px;
       }
       .product-grid:hover {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -59,12 +55,15 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
         color: #000;
       }
       .product-grid .title a:hover {
-        color: $links-title;
+        color: #333;
       }
       .product-grid .price {
-        font-size: 18px;
-        font-weight: 600;
-        color: $links-title;
+        font-size: 22px;
+        font-weight: 800;
+        color: #cc1c39;
+        text-align: left;
+        margin-left: 20px;
+        margin-bottom: 12px;
       }
       .product-grid .price span {
         color: #999;
@@ -111,14 +110,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
       }
       .product-grid .social li a:hover {
         color: #fff;
-        background-color: $links-title;
+        background-color: #333;
         width: 80px;
       }
       .product-grid .social li a:after,
       .product-grid .social li a:before {
         content: attr(data-tip);
         color: #fff;
-        background-color: $links-title;
+        background-color: #333;
         font-size: 12px;
         letter-spacing: 1px;
         line-height: 20px;
@@ -161,15 +160,22 @@ export class ProductItemComponent implements OnInit {
   @Input() showDesc = false;
   @Output() add = new EventEmitter();
   @Output() itemDetails: EventEmitter<IProduct> = new EventEmitter();
-  selectCurrency: string = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
-  constructor() {}
-
+  @Input() selectCurrency = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
+  discountPercentage: string;
   ngOnInit() {
     this.product.qty = 1;
+    if (this.product.discount) {
+      const discountValue = (this.product.price) * (this.product.discount / 100);
+      this.discountPercentage = this.product.discount.toString().concat('%');
+      this.product.discount = this.product.price;
+      this.product.price = this.product.price - discountValue;
+    } else {
+
+    }
   }
 
-  addToCart(itemId: string, count: number) {
-    this.add.emit({ id: itemId, count });
+  addToCart(product: IProduct, count: number) {
+    this.add.emit({ product, count });
   }
   showDetails(product: IProduct) {
     this.itemDetails.emit(product);

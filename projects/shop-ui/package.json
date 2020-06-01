@@ -1,5 +1,5 @@
 {
-  "name": "shop-ui",
+  "name": "@mugan86/ng-shop-ui",
   "version": "0.0.1",
   "description": "Librería para crear los componentes de una tienda",
   "peerDependencies": {

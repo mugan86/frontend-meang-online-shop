@@ -6,18 +6,18 @@
   </div>
   <div class="product-content">
     <h3 class="title">{{ product.name }}</h3>
-    <shop-rating *ngIf="product.rating" [value]="product.rating"></shop-rating>
     <div class="price">
       {{ selectCurrency }} {{ product.price }}
-      <span *ngIf="product.discount">$14.00</span>
+      <span *ngIf="product.discount">{{ selectCurrency }}  {{ product.discount }} </span> ({{ discountPercentage }})
     </div>
+    <shop-rating *ngIf="product.rating" [rating]="product.rating"></shop-rating>
   </div>
   <ul class="social">
     <!--<li><a href="" data-tip="Añadir a lista de deseos"><i class="fa fa-shopping-bag"></i></a></li>-->
     <li>
       <a
         class="item-button-options"
-        (click)="addToCart(product.id, product.qty)"
+        (click)="addToCart(product, product.qty)"
         data-tip="Añadir a la cesta"
         ><i class="fas fa-cart-plus"></i
       ></a>

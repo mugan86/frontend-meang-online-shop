@@ -1,6 +1,6 @@
-<div *ngIf="starsCssValues && value">
+<div *ngIf="starsCssValues && rating.value">
   <span *ngFor="let v of starsCssValues; let i = index">
-    <i class="fas fa-star" [ngClass]="{ checked: value >= i + 1 }"></i>
+    <i class="fas fa-star" [ngClass]="{ checked: rating.value >= i + 1 }"></i>
   </span>
-  ({{ value }})
+  {{ rating.value }} ({{ rating.count }})
 </div>

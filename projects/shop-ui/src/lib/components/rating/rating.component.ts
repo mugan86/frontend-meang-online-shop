@@ -1,3 +1,4 @@
+import { IRatingItem } from './../../interfaces/rating-item.interface';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -5,10 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './rating.component.html',
   styles: [
     `
-      $checked-color: orange;
-      $no-checked-color: black;
       .checked {
-        color: $checked-color;
+        color: orange;
       }
 
       .star,
@@ -24,15 +23,15 @@ import { Component, OnInit, Input } from '@angular/core';
           linear,
           left top,
           right top,
-          color-stop(0.25, $checked-color),
-          color-stop(1, $no-checked-color)
+          color-stop(0.25, orange),
+          color-stop(1, black)
         );
         background-image: gradient(
           linear,
           left top,
           right top,
-          color-stop(0.25, $checked-color),
-          color-stop(1, $no-checked-color)
+          color-stop(0.25, orange),
+          color-stop(1, black)
         );
       }
 
@@ -41,13 +40,13 @@ import { Component, OnInit, Input } from '@angular/core';
           linear,
           left top,
           right top,
-          color-stop(1, $checked-color)
+          color-stop(1, orange)
         );
         background-image: gradient(
           linear,
           left top,
           right top,
-          color-stop(1, $checked-color)
+          color-stop(1, orange)
         );
       }
     `,
@@ -56,11 +55,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class RatingComponent implements OnInit {
   @Input() min = 1;
   @Input() max = 5;
-  @Input() value: number = undefined;
+  @Input() rating: IRatingItem = undefined;
   starsCssValues;
   ngOnInit() {
-    if (this.value === undefined || this.value === null) {
-      this.value = 0;
+    if (this.rating === undefined || this.rating === null) {
+      this.rating.value = 0;
+      this.rating.count = 0;
     }
     this.starsCssValues = Array(this.max).fill('');
   }

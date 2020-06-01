@@ -1,5 +1,8 @@
+import { IRatingItem } from './rating-item.interface';
+
 export interface IProduct {
     id: string;
+    slug?: string;
     name: string;
     img: string;
     stock: number;
@@ -7,5 +10,5 @@ export interface IProduct {
     price: number;
     description: string;
     qty?: number;
-    rating?: number;
+    rating?: IRatingItem;
 }
