@@ -119,12 +119,12 @@ export class YourComponent implements OnInit {
     this.productsList = // Traer los valores cargados en el products.json u otros
   }
 
-  addToCart($event) {
+  addToCart($event: IProduct) {
     // Usar la información del producto pasado para llevarlo al carrito de compra
     console.log($event);
   }
 
-  showProductDetails($event) {
+  showProductDetails($event: IProduct) {
     console.log($event);
   }
 }
