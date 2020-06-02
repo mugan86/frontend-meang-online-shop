@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { CarouselItemsModule, ProductItemModule } from '@mugan86/ng-shop-ui';
+import { CarouselItemsModule, ProductItemModule } from 'projects/shop-ui/src/public-api';
 
 @NgModule({
   declarations: [HomeComponent],

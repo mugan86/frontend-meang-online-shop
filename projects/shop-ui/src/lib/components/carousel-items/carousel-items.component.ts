@@ -1,4 +1,4 @@
-import { CarouselItem } from '../../interfaces/carousel-item.interface';
+import { ICarouselItem } from '../../interfaces/carousel-item.interface';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -41,7 +41,7 @@ import { Component, Input } from '@angular/core';
   ],
 })
 export class CarouselItemsComponent {
-  @Input() items: CarouselItem[] = [];
+  @Input() items: ICarouselItem[] = [];
   open(i: number) {
     window.open(this.items[i].url);
   }

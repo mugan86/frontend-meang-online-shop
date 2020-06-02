@@ -1,4 +1,4 @@
-export interface CarouselItem {
+export interface ICarouselItem {
     id: number | string;
     title: string;
     description: string;

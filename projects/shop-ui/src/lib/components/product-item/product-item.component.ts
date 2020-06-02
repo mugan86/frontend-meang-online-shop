@@ -25,6 +25,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
       }
       .product-grid:hover {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        cursor: pointer
       }
       .product-grid .product-image a {
         display: block;
@@ -94,6 +95,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
         opacity: 1;
         bottom: 20px;
       }
+
       .product-grid .social li {
         display: inline-block;
       }
@@ -172,8 +174,6 @@ export class ProductItemComponent implements OnInit {
       this.discountPercentage = this.product.discount.toString().concat('%');
       this.product.discount = this.product.price;
       this.product.price = this.product.price - discountValue;
-    } else {
-
     }
   }
 

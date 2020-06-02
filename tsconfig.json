@@ -24,6 +24,9 @@
       "@shared/*": [
         "src/app/@shared/*"
       ],
+      "@data/*": [
+        "src/assets/data/*"
+      ],
       "shop-ui": [
         "dist/shop-ui/shop-ui",
         "dist/shop-ui"
@@ -41,7 +44,8 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "resolveJsonModule": true, "esModuleInterop": true 
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

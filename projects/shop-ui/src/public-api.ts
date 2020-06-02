@@ -2,6 +2,8 @@
  * Public API Surface of shop-ui
  */
 
+export * from './lib/constants/currencies.enum';
+
 export * from './lib/shop-ui.module';
 export * from './lib/components/rating/rating.module';
 export * from './lib/components/product-item/product-item.module';

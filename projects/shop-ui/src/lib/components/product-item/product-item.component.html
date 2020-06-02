@@ -1,7 +1,7 @@
 <div class="product-grid">
   <div class="product-image">
     <a (click)="showDetails(product)">
-      <img src="{{ product.img }}" class="pic-1" alt="{{ product.name }}" />
+      <img src="{{ product.img }}" class="pic-1" [alt]="product.name" />
     </a>
   </div>
   <div class="product-content">
