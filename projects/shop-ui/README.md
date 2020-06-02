@@ -1,5 +1,7 @@
 # Angular Shop UI Library
 
+:warning: **Versión Alpha**: ¡Trabajando en muchas mejoras!
+
 Librería que tendrá los elementos de una tienda con lista de productos, carrito, carousel,...
 
 ```
@@ -36,6 +38,19 @@ export class YourModule { }
 ```
 
 ### Configuración del componente
+Cargamos los items del Carousel, usando [esta referencia](https://github.com/mugan86/frontend-meang-online-shop/blob/shop-ui-library/src/assets/data/carousel.json) por ejemplo.
+
+La estructura de los productos deberá de ser la siguiente:
+```
+export interface ICarouselItem {
+    id: number | string;        // Identificador
+    title: string;              // Título
+    description: string;        // Descripción
+    background: string;         // URL de la imagen del fondo
+    url: string;                // URL destino cuando hagamos click
+}
+```
+Teniendo en cuenta esta estructura, tenemos que usarla dentro del componente, añadiendo la lista de los elementos del Carousel.
 ```
 import { CarouselItem } from '@mugan86/ng-shop-ui/lib/interfaces/carousel-item.interface';
 ...
@@ -43,27 +58,7 @@ export class YourComponent implements OnInit {
   items: CarouselItem[] = [];
 
   ngOnInit(): void {
-    this.items.push({
-      id: '01',
-      title: 'GTA IV',
-      description: 'Juego de Rockstar',
-      url: 'http://www.rockstargames.com/V/',
-      background: 'https://media.rawg.io/media/games/b11/b115b2bc6a5957a917bc7601f4abdda2.jpg'
-    });
-    this.items.push({
-      id: '02',
-      title: 'Shadow of Tomb Raider',
-      description: 'Lara Croft...',
-      url: 'https://tombraider.square-enix-games.com/en-us',
-      background: 'https://media.rawg.io/media/games/b45/b45575f34285f2c4479c9a5f719d972e.jpg'
-    });
-    this.items.push({
-      id: '03',
-      title: 'Tomb Raider (2013)',
-      description: 'Lara Croft...',
-      url: 'https://tombraider.square-enix-games.com/en-us',
-      background: 'https://media.rawg.io/media/games/81b/81b138691f027ed1f8720758daa0d895.jpg'
-    });
+    this.items = // Traer los valores cargados en el carousel.json u otros
   }
 }
 ```
@@ -75,7 +70,7 @@ export class YourComponent implements OnInit {
 
 ```
 
-![Carousel](https://raw.githubusercontent.com/mugan86/frontend-meang-online-shop/shop-ui-library/src/assets/screens/carousel.png?token=ABGYW4V7NX4HM6L4XF5T4P262V2YY)
+![Carousel](https://res.cloudinary.com/dd7kbplmv/image/upload/v1591081183/libraries-screens/shop-ui/rjmx8qdpjlaawzmriydg.png)
 ## Item del producto
 
 Lo primero que necesitamos es importar el módulo que tenemos para utilizar el componente y visualizar la información del producto, como el precio, imagen, posible descuento, valoración,...
@@ -97,14 +92,31 @@ export class YourModule { }
 ```
 
 ### Configuración del componente
+
+Cargamos los productos, usando [esta referencia](https://github.com/mugan86/frontend-meang-online-shop/blob/shop-ui-library/src/assets/data/products.json) por ejemplo.
+
+La estructura de los productos deberá de ser la siguiente:
 ```
-import { products } from '@mugan86/ng-shop-ui/lib/contants/products';
-...
+export interface IProduct {
+    id: string;             // Identificador
+    slug?: string;          // slug (opcional)
+    name: string;           // nombre del producto
+    img: string;            // url de la imagen
+    stock: number;          // cantidad en el stock
+    discount?: number;      // descuento que se aplicará en % (opcional)
+    price: number;          // precio real
+    description: string;    // descripción del producto
+    qty?: number;           // cantidad seleccionada (opcional)
+    rating?: IRatingItem;   // información del rating con los valores medio y cantidad de votos
+}
+```
+Teniendo en cuenta esta estructura, tenemos que usarla dentro del componente, añadiendo la lista de productos.
+```
 export class YourComponent implements OnInit {
   productsList;
 
   ngOnInit(): void {
-    this.productsList = products;
+    this.productsList = // Traer los valores cargados en el products.json u otros
   }
 
   addToCart($event) {
@@ -129,4 +141,5 @@ export class YourComponent implements OnInit {
         ></shop-product-item>
 ```
 
-![Product Item](https://raw.githubusercontent.com/mugan86/frontend-meang-online-shop/shop-ui-library/src/assets/screens/products.png?token=ABGYW4QIM7N2ZZNDO2O6MY262V2MC)
+![Product Item](https://res.cloudinary.com/dd7kbplmv/image/upload/v1591081183/libraries-screens/shop-ui/eqeeosqhbqfgvzqzc0lm.png)
+

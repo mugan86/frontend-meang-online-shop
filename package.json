@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build.shop-ui": "ng build shop-ui --prod",
+    "publish.shop-ui": "npm publish --access=public"
   },
   "private": true,
   "dependencies": {
