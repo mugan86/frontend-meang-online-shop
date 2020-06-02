@@ -1,0 +1,17 @@
+<div>
+    <button type="button" class="btn btn-dark qty-btn" (click)="changeValue('-')">
+        -
+      </button>
+      <input
+        type="text"
+        [(ngModel)]="qty"
+        value="1"
+        name="quantity"
+        class="text-center quantity"
+        disabled
+      />
+      <button type="button" class="btn btn-dark qty-btn" (click)="changeValue('+')">
+        +
+      </button>
+</div>
+
