@@ -53,7 +53,7 @@ export class CartService {
             this.cart.products.splice(i, 1);
             this.removeItemsVarInCart();
           } else {
-            this.cart.products[i].qty = this.cart.products[i].qty + selectProduct.qty;
+            this.cart.products[i].qty = selectProduct.qty;
             console.log('Asignar producto con nueva información', this.cart.products[i]);
           }
           actionOk = true;

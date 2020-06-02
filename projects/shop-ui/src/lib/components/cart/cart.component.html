@@ -1,4 +1,5 @@
 <h3 class="card-title">Carrito de la compra</h3>
+{{ cart | json }}
 <hr/>
 <div *ngFor="let p of cart.products">
     <shop-cart-item (updatePrice)="updateTotal()" [product]="p"></shop-cart-item>
@@ -12,7 +13,7 @@
             <h4><small>Subtotal ({{ cart.subtotal }}):&nbsp;</small></h4>
         </div>
         <div class="col-lg-3">
-            <h4><span class="float-right text-primary">{{cart.total}} €</span></h4>
+            <h4><span class="float-right text-primary">{{cart.total | number }} €</span></h4>
         </div>
         
     </div>

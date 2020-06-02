@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { CartItemModule } from './../cart-item/cart-item.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,7 +8,8 @@ import { CartComponent } from './cart.component';
   declarations: [CartComponent],
   imports: [
     CommonModule,
-    CartItemModule
+    CartItemModule,
+    FormsModule
   ],
   exports: [CartComponent],
 })

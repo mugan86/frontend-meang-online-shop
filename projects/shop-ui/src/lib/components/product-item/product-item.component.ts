@@ -163,12 +163,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ProductItemComponent implements OnInit {
   @Input() product: IProduct;
   @Input() showDesc = false;
-  @Output() add = new EventEmitter();
+  @Output() add: EventEmitter<IProduct> = new EventEmitter();
   @Output() itemDetails: EventEmitter<IProduct> = new EventEmitter();
   @Input() selectCurrency = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
   discountPercentage: string;
   ngOnInit() {
-    this.product.qty = 1;
+    this.product.qty = 0;
     if (this.product.discount) {
       const discountValue = (this.product.price) * (this.product.discount / 100);
       this.discountPercentage = this.product.discount.toString().concat('%');
@@ -177,8 +177,9 @@ export class ProductItemComponent implements OnInit {
     }
   }
 
-  addToCart(product: IProduct, count: number) {
-    this.add.emit({ product, count });
+  addToCart(product: IProduct) {
+    product.qty = product.qty + 1;
+    this.add.emit(product);
   }
   showDetails(product: IProduct) {
     this.itemDetails.emit(product);

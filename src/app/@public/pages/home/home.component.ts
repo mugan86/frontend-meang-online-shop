@@ -1,7 +1,6 @@
 import products from '@data/products.json';
 import carouselItems from '@data/carousel.json';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@core/services/auth.service';
 import { UsersService } from '@core/services/users.service';
 import { ICarouselItem, IProduct} from 'projects/shop-ui/src/lib/interfaces';
 import { CartService } from 'projects/shop-ui/src/lib/services/cart.service';
@@ -11,6 +10,9 @@ import { CartService } from 'projects/shop-ui/src/lib/services/cart.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  cartCountElements = 0;
+  cartItems = [];
+
   items: ICarouselItem[] = [];
   productsList: IProduct[] = [];
   constructor(private usersApi: UsersService, private cartService: CartService) {
@@ -18,6 +20,17 @@ export class HomeComponent implements OnInit {
     this.cartService.removeItemsVar$.subscribe(() => {
       console.log('Elemento removido');
     });
+    this.cartService.countItemsVar$.subscribe((data: number) => {
+      if (data !== null && data !== undefined) {
+        this.cartCountElements = data;
+      }
+    });
+
+    this.cartService.cartItemsVar$.subscribe((data: any) => {
+      console.log('Cart items navbar', data);
+      this.cartItems = data;
+    });
+
 
   }
 
@@ -30,9 +43,8 @@ export class HomeComponent implements OnInit {
     this.items = carouselItems;
   }
 
-  addToCart($event) {
-    $event.product.qty = 1;
-    this.cartService.manageProduct($event.product);
+  addToCart(product: IProduct) {
+    this.cartService.manageProduct(product);
   }
 
   showProductDetails($event) {

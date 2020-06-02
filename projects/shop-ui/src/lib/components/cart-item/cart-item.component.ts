@@ -21,26 +21,43 @@ import { CartService } from '../../services/cart.service';
     }
   `]
 })
-export class CartItemComponent implements OnInit {
+export class CartItemComponent {
+  /**
+   * Select product info in cart with select quantity to use to send to checkout
+   */
   @Input() product: IProduct;
-  @Input() showDesc = false;
+  /**
+   * Show product description or no
+   */
+  @Input() showDesc = true;
+  /**
+   * Event to notify update Price after add or remove items
+   */
   @Output() updatePrice = new EventEmitter<boolean>();
   constructor(private cartService: CartService) { }
 
-  ngOnInit() {
-  }
-
+  /**
+   * After change value with quantity selector
+   * Add product in shoping cart and update final price
+   */
   update() {
     this.cartService.manageProduct(this.product);
     this.updatePrice.emit(true);
   }
 
+  /**
+   * Remove all elements from cart
+   */
   remove() {
     this.product.qty = 0;
     this.cartService.manageProduct(this.product);
     this.updatePrice.emit(true);
   }
 
+  /**
+   * Update Shopping Cart info after change value
+   * @param value Quantity value to add in select product
+   */
   changeValue(value: number) {
     this.product.qty = value;
     this.update();

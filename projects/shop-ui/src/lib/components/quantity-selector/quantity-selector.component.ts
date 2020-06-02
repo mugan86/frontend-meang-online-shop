@@ -15,9 +15,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
       input[type='text']:disabled {
         color: black;
+        width: 60px
       }
 
       .qty-btn {
+        border-radius: 20px;
         padding-top: 3px;
         /* top - right - bottom - left => sentido de las agujas del reloj*/
         margin: -2px 3px 2px 3px;
