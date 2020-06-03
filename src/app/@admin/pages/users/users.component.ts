@@ -99,9 +99,11 @@ export class UsersComponent implements OnInit {
           'Detalles',
           `${user.name} ${user.lastname}<br/>
           <i class="fas fa-envelope-open-text"></i>&nbsp;&nbsp;${user.email}`,
-          375,
+          (user.active !== false) ? 375 : 400,
           '<i class="fas fa-edit"></i> Editar', // true
-          '<i class="fas fa-lock"></i> Bloquear'
+          (user.active !== false) ?
+          '<i class="fas fa-lock"></i> Bloquear' :
+          '<i class="fas fa-lock-open"></i> Desbloquear'
         ); // false
         if (result) {
           this.updateForm(html, user);

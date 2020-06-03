@@ -54,9 +54,20 @@
             type="button"
             class="btn btn-danger"
             (click)="manageAction('block', data)"
+            *ngIf="data['active'] != false; else unblockBtn"
           >
             <i class="fas fa-lock"></i>
           </button>
+          <ng-template #unblockBtn>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="manageAction('block', data)"
+            >
+              <i class="fas fa-lock-open"></i>
+            </button>
+          </ng-template>
+          
         </td>
       </tr>
     </tbody>
