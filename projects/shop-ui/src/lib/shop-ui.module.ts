@@ -3,26 +3,15 @@ import { RatingModule } from './components/rating/rating.module';
 import { CarouselItemsModule } from './components/carousel-items/carousel-items.module';
 import { ProductItemModule } from './components/product-item/product-item.module';
 import { FormsModule } from '@angular/forms';
-import { CartModule } from './components/cart/cart.module';
-import { CartItemModule } from './components/cart-item/cart-item.module';
 
+const MODULES = [
+  FormsModule,
+  RatingModule,
+  CarouselItemsModule,
+  ProductItemModule
+];
 @NgModule({
-  declarations: [],
-  imports: [
-    FormsModule,
-    CartModule,
-    CartItemModule,
-    RatingModule,
-    CarouselItemsModule,
-    ProductItemModule
-  ],
-  exports: [
-    FormsModule,
-    RatingModule,
-    CartModule,
-    CartItemModule,
-    CarouselItemsModule,
-    ProductItemModule
-  ]
+  imports: MODULES,
+  exports: MODULES
 })
 export class ShopUiModule { }
