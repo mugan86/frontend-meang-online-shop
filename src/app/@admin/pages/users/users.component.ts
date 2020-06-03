@@ -52,6 +52,10 @@ export class UsersComponent implements OnInit {
       {
         property: 'role',
         label: 'Permisos'
+      },
+      {
+        property: 'active',
+        label: '¿Activo?'
       }
     ];
   }
