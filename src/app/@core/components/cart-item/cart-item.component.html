@@ -1,0 +1,24 @@
+<div class="card" style="margin-bottom: 10px">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-3">
+          <img src="{{product.img}}" class="product-img card-img-top" alt="...">
+          <span class="card-text text-success stock-data">
+            <button class="btn btn-sm btn-warning " (click)="remove()"><i class="far fa-trash-alt"></i>&nbsp;Eliminar</button>
+  
+          </span>
+        </div>
+        <div class="col-lg-7">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <!--<p class="card-text">Premium</p>-->
+          <p><shop-qty-selector [qty]="product.qty" [stock]="product.stock" (updateValue)="changeValue($event)"></shop-qty-selector></p>
+          <!--Pendiente de añadir *ngIf="showDesc"-->
+          <p class="card-text" *ngIf="showDesc">{{ product.description }}</p>
+        </div>
+        <div class="col-lg">
+          <h5 class="card-text float-right"><span class="a-color-price">{{ product.price | number }} €</span></h5>
+        </div>
+      </div>
+      <br/>
+    </div>
+  </div>
