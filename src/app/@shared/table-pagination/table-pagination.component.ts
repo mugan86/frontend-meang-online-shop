@@ -1,3 +1,4 @@
+import { ACTIVE_FILTERS } from './../../@core/constants/filters';
 import { ITableColumns } from '@core/interfaces/table-columns.interface';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentNode } from 'graphql';
@@ -18,6 +19,7 @@ export class TablePaginationComponent implements OnInit {
   @Input() include = true;
   @Input() resultData: IResultData;
   @Input() tableColumns: Array<ITableColumns> = undefined;
+  @Input() filterActiveValues: ACTIVE_FILTERS = ACTIVE_FILTERS.ACTIVE;
   @Output() manageItem = new EventEmitter<Array<any>>();
   infoPage: IInfoPage;
   data$: Observable<any>;

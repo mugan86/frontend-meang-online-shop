@@ -4,6 +4,16 @@
 >
   <i class="fas fa-plus-circle"></i> &nbsp; Añadir
 </button>
+<select
+  class="custom-select float-right mr-3 mb-2"
+  style="width: auto;"
+  [(ngModel)]="filterActiveValues"
+  (ngModelChange)="loadData()"
+>
+  <option [ngValue]="'ALL'">Todos</option>
+  <option [ngValue]="'ACTIVE'">Activos</option>
+  <option [ngValue]="'INACTIVE'">Inactivos</option>
+</select>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -18,16 +28,25 @@
       <tr *ngFor="let data of data$ | async">
         <td *ngFor="let val of tableColumns">{{ data[val.property] }}</td>
         <td>
-          <button type="button" class="btn btn-secondary"
-          (click)="manageAction('edit', data)">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="manageAction('edit', data)"
+          >
             <i class="fas fa-edit"></i></button
           >&nbsp;
-          <button type="button" class="btn btn-info"
-          (click)="manageAction('info', data)">
+          <button
+            type="button"
+            class="btn btn-info"
+            (click)="manageAction('info', data)"
+          >
             <i class="fas fa-info"></i></button
           >&nbsp;
-          <button type="button" class="btn btn-danger"
-          (click)="manageAction('block', data)">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="manageAction('block', data)"
+          >
             <i class="fas fa-lock"></i>
           </button>
         </td>
