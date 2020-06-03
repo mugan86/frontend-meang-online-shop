@@ -49,7 +49,7 @@ export class CartService {
       for (let i = 0; i < this.cart.products.length; i++) {
         if (this.cart.products[i].id === selectProduct.id) {
           if (selectProduct.qty === 0) {
-            console.log('Quitar elemento', this.cart.products[i]);
+            console.log('!!Quitar elemento!!', this.cart.products[i]);
             this.cart.products.splice(i, 1);
             this.removeItemsVarInCart();
           } else {
@@ -71,6 +71,7 @@ export class CartService {
   }
 
   checkOutTotal() {
+    console.log('Productos', this.products);
     let subtotal = 0;
     let totalPay = 0;
     this.cart.products.map((product: IProduct) => {
@@ -83,10 +84,11 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
   clear() {
+    this.products = [];
     this.cart = {
       subtotal: 0,
       total: 0,
-      products: []
+      products: this.products
     };
     localStorage.setItem('cart', JSON.stringify(this.cart));
     return this.cart;

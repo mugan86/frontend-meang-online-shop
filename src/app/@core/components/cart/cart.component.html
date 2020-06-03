@@ -1,1 +1,29 @@
-<p>cart works!</p>
+<h3 class="card-title">Carrito de la compra</h3>
+<hr/>
+<div *ngFor="let p of cart.products">
+    <app-cart-item (updatePrice)="updateTotal()" [product]="p"></app-cart-item>
+</div>
+<div *ngIf="cart.products.length > 0">
+    <div class="row">
+        <div class="col-lg-4">
+            <h3><small>Total a pagar</small></h3>
+        </div>
+        <div class="col-lg-5">
+            <h4><small>Subtotal ({{ cart.subtotal }}):&nbsp;</small></h4>
+        </div>
+        <div class="col-lg-3">
+            <h4><span class="float-right text-primary">{{cart.total}} €</span></h4>
+        </div>
+        
+    </div>
+<hr/>
+</div>
+<div class="card" style="margin-bottom: 10px" *ngIf="cart.products.length == 0">
+    <div class="card-body">
+        <h5 class="text-dark">Actualmente no tienes nada en la cesta de la compra</h5>
+    </div>
+</div>
+<div *ngIf="cart.products.length > 0">
+    <button class="btn btn-success float-right" (click)="checkout()" style="margin-bottom: 10px; margin-left: 8px;" >Tramitar pedido</button>
+    <button class="btn btn-danger float-right" (click)="clearCart()">Eliminar productos</button> &nbsp;
+</div>

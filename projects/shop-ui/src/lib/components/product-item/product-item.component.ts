@@ -180,6 +180,7 @@ export class ProductItemComponent implements OnInit {
   addToCart(product: IProduct) {
     product.qty = product.qty + 1;
     this.add.emit(product);
+    this.ngOnInit();
   }
   showDetails(product: IProduct) {
     this.itemDetails.emit(product);

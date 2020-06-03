@@ -9,6 +9,7 @@ import { QuantitySelectorModule } from '@mugan86/ng-shop-ui';
   imports: [
     CommonModule,
     QuantitySelectorModule
-  ]
+  ],
+  exports: [CartItemComponent],
 })
 export class CartItemModule { }
