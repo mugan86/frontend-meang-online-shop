@@ -8,6 +8,7 @@ import { optionsWithDetails, userFormBasicDialog } from '@shared/alerts/alerts';
 import { UsersAdminService } from './users-admin.service';
 import { basicAlert } from '@shared/alerts/toasts';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
+import { ACTIVE_FILTERS } from '@core/constants/filters';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +22,7 @@ export class UsersComponent implements OnInit {
   resultData: IResultData;
   include: boolean;
   columns: Array<ITableColumns>;
+  filterActiveValues = ACTIVE_FILTERS.ACTIVE;
   constructor(private service: UsersAdminService) {}
   ngOnInit(): void {
     this.context = {};
