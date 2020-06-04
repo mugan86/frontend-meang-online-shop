@@ -6,9 +6,19 @@
   </div>
   <div class="product-content">
     <h3 class="title">{{ product.name }}</h3>
-    <div class="price">
-      {{ selectCurrency }} {{ product.price | number }}
-      <span *ngIf="product.discount">{{ selectCurrency }}  {{ product.discount | number }} <span class="discount-percentage">({{ discountPercentage }})</span></span> 
+    <div>
+      <ng-template #noDiscount>
+        <div class="price">
+          {{ selectCurrency }} {{ product.price | number }}
+        </div>
+      </ng-template>
+      <div class="price" *ngIf="product.discount; else noDiscount"> 
+        {{ selectCurrency }} {{ product.priceDiscount | number }}  
+        <span >
+          {{ selectCurrency }}  {{ product.price | number }} 
+          <span class="discount-percentage">({{ product.discount }})</span>
+        </span> 
+      </div>
     </div>
     <shop-rating *ngIf="product.rating" [rating]="product.rating"></shop-rating>
   </div>

@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsList = products;
+    console.log(this.productsList);
     this.usersApi.getUsers(2, 1).subscribe( result => {
       console.log(result); // { { status message users: []}
     });
