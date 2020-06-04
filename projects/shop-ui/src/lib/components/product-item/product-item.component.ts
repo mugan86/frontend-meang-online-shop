@@ -3,7 +3,7 @@ import {
   CURRENCY_LIST,
   CURRENCIES_SYMBOL,
 } from './../../constants/currencies.enum';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterContentInit } from '@angular/core';
 
 @Component({
   selector: 'shop-product-item',
@@ -160,7 +160,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     `,
   ],
 })
-export class ProductItemComponent implements OnInit {
+export class ProductItemComponent implements OnInit, AfterContentInit {
   @Input() product: IProduct;
   @Input() showDesc = false;
   @Output() add: EventEmitter<IProduct> = new EventEmitter();
@@ -169,6 +169,9 @@ export class ProductItemComponent implements OnInit {
   discountPercentage: string;
   ngOnInit() {
     this.product.qty = 0;
+  }
+
+  ngAfterContentInit(): void {
     if (this.product.discount) {
       const discountValue = (this.product.price) * (this.product.discount / 100);
       this.discountPercentage = this.product.discount.toString().concat('%');
