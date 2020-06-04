@@ -7,8 +7,8 @@
   <div class="product-content">
     <h3 class="title">{{ product.name }}</h3>
     <div class="price">
-      {{ selectCurrency }} {{ product.price }}
-      <span *ngIf="product.discount">{{ selectCurrency }}  {{ product.discount }} <span class="discount-percentage">({{ discountPercentage }})</span></span> 
+      {{ selectCurrency }} {{ product.price | number }}
+      <span *ngIf="product.discount">{{ selectCurrency }}  {{ product.discount | number }} <span class="discount-percentage">({{ discountPercentage | number }})</span></span> 
     </div>
     <shop-rating *ngIf="product.rating" [rating]="product.rating"></shop-rating>
   </div>
