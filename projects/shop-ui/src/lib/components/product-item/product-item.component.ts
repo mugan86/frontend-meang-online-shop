@@ -3,7 +3,7 @@ import {
   CURRENCY_LIST,
   CURRENCIES_SYMBOL,
 } from './../../constants/currencies.enum';
-import { Component, OnInit, Input, Output, EventEmitter, AfterContentInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'shop-product-item',
@@ -160,23 +160,23 @@ import { Component, OnInit, Input, Output, EventEmitter, AfterContentInit } from
     `,
   ],
 })
-export class ProductItemComponent implements OnInit, AfterContentInit {
+export class ProductItemComponent implements AfterViewChecked {
   @Input() product: IProduct;
   @Input() showDesc = false;
   @Output() add: EventEmitter<IProduct> = new EventEmitter();
   @Output() itemDetails: EventEmitter<IProduct> = new EventEmitter();
   @Input() selectCurrency = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
   discountPercentage: string;
-  ngOnInit() {
+  constructor(private cdRef: ChangeDetectorRef) {
     this.product.qty = 0;
   }
-
-  ngAfterContentInit(): void {
+  ngAfterViewChecked(): void {
     if (this.product.discount) {
       const discountValue = (this.product.price) * (this.product.discount / 100);
       this.discountPercentage = this.product.discount.toString().concat('%');
       this.product.discount = this.product.price;
       this.product.price = this.product.price - discountValue;
+      this.cdRef.detectChanges();
     }
   }
 
