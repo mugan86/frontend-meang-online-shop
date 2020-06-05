@@ -12,10 +12,9 @@ import { ACTIVE_FILTERS } from '@core/constants/filters';
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss']
+  styleUrls: ['./tags.component.scss'],
 })
 export class TagsComponent implements OnInit {
-
   query: DocumentNode = TAG_LIST_QUERY;
   context: object;
   itemsPage: number;
@@ -82,15 +81,15 @@ export class TagsComponent implements OnInit {
         if (result) {
           this.updateForm(html, tag);
         } else if (result === false) {
-          this.unblockForm(tag, (tag.active !== false) ? false : true);
+          this.unblockForm(tag, tag.active !== false ? false : true);
         }
         break;
       case 'block':
         this.unblockForm(tag, false);
         break;
       case 'unblock':
-          this.unblockForm(tag, true);
-          break;
+        this.unblockForm(tag, true);
+        break;
       default:
         break;
     }
@@ -163,5 +162,4 @@ export class TagsComponent implements OnInit {
       this.unblockTag(tag.id, unblock);
     }
   }
-
 }

@@ -52,7 +52,6 @@ export class TablePaginationComponent implements OnInit {
       include: this.include,
       active: this.filterActiveValues
     };
-    
     this.data$ = this.service.getCollectionData(this.query, variables , {}).pipe(
       map((result: any) => {
         const data = result[this.resultData.definitionKey];

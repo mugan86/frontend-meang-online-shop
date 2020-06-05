@@ -72,19 +72,24 @@ export class GenresComponent implements OnInit {
         const result = await optionsWithDetails(
           'Detalles',
           `${genre.name} (${genre.slug})`,
-          375,
+          genre.active !== false ? 375 : 400,
           '<i class="fas fa-edit"></i> Editar', // true
-          '<i class="fas fa-lock"></i> Bloquear'
-        ); // false
+          genre.active !== false
+            ? '<i class="fas fa-lock"></i> Bloquear'
+            : '<i class="fas fa-lock-open"></i> Desbloquear'
+        );
         if (result) {
           this.updateForm(html, genre);
         } else if (result === false) {
-          this.blockForm(genre);
+          this.unblockForm(genre, (genre.active !== false) ? false : true);
         }
         break;
       case 'block':
-        this.blockForm(genre);
+        this.unblockForm(genre, false);
         break;
+      case 'unblock':
+          this.unblockForm(genre, true);
+          break;
       default:
         break;
     }
@@ -127,9 +132,9 @@ export class GenresComponent implements OnInit {
     }
   }
 
-  private blockGenre(id: string) {
-    this.service.block(id).subscribe((res: any) => {
-      console.log(res);
+  private blockGenre(id: string, unblock: boolean) {
+    this.service.unblock(id, unblock).subscribe((res: any) => {
+      console.log(res, id, unblock);
       if (res.status) {
         basicAlert(TYPE_ALERT.SUCCESS, res.message);
         return;
@@ -138,17 +143,25 @@ export class GenresComponent implements OnInit {
     });
   }
 
-  private async blockForm(genre: any) {
-    const result = await optionsWithDetails(
-      '¿Bloquear?',
-      `Si bloqueas el item seleccionado, no se mostrará en la lista`,
-      430,
-      'No, no bloquear',
-      'Si, bloquear'
-    );
+  private async unblockForm(genre: any, unblock: boolean) {
+    const result = unblock
+      ? await optionsWithDetails(
+          '¿Desbloquear?',
+          `Si desbloqueas el género seleccionado, se mostrará en la lista y podrás hacer compras y ver toda la información`,
+          500,
+          'No, no desbloquear',
+          'Si, desbloquear'
+        )
+      : await optionsWithDetails(
+          '¿Bloquear?',
+          `Si bloqueas el género seleccionado, no se mostrará en la lista`,
+          430,
+          'No, no bloquear',
+          'Si, bloquear'
+        );
     if (result === false) {
       // Si resultado falso, queremos bloquear
-      this.blockGenre(genre.id);
+      this.blockGenre(genre.id, unblock);
     }
   }
 }
