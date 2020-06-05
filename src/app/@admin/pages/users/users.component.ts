@@ -13,7 +13,7 @@ import { ACTIVE_FILTERS } from '@core/constants/filters';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   query: DocumentNode = USERS_LIST_QUERY;
@@ -29,34 +29,34 @@ export class UsersComponent implements OnInit {
     this.itemsPage = 10;
     this.resultData = {
       listKey: 'users',
-      definitionKey: 'users'
+      definitionKey: 'users',
     };
     this.include = true;
     this.columns = [
       {
         property: 'id',
-        label: '#'
+        label: '#',
       },
       {
         property: 'name',
-        label: 'Nombre'
+        label: 'Nombre',
       },
       {
         property: 'lastname',
-        label: 'Apellidos'
+        label: 'Apellidos',
       },
       {
         property: 'email',
-        label: 'Correo electrónico'
+        label: 'Correo electrónico',
       },
       {
         property: 'role',
-        label: 'Permisos'
+        label: 'Permisos',
       },
       {
         property: 'active',
-        label: '¿Activo?'
-      }
+        label: '¿Activo?',
+      },
     ];
   }
 
@@ -68,8 +68,10 @@ export class UsersComponent implements OnInit {
     const defaultEmail =
       user.email !== undefined && user.email !== '' ? user.email : '';
     const roles = new Array(2);
-    roles[0] = user.role !== undefined && user.role === 'ADMIN' ? 'selected' : '';
-    roles[1] = user.role !== undefined && user.role === 'CLIENT' ? 'selected' : '';
+    roles[0] =
+      user.role !== undefined && user.role === 'ADMIN' ? 'selected' : '';
+    roles[1] =
+      user.role !== undefined && user.role === 'CLIENT' ? 'selected' : '';
     return `
       <input id="name" value="${defaultName}" class="swal2-input" placeholder="Nombre" required>
       <input id="lastname" value="${defaultLastname}" class="swal2-input" placeholder="Apellidos" required>
@@ -99,11 +101,11 @@ export class UsersComponent implements OnInit {
           'Detalles',
           `${user.name} ${user.lastname}<br/>
           <i class="fas fa-envelope-open-text"></i>&nbsp;&nbsp;${user.email}`,
-          (user.active !== false) ? 375 : 400,
+          user.active !== false ? 375 : 400,
           '<i class="fas fa-edit"></i> Editar', // true
-          (user.active !== false) ?
-          '<i class="fas fa-lock"></i> Bloquear' :
-          '<i class="fas fa-lock-open"></i> Desbloquear'
+          user.active !== false
+            ? '<i class="fas fa-lock"></i> Bloquear'
+            : '<i class="fas fa-lock-open"></i> Desbloquear'
         ); // false
         if (result) {
           this.updateForm(html, user);
@@ -115,8 +117,8 @@ export class UsersComponent implements OnInit {
         this.unblockForm(user, false);
         break;
       case 'unblock':
-          this.unblockForm(user, true);
-          break;
+        this.unblockForm(user, true);
+        break;
       default:
         break;
     }
@@ -137,6 +139,13 @@ export class UsersComponent implements OnInit {
         console.log(res);
         if (res.status) {
           basicAlert(TYPE_ALERT.SUCCESS, res.message);
+          this.service
+            .sendEmailActive(res.user.id, user.email)
+            .subscribe((resEmail) => {
+              resEmail.status
+                ? basicAlert(TYPE_ALERT.SUCCESS, resEmail.message)
+                : basicAlert(TYPE_ALERT.WARNING, resEmail.message);
+            });
           return;
         }
         basicAlert(TYPE_ALERT.WARNING, res.message);
@@ -167,34 +176,33 @@ export class UsersComponent implements OnInit {
   }
 
   private async unblockForm(user: any, unblock: boolean) {
-    const result = (unblock) ?
-    await optionsWithDetails(
-      '¿Desbloquear?',
-      `Si desbloqueas el usuario seleccionado, se mostrará en la lista y podrás hacer compras y ver toda la información`,
-      500,
-      'No, no desbloquear',
-      'Si, desbloquear'
-    ) :
-     await optionsWithDetails(
-      '¿Bloquear?',
-      `Si bloqueas el usuario seleccionado, no se mostrará en la lista`,
-      430,
-      'No, no bloquear',
-      'Si, bloquear'
-    );
+    const result = unblock
+      ? await optionsWithDetails(
+          '¿Desbloquear?',
+          `Si desbloqueas el usuario seleccionado, se mostrará en la lista y podrás hacer compras y ver toda la información`,
+          500,
+          'No, no desbloquear',
+          'Si, desbloquear'
+        )
+      : await optionsWithDetails(
+          '¿Bloquear?',
+          `Si bloqueas el usuario seleccionado, no se mostrará en la lista`,
+          430,
+          'No, no bloquear',
+          'Si, bloquear'
+        );
     if (result === false) {
-      // Si resultado falso, queremos bloquear
-      // this.blockUser(user.id);
-      if (unblock) {
-        console.log('Desbloqueando el usuario', user);
-      } else {
-        console.log('Bloqueando el usuario', user);
-      }
+      // Si resultado falso, queremos bloquear / desbloquear
+      this.unblockUser(user.id, unblock, true);
     }
   }
 
-  private blockUser(id: string) {
-    this.service.block(id).subscribe((res: any) => {
+  private unblockUser(
+    id: string,
+    unblock: boolean = false,
+    admin: boolean = false
+  ) {
+    this.service.unblock(id, unblock, admin).subscribe((res: any) => {
       console.log(res);
       if (res.status) {
         basicAlert(TYPE_ALERT.SUCCESS, res.message);
@@ -203,5 +211,4 @@ export class UsersComponent implements OnInit {
       basicAlert(TYPE_ALERT.WARNING, res.message);
     });
   }
-
 }
