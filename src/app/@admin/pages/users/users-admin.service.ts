@@ -39,7 +39,6 @@ export class UsersAdminService extends ApiService{
     }));
   }
   sendEmailActive(id: string, email: string) {
-    console.log(id, email);
     return this.set(
       ACTIVE_EMAIL_USER, { id, email }
     ).pipe(map((result: any) => {

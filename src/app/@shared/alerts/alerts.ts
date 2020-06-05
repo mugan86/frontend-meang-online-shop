@@ -86,7 +86,6 @@ export async function optionsWithDetails(
     confirmButtonText,
     cancelButtonText,
   }).then((result) => {
-    console.log(result);
     if (result.value) {
       console.log('Editar');
       return true;

@@ -15,12 +15,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.usersApi.getUsers(2, 1).subscribe( result => {
-      console.log(result); // { { status message users: []}
+      // console.log(result); // { { status message users: []}
     });
-
-    /*this.auth.getMe().subscribe( result => {
-      console.log(result); // { status message user: {}}
-    });*/
   }
 
 }

@@ -45,7 +45,6 @@ export class TablePaginationComponent implements OnInit {
   }
 
   loadData() {
-    console.log(this.filterActiveValues);
     const variables = {
       page: this.infoPage.page,
       itemsPage: this.infoPage.itemsPage,
@@ -63,12 +62,10 @@ export class TablePaginationComponent implements OnInit {
   }
 
   changePage() {
-    console.log(this.infoPage.page);
     this.loadData();
   }
 
   manageAction(action: string, data: any) {
-    console.log(action, data);
     this.manageItem.emit([action, data]);
   }
 

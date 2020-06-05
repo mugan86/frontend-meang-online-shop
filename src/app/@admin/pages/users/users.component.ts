@@ -110,7 +110,7 @@ export class UsersComponent implements OnInit {
         if (result) {
           this.updateForm(html, user);
         } else if (result === false) {
-          this.unblockForm(user, (user.active !== false) ? false : true);
+          this.unblockForm(user, user.active !== false ? false : true);
         }
         break;
       case 'block':
@@ -126,7 +126,6 @@ export class UsersComponent implements OnInit {
 
   private async addForm(html: string) {
     const result = await userFormBasicDialog('Añadir usuario', html);
-    console.log(result);
     this.addUser(result);
   }
 
@@ -136,7 +135,6 @@ export class UsersComponent implements OnInit {
       user.password = '1234';
       user.active = false;
       this.service.register(user).subscribe((res: any) => {
-        console.log(res);
         if (res.status) {
           basicAlert(TYPE_ALERT.SUCCESS, res.message);
           this.service
@@ -155,7 +153,6 @@ export class UsersComponent implements OnInit {
 
   private async updateForm(html: string, user: any) {
     const result = await userFormBasicDialog('Modificar usuario', html);
-    console.log(result);
     this.updateUser(result, user.id);
   }
 
@@ -163,9 +160,7 @@ export class UsersComponent implements OnInit {
     if (result.value) {
       const user = result.value;
       user.id = id;
-      console.log(user);
       this.service.update(result.value).subscribe((res: any) => {
-        console.log(res);
         if (res.status) {
           basicAlert(TYPE_ALERT.SUCCESS, res.message);
           return;

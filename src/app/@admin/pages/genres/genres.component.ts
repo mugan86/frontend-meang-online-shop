@@ -96,13 +96,11 @@ export class GenresComponent implements OnInit {
   }
   private async addForm(html: string) {
     const result = await formBasicDialog('Añadir género', html, 'name');
-    console.log(result);
     this.addGenre(result);
   }
   private addGenre(result) {
     if (result.value) {
       this.service.add(result.value).subscribe((res: any) => {
-        console.log(res);
         if (res.status) {
           basicAlert(TYPE_ALERT.SUCCESS, res.message);
           return;
@@ -114,15 +112,12 @@ export class GenresComponent implements OnInit {
 
   private async updateForm(html: string, genre: any) {
     const result = await formBasicDialog('Modificar género', html, 'name');
-    console.log(result);
     this.updateGenre(genre.id, result);
   }
 
   private updateGenre(id: string, result) {
-    console.log(id, result.value);
     if (result.value) {
       this.service.update(id, result.value).subscribe((res: any) => {
-        console.log(res);
         if (res.status) {
           basicAlert(TYPE_ALERT.SUCCESS, res.message);
           return;
@@ -134,7 +129,6 @@ export class GenresComponent implements OnInit {
 
   private blockGenre(id: string, unblock: boolean) {
     this.service.unblock(id, unblock).subscribe((res: any) => {
-      console.log(res, id, unblock);
       if (res.status) {
         basicAlert(TYPE_ALERT.SUCCESS, res.message);
         return;

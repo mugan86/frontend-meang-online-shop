@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
 export class AdminComponent {
   toggledValue = true;
   toggled($event) {
-    console.log('admin', $event);
     this.toggledValue = $event;
   }
 }

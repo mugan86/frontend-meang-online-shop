@@ -22,7 +22,6 @@ export class ChangePasswordComponent implements OnInit {
   ) {
     this.route.params.subscribe((params) => {
       this.token = params.token;
-      console.log(this.token);
     });
   }
 

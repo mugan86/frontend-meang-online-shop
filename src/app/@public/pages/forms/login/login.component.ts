@@ -18,10 +18,8 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) { }
 
   init() {
-    console.log(this.login);
     this.auth.login(this.login.email, this.login.password).subscribe(
       (result: IResultLogin) => {
-        console.log(result);
         if (result.status) {
           if (result.token !== null) {
             basicAlert(TYPE_ALERT.SUCCESS, result.message);

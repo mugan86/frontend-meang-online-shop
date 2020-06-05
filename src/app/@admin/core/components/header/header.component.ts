@@ -13,7 +13,6 @@ export class HeaderComponent {
       this.toggledValue = true;
     }
     this.toggledValue = !this.toggledValue;
-    console.log(this.toggledValue);
     this.toggleChange.emit(this.toggledValue);
   }
 }
