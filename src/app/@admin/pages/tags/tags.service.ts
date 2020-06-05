@@ -31,11 +31,11 @@ export class TagsService extends ApiService{
       }));
   }
 
-  block(id: string) {
+  unblock(id: string, unblock: boolean) {
     return this.set(
       BLOCK_TAG,
       {
-        id
+        id, unblock
       }, {}).pipe(map( (result: any) => {
         return result.blockTag;
       }));

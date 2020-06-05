@@ -28,8 +28,8 @@ export const MODIFY_TAG = gql`
 `;
 
 export const BLOCK_TAG = gql`
-  mutation bloquearTag($id: ID!) {
-    blockTag(id: $id) {
+  mutation bloquearTag($id: ID!, $unblock: Boolean!) {
+    blockTag(id: $id, unblock: $unblock) {
       status
       message
     }
