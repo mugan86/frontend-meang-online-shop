@@ -1,3 +1,4 @@
+import { ACTIVE_FILTERS } from '@core/constants/filters';
 import { basicAlert } from '@shared/alerts/toasts';
 import { GENRE_LIST_QUERY } from '@graphql/operations/query/genre';
 import { Component, OnInit } from '@angular/core';
@@ -20,6 +21,7 @@ export class GenresComponent implements OnInit {
   resultData: IResultData;
   include: boolean;
   columns: Array<ITableColumns>;
+  filterActiveValues = ACTIVE_FILTERS.ALL;
   constructor(private service: GenresService) {}
   ngOnInit(): void {
     this.context = {};
@@ -41,6 +43,10 @@ export class GenresComponent implements OnInit {
       {
         property: 'slug',
         label: 'Slug',
+      },
+      {
+        property: 'active',
+        label: '¿Activo?',
       },
     ];
   }

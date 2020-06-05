@@ -5,5 +5,6 @@ export const GENRE_FRAGMENT = gql`
     id
     name
     slug
+    active
   }
 `;
