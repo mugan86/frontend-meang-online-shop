@@ -7,6 +7,7 @@ import { TagsService } from './tags.service';
 import { optionsWithDetails, formBasicDialog } from '@shared/alerts/alerts';
 import { basicAlert } from '@shared/alerts/toasts';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
+import { ACTIVE_FILTERS } from '@core/constants/filters';
 
 @Component({
   selector: 'app-tags',
@@ -21,6 +22,7 @@ export class TagsComponent implements OnInit {
   resultData: IResultData;
   include: boolean;
   columns: Array<ITableColumns>;
+  filterActiveValues = ACTIVE_FILTERS.ALL;
   constructor(private service: TagsService) {}
   ngOnInit(): void {
     this.context = {};
@@ -42,6 +44,10 @@ export class TagsComponent implements OnInit {
       {
         property: 'slug',
         label: 'Slug',
+      },
+      {
+        property: 'active',
+        label: '¿Activo?',
       },
     ];
   }

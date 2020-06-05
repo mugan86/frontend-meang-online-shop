@@ -5,5 +5,6 @@ export const TAG_FRAGMENT = gql`
     id
     name
     slug
+    active
   }
 `;
