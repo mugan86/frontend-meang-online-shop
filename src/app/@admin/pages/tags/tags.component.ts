@@ -70,8 +70,7 @@ export class TagsComponent implements OnInit {
       case 'info':
         const result = await optionsWithDetails(
           'Detalles',
-          `${tag.name} ${tag.lastname}<br/>
-          <i class="fas fa-envelope-open-text"></i>&nbsp;&nbsp;${tag.email}`,
+          `${tag.name} (${tag.slug})`,
           tag.active !== false ? 375 : 400,
           '<i class="fas fa-edit"></i> Editar', // true
           tag.active !== false
