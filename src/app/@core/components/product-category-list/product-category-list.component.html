@@ -1,0 +1,21 @@
+<section>
+  <div class="container">
+    <h2>{{ title }}</h2>
+    <hr />
+    <div class="row">
+      <div
+        class="col-lg-3"
+        *ngFor="let p of productsList"
+        style="margin-bottom: 12px;"
+      >
+        <shop-product-item
+          [showDesc]="false"
+          [product]="p"
+          (add)="addToCart($event)"
+          (itemDetails)="showProductDetails($event)"
+        ></shop-product-item>
+      </div>
+    </div>
+    <hr />
+  </div>
+</section>

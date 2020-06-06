@@ -27,14 +27,6 @@ export class HomeComponent implements OnInit {
     this.listOne = this.fakeRandomProductList();
     this.listTwo = this.fakeRandomProductList();
     this.listThree = this.fakeRandomProductList();
-    console.log('1', this.listOne);
-    console.log('2', this.listTwo);
-  }
-  addToCart($event: IProduct) {
-      console.log('Add to cart', $event);
-  }
-  showProductDetails($event: IProduct) {
-    console.log('Shoe details', $event);
   }
 
   fakeRandomProductList() {
