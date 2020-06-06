@@ -13,22 +13,38 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 export class HomeComponent implements OnInit {
   items: ICarouselItem[] = [];
   productsList;
+  listOne;
+  listTwo;
+  listThree;
   constructor(private usersApi: UsersService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.productsList = productsList;
     this.items = carouselItems;
-    console.log('Carousel items', this.items);
-    console.log('Products items', this.productsList);
     this.usersApi.getUsers(2, 1).subscribe( result => {
       // console.log(result); // { { status message users: []}
     });
+    this.listOne = this.fakeRandomProductList();
+    this.listTwo = this.fakeRandomProductList();
+    this.listThree = this.fakeRandomProductList();
+    console.log('1', this.listOne);
+    console.log('2', this.listTwo);
   }
   addToCart($event: IProduct) {
       console.log('Add to cart', $event);
   }
   showProductDetails($event: IProduct) {
     console.log('Shoe details', $event);
+  }
+
+  fakeRandomProductList() {
+    const list = [];
+    const arrayMax = 4;
+    const limit = this.productsList.length;
+    for (let i = 0; i < arrayMax; i++) {
+      list.push(this.productsList[Math.floor(Math.random() * limit)]);
+    }
+    return list;
   }
 
 }

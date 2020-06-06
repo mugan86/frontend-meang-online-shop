@@ -6,6 +6,7 @@
     "img": "https://media.rawg.io/media/games/b11/b115b2bc6a5957a917bc7601f4abdda2.jpg",
     "stock": 1000,
     "price": 450,
+    "priceDiscount": 360,
     "rating": {
       "value": 4.48,
       "count": 3448
@@ -49,6 +50,7 @@
     "img": "https://media.rawg.io/media/games/053/053fc543bf488349610f1ae2d0c1b51b.jpg",
     "stock": 1000,
     "price": 60,
+    "priceDiscount": 12,
     "rating": {
       "value": 4.44,
       "count": 874
@@ -78,6 +80,7 @@
     "img": "https://media.rawg.io/media/games/031/031af38e6a558d4cd4bf91ee80904cdf.jpg",
     "stock": 15,
     "price": 21,
+    "priceDiscount": 17.8299,
     "qty": 1,
     "rating": {
       "value": 3.05,
@@ -93,6 +96,7 @@
     "img": "https://media.rawg.io/media/screenshots/c9c/c9c4e6d1792b5e12676819f3b57e5e26.jpeg",
     "stock": 1000,
     "price": 60,
+    "priceDiscount": 12,
     "rating": {
       "value": 3.89,
       "count": 149
@@ -136,6 +140,7 @@
     "img": "https://media.rawg.io/media/games/d89/d89bd0cf4fcdc10820892980cbba0f49.jpg",
     "stock": 2,
     "price": 89,
+    "priceDiscount": 22.25,
     "qty": 1,
     "rating": {
       "value": 4.81,
