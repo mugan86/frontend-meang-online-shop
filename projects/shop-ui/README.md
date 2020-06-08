@@ -8,7 +8,11 @@ Librería que tendrá los elementos de una tienda con lista de productos, carrit
 npm i @mugan86/ng-shop-ui
 ```
 
-## Instrucciones de uso
+## Guía de referencia actualizada
+
+[Manual con todas las configuraciones](https://anartz-mugika.gitbook.io/angular-shop-ui-library/)
+
+## Instrucciones de uso básicas
 
 ## Añadir los estilos de Bootstrap
 
@@ -108,16 +112,17 @@ La estructura de los productos deberá de ser la siguiente:
 
 ```
 export interface IProduct {
-    id: string;             // Identificador
-    slug?: string;          // slug (opcional)
-    name: string;           // nombre del producto
-    img: string;            // url de la imagen
-    stock: number;          // cantidad en el stock
-    discount?: number;      // descuento que se aplicará en % (opcional)
-    price: number;          // precio real
-    description: string;    // descripción del producto
-    qty?: number;           // cantidad seleccionada (opcional)
-    rating?: IRatingItem;   // información del rating con los valores medio y cantidad de votos
+    id: string;                 //Identificador del product de la tienda
+    slug?: string;              //Slug del product0
+    name: string;               // Nombre
+    img: string;                // Imagen del producto
+    stock: number;              // Cantidad de unidades en el stock
+    discount?: number;          // Porcentaje de descuento que se aplicará
+    price: number;              // Precio real
+    priceDiscount?: number;     // Nuevo precio con descuento, si discount tiene valor
+    description: string;        // Descripción del producto
+    qty?: number;               // Cantidad de unidades que se van a adquirir
+    rating?: IRatingItem;       // Información sobre las reseñas
 }
 ```
 
@@ -169,5 +174,4 @@ export class YourComponent implements OnInit {
       </div>
 </div>
 ```
-
 ![Product Item](https://res.cloudinary.com/dd7kbplmv/image/upload/v1591081183/libraries-screens/shop-ui/eqeeosqhbqfgvzqzc0lm.png)

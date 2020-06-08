@@ -1,3 +1,4 @@
+import { CURRENCIES_SYMBOL } from './../../../../../projects/shop-ui/src/lib/constants/currencies.enum';
 import products from '@data/products.json';
 import carouselItems from '@data/carousel.json';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,7 @@ import { CartService } from '@core/services/cart.service';
 export class HomeComponent implements OnInit {
   cartCountElements = 0;
   cartItems = [];
-
+  selectCurrency = CURRENCIES_SYMBOL.USD;
   items: ICarouselItem[] = [];
   productsList: IProduct[] = [];
   constructor(private usersApi: UsersService, private cartService: CartService) {
