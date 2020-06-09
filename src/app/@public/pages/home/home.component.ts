@@ -1,9 +1,9 @@
 import { ICarouselItem } from '@mugan86/ng-shop-ui/lib/interfaces/carousel-item.interface';
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '@core/services/users.service';
 import carouselItems from '@data/carousel.json';
 import { ProductsService } from '@core/services/products.service';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   listOne;
   listTwo;
   listThree;
-  constructor(private usersApi: UsersService, private products: ProductsService) { }
+  constructor(private products: ProductsService) { }
 
   ngOnInit(): void {
     this.products.getByLastUnitsOffers(
@@ -39,6 +39,20 @@ export class HomeComponent implements OnInit {
       console.log('products pc', result);
       this.listThree = result;
     });
-    this.items = carouselItems;
+
+    this.products.getByLastUnitsOffers(
+      1, 6, ACTIVE_FILTERS.ACTIVE, true, -1, 20).subscribe( (result: IProduct[]) => {
+        result.map((item: IProduct) => {
+          this.items.push({
+            id: item.id,
+            title: item.name,
+            description: item.description,
+            background: item.img,
+            url: ''
+          });
+        });
+    });
+    // this.items = carouselItems;
+
   }
 }
