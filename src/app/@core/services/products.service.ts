@@ -4,6 +4,7 @@ import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
 import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM } from '@graphql/operations/query/shop-product';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,21 @@ export class ProductsService extends ApiService{
         platform
       }
     ).pipe(map((result: any) => {
-      return result.shopProductsPlatforms;
+      const productsList_ = result.shopProductsPlatforms.shopProducts;
+      const resultList: Array<IProduct> = [];
+      productsList_.map((shopObject) => {
+        resultList.push({
+          id: shopObject.id,
+          img: shopObject.product.img,
+          name: shopObject.product.name,
+          rating: shopObject.product.rating,
+          description: '',
+          qty: 1,
+          price: shopObject.price,
+          stock: shopObject.stock
+        });
+      });
+      return resultList;
     }));
   }
 

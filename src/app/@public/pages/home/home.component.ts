@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
       true, '4'
     ).subscribe(result => {
       console.log('products ps4', result);
+      this.listOne = result;
     });
     this.productsList = productsList;
     this.items = carouselItems;
