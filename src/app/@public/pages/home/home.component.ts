@@ -1,10 +1,9 @@
 import { ICarouselItem } from '@mugan86/ng-shop-ui/lib/interfaces/carousel-item.interface';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@core/services/auth.service';
 import { UsersService } from '@core/services/users.service';
 import carouselItems from '@data/carousel.json';
 import productsList from '@data/products.json';
-import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
+import { ProductsService } from '@core/services/products.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,9 +15,10 @@ export class HomeComponent implements OnInit {
   listOne;
   listTwo;
   listThree;
-  constructor(private usersApi: UsersService, private auth: AuthService) { }
+  constructor(private usersApi: UsersService, private products: ProductsService) { }
 
   ngOnInit(): void {
+    this.products.getByLastUnitsOffers();
     this.productsList = productsList;
     this.items = carouselItems;
     this.usersApi.getUsers(2, 1).subscribe( result => {
