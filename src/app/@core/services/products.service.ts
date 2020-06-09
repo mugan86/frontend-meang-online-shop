@@ -32,21 +32,7 @@ export class ProductsService extends ApiService{
         platform
       }
     ).pipe(map((result: any) => {
-      const productsList_ = result.shopProductsPlatforms.shopProducts;
-      const resultList: Array<IProduct> = [];
-      productsList_.map((shopObject) => {
-        resultList.push({
-          id: shopObject.id,
-          img: shopObject.product.img,
-          name: shopObject.product.name,
-          rating: shopObject.product.rating,
-          description: '',
-          qty: 1,
-          price: shopObject.price,
-          stock: shopObject.stock
-        });
-      });
-      return resultList;
+      return this.manageInfo(result.shopProductsPlatforms.shopProducts);
     }));
   }
 
@@ -69,7 +55,24 @@ export class ProductsService extends ApiService{
         lastUnits,
       }
     ).pipe(map((result: any) => {
-      return result.shopProductsOffersLast;
+      return this.manageInfo(result.shopProductsOffersLast.shopProducts);
     }));
+  }
+
+  private manageInfo(listProducts) {
+      const resultList: Array<IProduct> = [];
+      listProducts.map((shopObject) => {
+        resultList.push({
+          id: shopObject.id,
+          img: shopObject.product.img,
+          name: shopObject.product.name,
+          rating: shopObject.product.rating,
+          description: '',
+          qty: 1,
+          price: shopObject.price,
+          stock: shopObject.stock
+        });
+      });
+      return resultList;
   }
 }
