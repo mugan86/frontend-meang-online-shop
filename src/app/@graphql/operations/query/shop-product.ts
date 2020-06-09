@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { SHOP_PRODUCT_FRAGMENT } from '@graphql/operations/fragment/shop-product';
 
 export const SHOP_LAST_UNITS_OFFERS = gql`
   query productoPorOfertaYStock(
@@ -20,36 +21,13 @@ export const SHOP_LAST_UNITS_OFFERS = gql`
       status
       message
       shopProducts {
-        id
-        price
-        stock
-        active
-        productId
-        product {
-          id
-          name
-          slug
-          img
-          released
-          rating {
-            value
-            count
-          }
-          clip {
-            clips {
-              low
-              medium
-              full
-            }
-            preview
-            video
-          }
-          screenshoot
-        }
+        ...ShopProductObject
       }
     }
   }
+  ${SHOP_PRODUCT_FRAGMENT}
 `;
+
 
 export const SHOP_PRODUCT_BY_PLATFORM = gql`
   query productoPorPlataforma(
@@ -69,21 +47,9 @@ export const SHOP_PRODUCT_BY_PLATFORM = gql`
       status
       message
       shopProducts {
-        id
-        price
-        stock
-        active
-        product {
-          id
-          name
-          slug
-          img
-          rating {
-            value
-            count
-          }
-        }
+        ...ShopProductObject
       }
     }
   }
+  ${SHOP_PRODUCT_FRAGMENT}
 `;
