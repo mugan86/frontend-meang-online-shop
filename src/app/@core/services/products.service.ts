@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
-import { SHOP_LAST_UNITS_OFFERS } from '@graphql/operations/query/shop-product';
+import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM } from '@graphql/operations/query/shop-product';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,27 @@ export class ProductsService extends ApiService{
     super(apollo);
   }
 
-  getByPlatform(){}
+  getByPlatform(
+    page: number = 1,
+    itemsPage: number = 10,
+    active: ACTIVE_FILTERS = ACTIVE_FILTERS.ACTIVE,
+    random: boolean = false,
+    platform: string
+  ){
+    return this.get(
+      SHOP_PRODUCT_BY_PLATFORM,
+      {
+        page,
+        itemsPage,
+        active,
+        random,
+        platform
+      }
+    ).pipe(map((result: any) => {
+      return result.shopProductsPlatforms;
+    }));
+  }
 
-  /***
-   *
-    $random: Boolean
-    $topPrice: Float
-    $lastUnits: Int
-   */
   getByLastUnitsOffers(
     page: number = 1,
     itemsPage: number = 10,

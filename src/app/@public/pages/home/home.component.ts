@@ -24,6 +24,13 @@ export class HomeComponent implements OnInit {
       true, 40).subscribe(result => {
         console.log('productos a menos de 40', result);
       });
+
+    this.products.getByPlatform(
+      1, 4, ACTIVE_FILTERS.ACTIVE,
+      true, '4'
+    ).subscribe(result => {
+      console.log('products ps4', result);
+    });
     this.productsList = productsList;
     this.items = carouselItems;
     this.usersApi.getUsers(2, 1).subscribe( result => {
