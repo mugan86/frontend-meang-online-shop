@@ -42,7 +42,10 @@ import { Component, Input } from '@angular/core';
 })
 export class CarouselItemsComponent {
   @Input() items: ICarouselItem[] = [];
+  @Input() internalUrl = false;
   open(i: number) {
+    (this.internalUrl) ?
+    location.replace(this.items[i].url) :
     window.open(this.items[i].url);
   }
 }

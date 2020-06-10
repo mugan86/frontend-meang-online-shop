@@ -12,6 +12,10 @@ npm i @mugan86/ng-shop-ui
 
 [Manual con todas las configuraciones](https://anartz-mugika.gitbook.io/angular-shop-ui-library/)
 
+## Progreso de la librería con las mejoras
+
+[Manual con todas las configuraciones](https://anartz-mugika.gitbook.io/angular-shop-ui-library/versions)
+
 ## Instrucciones de uso básicas
 
 ## Añadir los estilos de Bootstrap
@@ -19,7 +23,7 @@ npm i @mugan86/ng-shop-ui
 Añadir en el fichero principal de los estilos(**styles**):
 
 ```
-@import "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css";
+@import "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css";
 
 ```
 
@@ -46,7 +50,7 @@ export class YourModule { }
 
 ### Configuración del componente
 
-Cargamos los items del Carousel, usando [esta referencia](https://github.com/mugan86/frontend-meang-online-shop/blob/shop-ui-library/src/assets/data/carousel.json) por ejemplo.
+Cargamos los items del Carousel, usando [esta referencia](https://drive.google.com/file/d/1Y87rI7-QvyaBDrj-Rti5mTD6G85E1Qmo/view?usp=sharing) por ejemplo.
 
 La estructura de los productos deberá de ser la siguiente:
 
@@ -106,7 +110,7 @@ export class YourModule { }
 
 ### Configuración del componente
 
-Cargamos los productos, usando [esta referencia](https://github.com/mugan86/frontend-meang-online-shop/blob/shop-ui-library/src/assets/data/products.json) por ejemplo.
+Cargamos los productos, usando [esta referencia](https://drive.google.com/file/d/1bpEwCvkLtkpR6R81rOFwzBDXazTAkRiy/view?usp=sharing) por ejemplo.
 
 La estructura de los productos deberá de ser la siguiente:
 
