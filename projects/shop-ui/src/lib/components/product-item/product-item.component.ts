@@ -32,7 +32,8 @@ import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetecto
       }
       .product-grid .product-image img {
         width: 100%;
-        height: auto;
+        min-height: 150px;
+        max-height: 150px;
         transition: all 0.5s ease 0s;
       }
       .product-grid:hover .product-image img {
