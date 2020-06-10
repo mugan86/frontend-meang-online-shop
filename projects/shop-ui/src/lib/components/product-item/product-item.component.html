@@ -5,19 +5,19 @@
     </a>
   </div>
   <div class="product-content">
-    <h3 class="title">{{ product.name }}</h3>
+    <h3 class="title">{{ (product.name.length > 25) ? (product.name | slice: 0:22) + '...' : (product.name) }}</h3>
     <div>
       <ng-template #noDiscount>
         <div class="price">
           {{ selectCurrency }} {{ product.price | number }}
         </div>
       </ng-template>
-      <div class="price" *ngIf="product.discount; else noDiscount"> 
-        {{ selectCurrency }} {{ product.priceDiscount | number }}  
+      <div class="price" *ngIf="product.discount; else noDiscount">
+        {{ selectCurrency }} {{ product.priceDiscount | number }}
         <span >
-          {{ selectCurrency }}  {{ product.price | number }} 
+          {{ selectCurrency }}  {{ product.price | number }}
           <span class="discount-percentage">({{ product.discount }}%)</span>
-        </span> 
+        </span>
       </div>
     </div>
     <shop-rating *ngIf="product.rating" [rating]="product.rating"></shop-rating>
