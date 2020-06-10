@@ -47,7 +47,7 @@ import { Component, Input, Output, EventEmitter, AfterViewChecked, ChangeDetecto
         opacity: 0;
       }
       .product-grid .title {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
         text-transform: capitalize;
         margin: 0 0 10px;
