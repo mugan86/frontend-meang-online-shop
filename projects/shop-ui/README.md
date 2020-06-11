@@ -1,5 +1,7 @@
 # Angular Shop UI Library
 
+[![npm version](https://badge.fury.io/js/%40mugan86%2Fng-shop-ui.svg)](https://badge.fury.io/js/%40mugan86%2Fng-shop-ui)
+
 :warning: **Versión Alpha**: ¡Trabajando en muchas mejoras!
 
 Librería que tendrá los elementos de una tienda con lista de productos, carrito, carousel,...
