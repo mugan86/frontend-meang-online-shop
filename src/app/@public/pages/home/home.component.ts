@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.products.getByLastUnitsOffers(
       1, 4, ACTIVE_FILTERS.ACTIVE,
-      true, 35).subscribe(data => {
+      true, 35, -1, false, true).subscribe(data => {
         console.log('productos a menos de 35', data.result);
         this.listTwo = data.result;
       });

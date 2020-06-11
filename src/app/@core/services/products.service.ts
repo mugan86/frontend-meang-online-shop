@@ -49,7 +49,8 @@ export class ProductsService extends ApiService{
     random: boolean = false,
     topPrice: number = -1,
     lastUnits: number = -1,
-    showInfo: boolean = false
+    showInfo: boolean = false,
+    showPlatform: boolean = false
   ){
     return this.get(
       SHOP_LAST_UNITS_OFFERS,
@@ -60,7 +61,8 @@ export class ProductsService extends ApiService{
         random,
         topPrice,
         lastUnits,
-        showInfo
+        showInfo,
+        showPlatform
       }
     ).pipe(map((result: any) => {
       const data = result.shopProductsOffersLast;
@@ -74,12 +76,13 @@ export class ProductsService extends ApiService{
   private manageInfo(listProducts) {
       const resultList: Array<IProduct> = [];
       listProducts.map((shopObject) => {
+        console.log(shopObject);
         resultList.push({
           id: shopObject.id,
           img: shopObject.product.img,
           name: shopObject.product.name,
           rating: shopObject.product.rating,
-          description: '',
+          description: (shopObject.platform) ? shopObject.platform.name : '',
           qty: 1,
           price: shopObject.price,
           stock: shopObject.stock
