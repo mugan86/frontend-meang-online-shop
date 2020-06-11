@@ -6,17 +6,12 @@
     </a>
   </div>
   <div class="list-group list-group-flush">
-    <a [routerLink]="['/admin']" routerLinkActive="router-link-active"  class="list-group-item list-group-item-action bg-light"
-      ><i class="fas fa-columns"></i> Dashboard</a
-    >
-    <a [routerLink]="['/admin/users']" routerLinkActive="router-link-active"  class="list-group-item list-group-item-action bg-light"
-      ><i class="fas fa-id-card"></i> Users</a
-    >
-    <a [routerLink]="['/admin/tags']" routerLinkActive="router-link-active"  class="list-group-item list-group-item-action bg-light"
-      ><i class="fas fa-tags"></i> Tags</a
-    >
-    <a [routerLink]="['/admin/genres']" routerLinkActive="router-link-active"  class="list-group-item list-group-item-action bg-light"
-      ><i class="fas fa-atlas"></i> Genres</a
+    <a
+      [routerLink]="item.url"
+      *ngFor="let item of menuItems"
+      routerLinkActive="router-link-active"
+      class="list-group-item list-group-item-action bg-light"
+      ><i class="{{ item.icon }}"></i> {{ item.label }}</a
     >
   </div>
 </div>
