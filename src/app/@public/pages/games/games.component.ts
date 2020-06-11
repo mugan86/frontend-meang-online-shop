@@ -27,7 +27,7 @@ export class GamesComponent implements OnInit {
   loadData() {
     this.products.getByPlatform(
       this.infoPage.page, this.infoPage.itemsPage, ACTIVE_FILTERS.ACTIVE,
-      false, ['18', '16'], true
+      false, ['18', '16'], true, true
     ).subscribe(data => {
       console.log('products ps4', data.result);
       this.productsList = data.result;

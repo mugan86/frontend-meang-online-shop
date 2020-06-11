@@ -21,7 +21,8 @@ export class ProductsService extends ApiService{
     active: ACTIVE_FILTERS = ACTIVE_FILTERS.ACTIVE,
     random: boolean = false,
     platform: Array<string> = ['-1'],
-    showInfo: boolean = false
+    showInfo: boolean = false,
+    showPlatform: boolean = false,
   ){
     return this.get(
       SHOP_PRODUCT_BY_PLATFORM,
@@ -31,7 +32,8 @@ export class ProductsService extends ApiService{
         active,
         random,
         platform,
-        showInfo
+        showInfo,
+        showPlatform
       }
     ).pipe(map((result: any) => {
       const data = result.shopProductsPlatforms;
