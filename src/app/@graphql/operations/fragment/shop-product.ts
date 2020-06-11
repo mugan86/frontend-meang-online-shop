@@ -13,5 +13,10 @@ export const SHOP_PRODUCT_FRAGMENT = gql`
         count
       }
     }
+    platform @include(if: $showPlatform){
+      id
+      name
+      slug
+    }
   }
 `;
