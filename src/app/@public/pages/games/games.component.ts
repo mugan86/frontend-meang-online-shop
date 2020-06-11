@@ -27,10 +27,11 @@ export class GamesComponent implements OnInit {
   loadData() {
     this.products.getByPlatform(
       this.infoPage.page, this.infoPage.itemsPage, ACTIVE_FILTERS.ACTIVE,
-      false, '18'
-    ).subscribe(result => {
-      console.log('products ps4', result);
-      this.productsList = result;
+      false, '18', true
+    ).subscribe(data => {
+      console.log('products ps4', data.result);
+      this.productsList = data.result;
+      this.infoPage = data.info;
     });
   }
 }

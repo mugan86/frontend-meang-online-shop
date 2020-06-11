@@ -19,30 +19,30 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.products.getByLastUnitsOffers(
       1, 4, ACTIVE_FILTERS.ACTIVE,
-      true, 35).subscribe(result => {
-        console.log('productos a menos de 35', result);
-        this.listTwo = result;
+      true, 35).subscribe(data => {
+        console.log('productos a menos de 35', data.result);
+        this.listTwo = data.result;
       });
 
     this.products.getByPlatform(
       1, 4, ACTIVE_FILTERS.ACTIVE,
       true, '18'
-    ).subscribe(result => {
-      console.log('products ps4', result);
-      this.listOne = result;
+    ).subscribe(data => {
+      console.log('products ps4', data.result);
+      this.listOne = data.result;
     });
 
     this.products.getByPlatform(
       1, 4, ACTIVE_FILTERS.ACTIVE,
       true, '4'
-    ).subscribe(result => {
-      console.log('products pc', result);
-      this.listThree = result;
+    ).subscribe(data => {
+      console.log('products pc', data.result);
+      this.listThree = data.result;
     });
 
     this.products.getByLastUnitsOffers(
-      1, 6, ACTIVE_FILTERS.ACTIVE, true, -1, 20).subscribe( (result: IProduct[]) => {
-        result.map((item: IProduct) => {
+      1, 6, ACTIVE_FILTERS.ACTIVE, true, -1, 20).subscribe( (data) => {
+        data.result.map((item: IProduct) => {
           this.items.push({
             id: item.id,
             title: item.name,
