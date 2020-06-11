@@ -5,7 +5,10 @@
     </a>
   </div>
   <div class="product-content">
-    <h3 class="title">{{ (product.name.length > 25) ? (product.name | slice: 0:22) + '...' : (product.name) }}</h3>
+    <h3 class="title">{{ product.name | truncate: 25 }}</h3>
+    <p *ngIf="showDesc">
+      {{ product.description | truncate: 40 }}
+    </p>
     <div>
       <ng-template #noDiscount>
         <div class="price">
