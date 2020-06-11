@@ -12,28 +12,12 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item" *ngFor="let item of menuItems">
         <a
           class="nav-link"
-          [routerLink]="['/']"
+          [routerLink]="item.url"
           routerLinkActive="router-link-active"
-          >Home</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/games/platforms/sony']"
-          routerLinkActive="router-link-active"
-          >Games</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/contact']"
-          routerLinkActive="router-link-active"
-          >Contact</a
+          >{{ item.label }}</a
         >
       </li>
     </ul>
