@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.products.getByLastUnitsOffers(
-      1, 6, ACTIVE_FILTERS.ACTIVE, true, -1, 20).subscribe( (result: IProduct[]) => {
+      1, 6, ACTIVE_FILTERS.ACTIVE, true, -1, 20).subscribe( (result) => {
         result.map((item: IProduct) => {
           this.items.push({
             id: item.id,

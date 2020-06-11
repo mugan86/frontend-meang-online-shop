@@ -1,5 +1,29 @@
-<p>games works! sjsjsjsjsj</p>
-<app-product-category-list
+<div class="container-fluid">
+  <app-product-category-list
     [title]="'Juegos Playstation 4'"
-    [productsList]="productsList">
-</app-product-category-list>
+    [productsList]="productsList"
+  >
+  </app-product-category-list>
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="infoPage.total"
+      [(page)]="infoPage.page"
+      (pageChange)="loadData()"
+      [pageSize]="infoPage.itemsPage"
+      [maxSize]="15"
+    >
+    </ngb-pagination>
+
+    <select
+      class="custom-select"
+      style="width: auto;"
+      [(ngModel)]="infoPage.itemsPage"
+      (ngModelChange)="loadData()"
+    >
+      <option [ngValue]="5">5 items per page</option>
+      <option [ngValue]="10">10 items per page</option>
+      <option [ngValue]="15">15 items per page</option>
+      <option [ngValue]="20">20 items per page</option>
+    </select>
+  </div>
+</div>

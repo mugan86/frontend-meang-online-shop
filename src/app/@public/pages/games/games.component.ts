@@ -1,3 +1,4 @@
+import { IInfoPage } from '@core/interfaces/result-data.interface';
 import { ACTIVE_FILTERS } from './../../../@core/constants/filters';
 import { ProductsService } from '@core/services/products.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,6 +10,13 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
   styleUrls: ['./games.component.scss']
 })
 export class GamesComponent implements OnInit {
+  selectPage;
+  infoPage: IInfoPage = {
+    page: 1,
+    pages: 8,
+    total: 160,
+    itemsPage: 20
+  };
   productsList: Array<IProduct> = [];
   constructor(private products: ProductsService) { }
 
@@ -18,12 +26,11 @@ export class GamesComponent implements OnInit {
 
   loadData() {
     this.products.getByPlatform(
-      1, 20, ACTIVE_FILTERS.ACTIVE,
+      this.infoPage.page, this.infoPage.itemsPage, ACTIVE_FILTERS.ACTIVE,
       false, '18'
     ).subscribe(result => {
       console.log('products ps4', result);
       this.productsList = result;
     });
   }
-
 }
