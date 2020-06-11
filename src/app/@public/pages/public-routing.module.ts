@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
+        path: 'games/:type/:filter',
+        loadChildren: () => import('./games/games.module').then(m => m.GamesModule)
+      },
+      {
         path: 'contact',
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
       },
