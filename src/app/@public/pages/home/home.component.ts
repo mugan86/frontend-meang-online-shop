@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 
     this.products.getByPlatform(
       1, 4, ACTIVE_FILTERS.ACTIVE,
-      true, '18'
+      true, ['18']
     ).subscribe(data => {
       console.log('products ps4', data.result);
       this.listOne = data.result;
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
 
     this.products.getByPlatform(
       1, 4, ACTIVE_FILTERS.ACTIVE,
-      true, '4'
+      true, ['4']
     ).subscribe(data => {
       console.log('products pc', data.result);
       this.listThree = data.result;

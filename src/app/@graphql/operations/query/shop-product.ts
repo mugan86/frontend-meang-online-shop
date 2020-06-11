@@ -40,7 +40,7 @@ export const SHOP_PRODUCT_BY_PLATFORM = gql`
     $itemsPage: Int
     $active: ActiveFilterEnum
     $random: Boolean
-    $platform: ID!
+    $platform: [ID!]!
     $showInfo: Boolean = false
   ) {
     shopProductsPlatforms(
