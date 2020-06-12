@@ -13,16 +13,19 @@ export class HomeComponent implements OnInit {
   listOne: IProduct[];
   listTwo: IProduct[];
   listThree: IProduct[];
+  loading: boolean;
   constructor(private products: ProductsService) { }
 
   ngOnInit(): void {
-    loadData('ananana', '');
+    this.loading = true;
+    loadData('Cargando datos', 'Espera mientras carga la información');
     this.products.getHomePage().subscribe( data => {
       this.listOne = data.ps4;
       this.listTwo = data.topPrice;
       this.listThree = data.pc;
       this.items = this.manageCarousel(data.carousel);
       closeAlert();
+      this.loading = false;
     });
   }
 

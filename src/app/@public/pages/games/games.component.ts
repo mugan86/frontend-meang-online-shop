@@ -6,6 +6,7 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ActivatedRoute } from '@angular/router';
 import { IGamePageInfo } from './games-page-info.interface';
 import { GAMES_PAGES_INFO, TYPE_OPERATION } from './game.constants';
+import { loadData, closeAlert } from '@shared/alerts/alerts';
 
 @Component({
   selector: 'app-games',
@@ -23,6 +24,7 @@ export class GamesComponent implements OnInit {
   typeData: TYPE_OPERATION;
   gamesPageInfo: IGamePageInfo;
   productsList: Array<IProduct> = [];
+  loading: boolean;
   constructor(
     private products: ProductsService,
     private activatedRoute: ActivatedRoute
@@ -30,6 +32,8 @@ export class GamesComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
+      this.loading = true;
+      loadData('Cargando datos', 'Espera mientras carga la información');
       console.log(params);
       this.gamesPageInfo = GAMES_PAGES_INFO[`${params.type}/${params.filter}`];
       console.log(this.gamesPageInfo);
@@ -75,5 +79,7 @@ export class GamesComponent implements OnInit {
     console.log(this.gamesPageInfo.title, data.result);
     this.productsList = data.result;
     this.infoPage = data.info;
+    closeAlert();
+    this.loading = false;
   }
 }
