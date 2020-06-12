@@ -9,6 +9,7 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 export class ProductCategoryListComponent {
   @Input() title = 'Título de la categoría';
   @Input() productsList: Array<IProduct> = [];
+  @Input() description = '';
   constructor() { }
   addToCart($event: IProduct) {
     console.log('Add to cart', $event);

@@ -4,6 +4,8 @@ import { ProductsService } from '@core/services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ActivatedRoute } from '@angular/router';
+import { IGamePageInfo } from './games-page-info.interface';
+import { GAMES_PAGES_INFO } from './game.constants';
 
 @Component({
   selector: 'app-games',
@@ -18,12 +20,15 @@ export class GamesComponent implements OnInit {
     total: 160,
     itemsPage: 20
   };
+  gamesPageInfo: IGamePageInfo;
   productsList: Array<IProduct> = [];
   constructor(private products: ProductsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( params => {
       console.log(params);
+      this.gamesPageInfo = GAMES_PAGES_INFO[`${params.type}/${params.filter}`]
+      console.log(this.gamesPageInfo);
     });
     this.loadData();
   }
