@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ActivatedRoute } from '@angular/router';
 import { IGamePageInfo } from './games-page-info.interface';
-import { GAMES_PAGES_INFO } from './game.constants';
+import { GAMES_PAGES_INFO, TYPE_OPERATION } from './game.constants';
 
 @Component({
   selector: 'app-games',
@@ -20,6 +20,7 @@ export class GamesComponent implements OnInit {
     total: 160,
     itemsPage: 20
   };
+  typeData: TYPE_OPERATION;
   gamesPageInfo: IGamePageInfo;
   productsList: Array<IProduct> = [];
   constructor(private products: ProductsService, private activatedRoute: ActivatedRoute) { }
@@ -27,20 +28,24 @@ export class GamesComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( params => {
       console.log(params);
-      this.gamesPageInfo = GAMES_PAGES_INFO[`${params.type}/${params.filter}`]
+      this.gamesPageInfo = GAMES_PAGES_INFO[`${params.type}/${params.filter}`];
       console.log(this.gamesPageInfo);
+      this.typeData = params.type;
+      this.selectPage = 1;
+      this.loadData();
     });
-    this.loadData();
   }
 
   loadData() {
-    this.products.getByPlatform(
-      this.infoPage.page, this.infoPage.itemsPage, ACTIVE_FILTERS.ACTIVE,
-      false, ['18', '16'], true, true
-    ).subscribe(data => {
-      console.log('products ps4', data.result);
-      this.productsList = data.result;
-      this.infoPage = data.info;
-    });
+    if (this.typeData === TYPE_OPERATION.PLATFORMS) {
+      this.products.getByPlatform(
+        this.selectPage, this.infoPage.itemsPage, ACTIVE_FILTERS.ACTIVE,
+        false, this.gamesPageInfo.platformsIds, true, true
+      ).subscribe(data => {
+        console.log(this.gamesPageInfo.title, data.result);
+        this.productsList = data.result;
+        this.infoPage = data.info;
+      });
+    }
   }
 }

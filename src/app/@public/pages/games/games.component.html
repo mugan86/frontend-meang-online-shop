@@ -8,7 +8,7 @@
   <div class="d-flex justify-content-between p-2">
     <ngb-pagination
       [collectionSize]="infoPage.total"
-      [(page)]="infoPage.page"
+      [(page)]="selectPage"
       (pageChange)="loadData()"
       [pageSize]="infoPage.itemsPage"
       [maxSize]="15"
