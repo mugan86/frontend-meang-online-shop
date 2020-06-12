@@ -5,6 +5,7 @@ import { Apollo, ApolloModule } from 'apollo-angular';
 import { NgModule } from '@angular/core';
 import { ApolloLink } from 'apollo-link';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [HttpClientModule, ApolloModule, HttpLinkModule],
@@ -21,7 +22,7 @@ export class GraphqlModule {
         console.log('Networkd Errors', networkError);
       }
     });
-    const uri = 'http://localhost:2002/graphql';
+    const uri = environment.backend;
     const link = ApolloLink.from([errorLink, httpLink.create({ uri })]);
     apollo.create({
       link,
