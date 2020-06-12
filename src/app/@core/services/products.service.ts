@@ -22,8 +22,13 @@ export class ProductsService extends ApiService{
       {
         showPlatform: true
       }
-    ).pipe(map(result => {
-      console.log('Home Page', result);
+    ).pipe(map((result: any) => {
+      return {
+        carousel: result.carousel,
+        ps4: this.manageInfo(result.ps4.shopProducts, false),
+        pc: this.manageInfo(result.pc.shopProducts, false),
+        topPrice: this.manageInfo(result.topPrice35.shopProducts, true)
+      };
     }));
   }
 
@@ -87,7 +92,7 @@ export class ProductsService extends ApiService{
     }));
   }
 
-  private manageInfo(listProducts) {
+  private manageInfo(listProducts: any, showDescription = false) {
       const resultList: Array<IProduct> = [];
       listProducts.map((shopObject) => {
         resultList.push({
@@ -95,7 +100,7 @@ export class ProductsService extends ApiService{
           img: shopObject.product.img,
           name: shopObject.product.name,
           rating: shopObject.product.rating,
-          description: (shopObject.platform) ? shopObject.platform.name : '',
+          description: (shopObject.platform && showDescription) ? shopObject.platform.name : '',
           qty: 1,
           price: shopObject.price,
           stock: shopObject.stock
