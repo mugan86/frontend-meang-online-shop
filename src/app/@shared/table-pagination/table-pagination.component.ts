@@ -1,3 +1,5 @@
+import { closeAlert } from '@shared/alerts/alerts';
+import { loadData } from './../alerts/alerts';
 import { ACTIVE_FILTERS } from './../../@core/constants/filters';
 import { ITableColumns } from '@core/interfaces/table-columns.interface';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -23,6 +25,7 @@ export class TablePaginationComponent implements OnInit {
   @Output() manageItem = new EventEmitter<Array<any>>();
   infoPage: IInfoPage;
   data$: Observable<any>;
+  loading: boolean;
   constructor(private service: TablePaginationService) { }
 
   ngOnInit(): void {
@@ -45,6 +48,8 @@ export class TablePaginationComponent implements OnInit {
   }
 
   loadData() {
+    this.loading = true;
+    loadData('Cargando los datos', 'Espera un instante');
     const variables = {
       page: this.infoPage.page,
       itemsPage: this.infoPage.itemsPage,
@@ -56,6 +61,8 @@ export class TablePaginationComponent implements OnInit {
         const data = result[this.resultData.definitionKey];
         this.infoPage.pages = data.info.pages;
         this.infoPage.total = data.info.total;
+        this.loading = false;
+        closeAlert();
         return data[this.resultData.listKey];
       }
     ));
