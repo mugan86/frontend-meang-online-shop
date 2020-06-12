@@ -28,10 +28,7 @@ export async function formBasicDialog(
   });
 }
 
-export async function userFormBasicDialog(
-  title: string,
-  html: string
-) {
+export async function userFormBasicDialog(title: string, html: string) {
   return await swalWithBasicOptions(title, html).fire({
     preConfirm: () => {
       let error = '';
@@ -39,11 +36,13 @@ export async function userFormBasicDialog(
       if (!name) {
         error += 'Usuario es obligatorio<br/>';
       }
-      const lastname = (document.getElementById('lastname') as HTMLInputElement).value;
+      const lastname = (document.getElementById('lastname') as HTMLInputElement)
+        .value;
       if (!lastname) {
         error += 'Apellido es obligatorio<br/>';
       }
-      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const email = (document.getElementById('email') as HTMLInputElement)
+        .value;
       if (!email) {
         error += 'Email es obligatorio<br/>';
       }
@@ -52,9 +51,7 @@ export async function userFormBasicDialog(
       }
       const role = (document.getElementById('role') as HTMLInputElement).value;
       if (error !== '') {
-        Swal.showValidationMessage(
-          error
-        );
+        Swal.showValidationMessage(error);
         return;
       }
       return {
@@ -62,7 +59,7 @@ export async function userFormBasicDialog(
         lastname,
         email,
         role,
-        birthday: new Date().toISOString()
+        birthday: new Date().toISOString(),
       };
     },
   });
@@ -95,3 +92,18 @@ export async function optionsWithDetails(
     }
   });
 }
+
+
+export const loadData = (title: string, html: string) => {
+  Swal.fire({
+    title,
+    html,
+    onBeforeOpen: () => {
+      Swal.showLoading();
+    },
+  });
+};
+
+export const closeAlert = () => {
+  Swal.close();
+};

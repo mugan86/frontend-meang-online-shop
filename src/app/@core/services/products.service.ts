@@ -92,7 +92,7 @@ export class ProductsService extends ApiService{
     }));
   }
 
-  private manageInfo(listProducts: any, showDescription = false) {
+  private manageInfo(listProducts: any, showDescription = true) {
       const resultList: Array<IProduct> = [];
       listProducts.map((shopObject) => {
         resultList.push({

@@ -2,6 +2,7 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ICarouselItem } from '@mugan86/ng-shop-ui/lib/interfaces/carousel-item.interface';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '@core/services/products.service';
+import { loadData, closeAlert } from '@shared/alerts/alerts';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,11 +16,13 @@ export class HomeComponent implements OnInit {
   constructor(private products: ProductsService) { }
 
   ngOnInit(): void {
+    loadData('ananana', '');
     this.products.getHomePage().subscribe( data => {
       this.listOne = data.ps4;
       this.listTwo = data.topPrice;
       this.listThree = data.pc;
       this.items = this.manageCarousel(data.carousel);
+      closeAlert();
     });
   }
 
