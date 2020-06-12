@@ -1,8 +1,9 @@
 import { IInfoPage } from '@core/interfaces/result-data.interface';
-import { ACTIVE_FILTERS } from './../../../@core/constants/filters';
+import { ACTIVE_FILTERS } from '@core/constants/filters';
 import { ProductsService } from '@core/services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-games',
@@ -18,9 +19,12 @@ export class GamesComponent implements OnInit {
     itemsPage: 20
   };
   productsList: Array<IProduct> = [];
-  constructor(private products: ProductsService) { }
+  constructor(private products: ProductsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe( params => {
+      console.log(params);
+    });
     this.loadData();
   }
 

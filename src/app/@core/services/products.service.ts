@@ -78,7 +78,6 @@ export class ProductsService extends ApiService{
   private manageInfo(listProducts) {
       const resultList: Array<IProduct> = [];
       listProducts.map((shopObject) => {
-        console.log(shopObject);
         resultList.push({
           id: shopObject.id,
           img: shopObject.product.img,
