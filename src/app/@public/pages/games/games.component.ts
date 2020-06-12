@@ -10,7 +10,7 @@ import { GAMES_PAGES_INFO, TYPE_OPERATION } from './game.constants';
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
-  styleUrls: ['./games.component.scss']
+  styleUrls: ['./games.component.scss'],
 })
 export class GamesComponent implements OnInit {
   selectPage;
@@ -18,15 +18,18 @@ export class GamesComponent implements OnInit {
     page: 1,
     pages: 8,
     total: 160,
-    itemsPage: 20
+    itemsPage: 20,
   };
   typeData: TYPE_OPERATION;
   gamesPageInfo: IGamePageInfo;
   productsList: Array<IProduct> = [];
-  constructor(private products: ProductsService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private products: ProductsService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe( params => {
+    this.activatedRoute.params.subscribe((params) => {
       console.log(params);
       this.gamesPageInfo = GAMES_PAGES_INFO[`${params.type}/${params.filter}`];
       console.log(this.gamesPageInfo);
@@ -38,14 +41,39 @@ export class GamesComponent implements OnInit {
 
   loadData() {
     if (this.typeData === TYPE_OPERATION.PLATFORMS) {
-      this.products.getByPlatform(
-        this.selectPage, this.infoPage.itemsPage, ACTIVE_FILTERS.ACTIVE,
-        false, this.gamesPageInfo.platformsIds, true, true
-      ).subscribe(data => {
-        console.log(this.gamesPageInfo.title, data.result);
-        this.productsList = data.result;
-        this.infoPage = data.info;
-      });
+      this.products
+        .getByPlatform(
+          this.selectPage,
+          this.infoPage.itemsPage,
+          ACTIVE_FILTERS.ACTIVE,
+          false,
+          this.gamesPageInfo.platformsIds,
+          true,
+          true
+        )
+        .subscribe((data) => {
+          this.asignResult(data);
+        });
+      return;
     }
+    this.products
+      .getByLastUnitsOffers(
+        this.selectPage,
+        this.infoPage.itemsPage,
+        ACTIVE_FILTERS.ACTIVE,
+        false,
+        this.gamesPageInfo.topPrice,
+        this.gamesPageInfo.stock,
+        true,
+        true
+      )
+      .subscribe((data) => {
+        this.asignResult(data);
+      });
+  }
+  private asignResult(data) {
+    console.log(this.gamesPageInfo.title, data.result);
+    this.productsList = data.result;
+    this.infoPage = data.info;
   }
 }

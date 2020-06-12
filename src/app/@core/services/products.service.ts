@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
 import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM } from '@graphql/operations/query/shop-product';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
+import { HOME_PAGE } from '@graphql/operations/query/home-page';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,17 @@ export class ProductsService extends ApiService{
 
   constructor(apollo: Apollo) {
     super(apollo);
+  }
+
+  getHomePage() {
+    return this.get(
+      HOME_PAGE,
+      {
+        showPlatform: true
+      }
+    ).pipe(map(result => {
+      console.log('Home Page', result);
+    }));
   }
 
   getByPlatform(

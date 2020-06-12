@@ -17,7 +17,10 @@ export class HomeComponent implements OnInit {
   constructor(private products: ProductsService) { }
 
   ngOnInit(): void {
-    this.products.getByLastUnitsOffers(
+    this.products.getHomePage().subscribe( data => {
+      console.log(data);
+    });
+    /*this.products.getByLastUnitsOffers(
       1, 4, ACTIVE_FILTERS.ACTIVE,
       true, 35, -1, false, true).subscribe(data => {
         console.log('productos a menos de 35', data.result);
@@ -51,7 +54,7 @@ export class HomeComponent implements OnInit {
             url: ''
           });
         });
-    });
+    });*/
     // this.items = carouselItems;
 
   }
