@@ -13,7 +13,7 @@
     },
     "discount": 20,
     "qty": 1,
-    "description": ""
+    "description": "PS4"
   },
   {
     "id": "5286",
@@ -27,7 +27,7 @@
       "count": 2056
     },
     "qty": 1,
-    "description": ""
+    "description": "PS3"
   },
   {
     "id": "34",
@@ -41,7 +41,7 @@
       "value": 4.13,
       "count": 240
     },
-    "description": ""
+    "description": "PS4"
   },
   {
     "id": "58813",
@@ -57,7 +57,7 @@
     },
     "discount": 5,
     "qty": 1,
-    "description": ""
+    "description": "PS1"
   },
   {
     "id": "3469",
@@ -87,7 +87,7 @@
       "count": 148
     },
     "discount": 15,
-    "description": ""
+    "description": "PS3"
   },
   {
     "id": "57908",
@@ -103,7 +103,7 @@
     },
     "discount": 80,
     "qty": 1,
-    "description": ""
+    "description": "PS1"
   },
   {
     "id": "2454",
@@ -117,7 +117,7 @@
       "count": 2093
     },
     "qty": 1,
-    "description": ""
+    "description": "PC"
   },
   {
     "id": "28",
@@ -131,7 +131,7 @@
       "value": 4.55,
       "count": 2276
     },
-    "description": ""
+    "description": "Wii"
   },
   {
     "id": "259801",
@@ -147,6 +147,6 @@
       "count": 45
     },
     "discount": 25,
-    "description": ""
+    "description": "PS4"
   }
 ]
