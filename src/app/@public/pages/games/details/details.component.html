@@ -14,13 +14,19 @@
       <h4 class="my-3">{{ product.name }} ( {{ product.description }})</h4>
       <div class="row">
         <div class="col-lg-12">
-          Rating {{ product.rating.value }} ({{product.rating.count}})
+          <shop-rating [rating]="product.rating"></shop-rating>
         </div>
         <div class="col-lg-12">
           Price: {{ currencySelect }} {{ product.price }}
         </div>
         <div class="col-lg-12">
           Stock: {{ product.stock }}
+          <hr>
+          <shop-qty-selector
+              [qty]="product.qty"
+              [stock]="product.stock"
+              (updateValue)="changeValue($event)"
+            ></shop-qty-selector>
         </div>
       </div>
       <select>
