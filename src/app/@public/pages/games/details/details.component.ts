@@ -11,13 +11,13 @@ export class DetailsComponent {
   selectImage = this.product.img;
   currencySelect = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
   screens = [
-    'https://media.rawg.io/media/games/e49/e49256363789d1dec316edf8ebb27ccf.jpg',
-    'https://media.rawg.io/media/screenshots/ead/ead0a4f9dcdd1084fbb0da8ea5a26a5e.jpg',
-    'https://media.rawg.io/media/screenshots/ff9/ff9005e66eefc3e9e908f8a918a575aa.jpg',
-    'https://media.rawg.io/media/screenshots/05b/05b1ddd7e6a33f716be0d6c6fa8d1b8c.jpg',
-    'https://media.rawg.io/media/screenshots/874/8749c4db3181be3ac374a0fd3d63a4f7.jpg',
-    'https://media.rawg.io/media/screenshots/6ce/6ce002980f0e02d3b9e57308ee85c220.jpg',
-    'https://media.rawg.io/media/screenshots/31e/31e4803dc0504d17b9b90fb0494a7a56.jpg'
+    'https://media.rawg.io/media/games/7f6/7f6cd70ba2ad57053b4847c13569f2d8.jpg',
+    'https://media.rawg.io/media/screenshots/167/16728aa54b1130772b06cdcac128e056.jpg',
+    'https://media.rawg.io/media/screenshots/3f7/3f711b42d24d9fdeb58faf1f69eccbe3.jpg',
+    'https://media.rawg.io/media/screenshots/ef2/ef2be35eaf7e083cc5b51d2e2addf441.jpg',
+    'https://media.rawg.io/media/screenshots/0d1/0d129ec2c410a11f4407ca469f92edda.jpg',
+    'https://media.rawg.io/media/screenshots/bd5/bd51765bc9e33644cae768ee91c10e14.jpg',
+    'https://media.rawg.io/media/screenshots/877/877d713525903c9f6019ad58b80650a6.jpg'
   ];
   constructor() { }
 
