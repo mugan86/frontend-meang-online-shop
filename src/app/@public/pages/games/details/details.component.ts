@@ -25,7 +25,7 @@ export class DetailsComponent {
     console.log(qty);
   }
 
-  selectImgMain(i) {
+  selectImgMain(i: number) {
     this.selectImage = this.screens[i];
   }
 
