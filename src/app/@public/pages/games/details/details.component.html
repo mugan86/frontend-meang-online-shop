@@ -4,8 +4,9 @@
   <!-- Portfolio Item Row -->
   <div class="row">
     <div class="col-md-1">
-        <img class="img-fluid mini" src="http://placehold.it/750x500" alt="" />
-        <img class="img-fluid mini" src="http://placehold.it/750x500" alt="" />
+        <img class="img-fluid mini" *ngFor="let miniImg of screens; let i = index;"
+        [src]="miniImg" alt="Screen {{ i }}"
+        (click)="selectImgMain(i)" />
       </div>
     <div class="col-md-7">
       <img class="img-fluid" [src]="selectImage" alt="" />
@@ -42,6 +43,8 @@
             ></shop-qty-selector>
         </div>
       </div>
+      <br/>
+      <span class="h5">Plataformas:</span>&nbsp;
       <select>
         <option>PS4</option>
         <option>Wii</option>
