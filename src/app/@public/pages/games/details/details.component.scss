@@ -5,3 +5,28 @@
 .mini {
     margin-bottom: 10px;
 }
+
+/** Estilos de los precios **/
+
+.price {
+    font-size: 22px;
+    font-weight: 800;
+    color: #cc1c39;
+    text-align: left;
+    margin-left: 5px;
+    margin-bottom: 12px;
+}
+
+.price span {
+    font-size: 18px;
+    font-weight: 400;
+    color: #999;
+    text-align: left;
+    margin-left: 5px;
+    margin-bottom: 12px;
+    text-decoration: line-through;
+}
+
+.price span.discount-percentage {
+    text-decoration: none;
+}

@@ -17,7 +17,20 @@
           <shop-rating [rating]="product.rating"></shop-rating>
         </div>
         <div class="col-lg-12">
-          Price: {{ currencySelect }} {{ product.price }}
+          <ng-template #noDiscount>
+            <div class="price">
+              {{ currencySelect }} {{ product.price }}
+            </div>
+          </ng-template>
+          <div class="price" *ngIf="product.discount; else noDiscount">
+            {{ currencySelect }} {{ product.priceDiscount | number }}
+            <span>
+              {{ currencySelect }} {{ product.price | number }}
+            </span>
+            <span class="discount-percentage">
+              ({{product.discount}} %)
+            </span>
+          </div>
         </div>
         <div class="col-lg-12">
           Stock: {{ product.stock }}
