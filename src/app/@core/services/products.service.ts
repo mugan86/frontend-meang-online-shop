@@ -96,25 +96,30 @@ export class ProductsService extends ApiService{
     return this.get(
       SHOP_PRODUCT_DETAILS, {
         id
-      }
+      }, { }, false
     ).pipe(map((result: any) => {
-      return result.shopProductDetails;
+      const data = result.shopProductDetails;
+      return {
+        product: this.setInObject(data.shopProduct, true),
+      };
     }));
   }
-
+  private setInObject(shopObject, showDescription) {
+    return {
+      id: shopObject.id,
+      img: shopObject.product.img,
+      name: shopObject.product.name,
+      rating: shopObject.product.rating,
+      description: (shopObject.platform && showDescription) ? shopObject.platform.name : '',
+      qty: 1,
+      price: shopObject.price,
+      stock: shopObject.stock
+    };
+  }
   private manageInfo(listProducts: any, showDescription = true) {
       const resultList: Array<IProduct> = [];
       listProducts.map((shopObject) => {
-        resultList.push({
-          id: shopObject.id,
-          img: shopObject.product.img,
-          name: shopObject.product.name,
-          rating: shopObject.product.rating,
-          description: (shopObject.platform && showDescription) ? shopObject.platform.name : '',
-          qty: 1,
-          price: shopObject.price,
-          stock: shopObject.stock
-        });
+        resultList.push(this.setInObject(shopObject, showDescription));
       });
       return resultList;
   }
