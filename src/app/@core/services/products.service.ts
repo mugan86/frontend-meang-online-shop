@@ -101,6 +101,8 @@ export class ProductsService extends ApiService{
       const data = result.shopProductDetails;
       return {
         product: this.setInObject(data.shopProduct, true),
+        screens: data.shopProduct.product.screenshoot,
+        relational: data.shopProduct.relationalProducts
       };
     }));
   }
