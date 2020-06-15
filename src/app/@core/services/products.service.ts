@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
-import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM } from '@graphql/operations/query/shop-product';
+import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM, SHOP_PRODUCT_DETAILS } from '@graphql/operations/query/shop-product';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { HOME_PAGE } from '@graphql/operations/query/home-page';
 
@@ -89,6 +89,16 @@ export class ProductsService extends ApiService{
         info: data.info,
         result: this.manageInfo(data.shopProducts)
       };
+    }));
+  }
+
+  getItem(id: number) {
+    return this.get(
+      SHOP_PRODUCT_DETAILS, {
+        id
+      }
+    ).pipe(map((result: any) => {
+      return result.shopProductDetails;
     }));
   }
 

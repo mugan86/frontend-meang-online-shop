@@ -1,12 +1,13 @@
 import { CURRENCIES_SYMBOL, CURRENCY_LIST } from '@mugan86/ng-shop-ui';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import products from '@data/products.json';
+import { ProductsService } from '@core/services/products.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit{
   product = products[Math.floor(Math.random() * products.length)];
   selectImage = this.product.img;
   currencySelect = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
@@ -19,8 +20,12 @@ export class DetailsComponent {
     'https://media.rawg.io/media/screenshots/6ce/6ce002980f0e02d3b9e57308ee85c220.jpg',
     'https://media.rawg.io/media/screenshots/31e/31e4803dc0504d17b9b90fb0494a7a56.jpg'
   ];
-  constructor() { }
-
+  constructor(private productService: ProductsService) { }
+  ngOnInit() {
+    this.productService.getItem(1).subscribe( result => {
+      console.log(result);
+    });
+  }
   changeValue(qty: number) {
     console.log(qty);
   }
