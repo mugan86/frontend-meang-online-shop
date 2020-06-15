@@ -20,17 +20,26 @@ export class DetailsComponent implements OnInit{
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       console.log('parametro detalles', +params.id);
-      this.productService.getItem(+params.id).subscribe( result => {
-        console.log(result);
-        this.product = result.product;
-        this.selectImage = this.product.img;
-        this.screens = result.screens;
-        this.relationalProducts = result.relational;
-      });
+      this.loadDataValue(+params.id);
+    });
+  }
+
+  loadDataValue(id: number) {
+    this.productService.getItem(id).subscribe( result => {
+      console.log(result);
+      this.product = result.product;
+      this.selectImage = this.product.img;
+      this.screens = result.screens;
+      this.relationalProducts = result.relational;
     });
   }
   changeValue(qty: number) {
     console.log(qty);
+  }
+
+  selectOtherPlatform($event) {
+    console.log($event.target.value);
+    this.loadDataValue(+$event.target.value);
   }
 
   selectImgMain(i: number) {

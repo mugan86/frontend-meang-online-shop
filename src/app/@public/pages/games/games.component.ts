@@ -34,9 +34,7 @@ export class GamesComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.loading = true;
       loadData('Cargando datos', 'Espera mientras carga la información');
-      console.log(params);
       this.gamesPageInfo = GAMES_PAGES_INFO[`${params.type}/${params.filter}`];
-      console.log(this.gamesPageInfo);
       this.typeData = params.type;
       this.selectPage = 1;
       this.loadData();
@@ -76,7 +74,6 @@ export class GamesComponent implements OnInit {
       });
   }
   private asignResult(data) {
-    console.log(this.gamesPageInfo.title, data.result);
     this.productsList = data.result;
     this.infoPage = data.info;
     closeAlert();
