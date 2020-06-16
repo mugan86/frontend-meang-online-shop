@@ -22,9 +22,6 @@ export class DetailsComponent implements OnInit{
     this.activatedRoute.params.subscribe((params) => {
       console.log('parametro detalles', +params.id);
       this.loadDataValue(+params.id);
-      this.productService.getRandomItems().subscribe( result => {
-        this.randomItems = result;
-      });
     });
   }
 
@@ -35,6 +32,7 @@ export class DetailsComponent implements OnInit{
       this.selectImage = this.product.img;
       this.screens = result.screens;
       this.relationalProducts = result.relational;
+      this.randomItems = result.random;
     });
   }
   changeValue(qty: number) {

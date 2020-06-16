@@ -6,6 +6,7 @@ import { ACTIVE_FILTERS } from '@core/constants/filters';
 import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM, SHOP_PRODUCT_DETAILS, SHOP_PRODUCT_RANDOM_ITEMS } from '@graphql/operations/query/shop-product';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { HOME_PAGE } from '@graphql/operations/query/home-page';
+import { DETAILS_PAGE } from '@graphql/operations/query/details-page';
 
 @Injectable({
   providedIn: 'root'
@@ -94,15 +95,17 @@ export class ProductsService extends ApiService{
 
   getItem(id: number) {
     return this.get(
-      SHOP_PRODUCT_DETAILS, {
+      DETAILS_PAGE, {
         id
       }, { }, false
     ).pipe(map((result: any) => {
-      const data = result.shopProductDetails;
+      const details = result.details;
+      const randomItems = result.randomItems;
       return {
-        product: this.setInObject(data.shopProduct, true),
-        screens: data.shopProduct.product.screenshoot,
-        relational: data.shopProduct.relationalProducts
+        product: this.setInObject(details.shopProduct, true),
+        screens: details.shopProduct.product.screenshoot,
+        relational: details.shopProduct.relationalProducts,
+        random: this.manageInfo(randomItems.shopProducts, true)
       };
     }));
   }
