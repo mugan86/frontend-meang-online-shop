@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import products from '@data/products.json';
 import { ProductsService } from '@core/services/products.service';
 import { ActivatedRoute } from '@angular/router';
+import { loadData, closeAlert } from '@shared/alerts/alerts';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -17,10 +18,13 @@ export class DetailsComponent implements OnInit{
   randomItems: Array<IProduct> = [];
   screens = [];
   relationalProducts: Array<object> = [];
+  loading: boolean;
   constructor(private productService: ProductsService, private activatedRoute: ActivatedRoute) { }
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       console.log('parametro detalles', +params.id);
+      loadData('Cargando datos', 'Espera mientras carga la información');
+      this.loading = true;
       this.loadDataValue(+params.id);
     });
   }
@@ -33,6 +37,8 @@ export class DetailsComponent implements OnInit{
       this.screens = result.screens;
       this.relationalProducts = result.relational;
       this.randomItems = result.random;
+      this.loading = false;
+      closeAlert();
     });
   }
   changeValue(qty: number) {
