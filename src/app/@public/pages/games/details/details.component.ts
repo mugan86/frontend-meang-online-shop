@@ -14,6 +14,7 @@ export class DetailsComponent implements OnInit{
   // products[Math.floor(Math.random() * products.length)];
   selectImage: string;
   currencySelect = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
+  randomItems: Array<IProduct> = [];
   screens = [];
   relationalProducts: Array<object> = [];
   constructor(private productService: ProductsService, private activatedRoute: ActivatedRoute) { }
@@ -22,7 +23,7 @@ export class DetailsComponent implements OnInit{
       console.log('parametro detalles', +params.id);
       this.loadDataValue(+params.id);
       this.productService.getRandomItems().subscribe( result => {
-        console.log('random', result);
+        this.randomItems = result;
       });
     });
   }
