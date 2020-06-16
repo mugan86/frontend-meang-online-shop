@@ -74,10 +74,24 @@ export const SHOP_PRODUCT_DETAILS = gql`
     $showPlatform: Boolean = true
     $relationScreens: Boolean = true
   ) {
-    shopProductDetails( id: $id ) {
-        shopProduct {
-          ...ShopProductObject
-        }
+    shopProductDetails(id: $id) {
+      shopProduct {
+        ...ShopProductObject
+      }
+    }
+  }
+  ${SHOP_PRODUCT_FRAGMENT}
+`;
+
+export const SHOP_PRODUCT_RANDOM_ITEMS = gql`
+  query itemsAleatorios(
+    $showPlatform: Boolean = true
+    $relationScreens: Boolean = false
+  ){
+    randomItems: shopProductsOffersLast(itemsPage: 6, random: true) {
+      shopProducts {
+        ...ShopProductObject
+      }
     }
   }
   ${SHOP_PRODUCT_FRAGMENT}

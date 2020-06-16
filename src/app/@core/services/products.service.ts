@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
-import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM, SHOP_PRODUCT_DETAILS } from '@graphql/operations/query/shop-product';
+import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM, SHOP_PRODUCT_DETAILS, SHOP_PRODUCT_RANDOM_ITEMS } from '@graphql/operations/query/shop-product';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { HOME_PAGE } from '@graphql/operations/query/home-page';
 
@@ -104,6 +104,16 @@ export class ProductsService extends ApiService{
         screens: data.shopProduct.product.screenshoot,
         relational: data.shopProduct.relationalProducts
       };
+    }));
+  }
+
+  getRandomItems() {
+    return this.get(
+      SHOP_PRODUCT_RANDOM_ITEMS
+    ).pipe(map((result: any) => {
+      console.log(result);
+      const data = result.randomItems.shopProducts;
+      return this.manageInfo(data, true);
     }));
   }
   private setInObject(shopObject, showDescription) {
