@@ -1,5 +1,6 @@
 import { ICarouselItem } from '../../interfaces/carousel-item.interface';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'shop-carousel-items',
@@ -42,10 +43,9 @@ import { Component, Input } from '@angular/core';
 })
 export class CarouselItemsComponent {
   @Input() items: ICarouselItem[] = [];
-  @Input() internalUrl = false;
+  constructor(private router: Router) {}
   open(i: number) {
-    (this.internalUrl) ?
-    location.replace(this.items[i].url) :
-    window.open(this.items[i].url);
+    const urlsCommands = this.items[i].url.split('/');
+    this.router.navigate([...urlsCommands]);
   }
 }

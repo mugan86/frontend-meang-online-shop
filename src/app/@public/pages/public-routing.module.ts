@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
+        path: 'anartz/prueba/:valor',
+        loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
+      },
+      {
         path: 'contact',
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
       },
