@@ -11,12 +11,12 @@ import { REGISTER_USER } from '@graphql/operations/mutation/user';
 export class ApiService {
 
   constructor(private apollo: Apollo) { }
-  protected get(query: DocumentNode, variables: object = {}, context: object = {}) {
+  protected get(query: DocumentNode, variables: object = {}, context: object = {}, cache: boolean = true) {
     return this.apollo.watchQuery({
       query,
       variables,
       context,
-      fetchPolicy: 'network-only'
+      fetchPolicy: (cache) ? 'network-only' : 'no-cache'
     }).valueChanges.pipe(map((result) => {
       return result.data;
     }));

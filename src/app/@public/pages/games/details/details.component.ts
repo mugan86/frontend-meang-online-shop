@@ -1,28 +1,52 @@
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { CURRENCIES_SYMBOL, CURRENCY_LIST } from '@mugan86/ng-shop-ui';
-import { Component } from '@angular/core';
-import products from '@data/products.json';
+import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '@core/services/products.service';
+import { ActivatedRoute } from '@angular/router';
+import { loadData, closeAlert } from '@shared/alerts/alerts';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent {
-  product = products[Math.floor(Math.random() * products.length)];
-  selectImage = this.product.img;
+export class DetailsComponent implements OnInit{
+  product: IProduct;
+  // products[Math.floor(Math.random() * products.length)];
+  selectImage: string;
   currencySelect = CURRENCIES_SYMBOL[CURRENCY_LIST.EURO];
-  screens = [
-    'https://media.rawg.io/media/games/7f6/7f6cd70ba2ad57053b4847c13569f2d8.jpg',
-    'https://media.rawg.io/media/screenshots/167/16728aa54b1130772b06cdcac128e056.jpg',
-    'https://media.rawg.io/media/screenshots/3f7/3f711b42d24d9fdeb58faf1f69eccbe3.jpg',
-    'https://media.rawg.io/media/screenshots/ef2/ef2be35eaf7e083cc5b51d2e2addf441.jpg',
-    'https://media.rawg.io/media/screenshots/0d1/0d129ec2c410a11f4407ca469f92edda.jpg',
-    'https://media.rawg.io/media/screenshots/bd5/bd51765bc9e33644cae768ee91c10e14.jpg',
-    'https://media.rawg.io/media/screenshots/877/877d713525903c9f6019ad58b80650a6.jpg'
-  ];
-  constructor() { }
+  randomItems: Array<IProduct> = [];
+  screens = [];
+  relationalProducts: Array<object> = [];
+  loading: boolean;
+  constructor(private productService: ProductsService, private activatedRoute: ActivatedRoute) { }
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
+      console.log('parametro detalles', +params.id);
+      loadData('Cargando datos', 'Espera mientras carga la información');
+      this.loading = true;
+      this.loadDataValue(+params.id);
+    });
+  }
 
+  loadDataValue(id: number) {
+    this.productService.getItem(id).subscribe( result => {
+      console.log(result);
+      this.product = result.product;
+      this.selectImage = this.product.img;
+      this.screens = result.screens;
+      this.relationalProducts = result.relational;
+      this.randomItems = result.random;
+      this.loading = false;
+      closeAlert();
+    });
+  }
   changeValue(qty: number) {
     console.log(qty);
+  }
+
+  selectOtherPlatform($event) {
+    console.log($event.target.value);
+    this.loadDataValue(+$event.target.value);
   }
 
   selectImgMain(i: number) {
