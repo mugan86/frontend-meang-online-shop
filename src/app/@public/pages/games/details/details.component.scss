@@ -31,9 +31,21 @@
     text-decoration: none;
 }
 
+// Responsive
+
+@media(max-width: 600px) {
+    #screens-section {
+        display: none;
+    }
+}
+.main-img, .more-games{
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    height: 100%;
+    width: 100%
+}
 // More games - Random Items
 .more-games {
-    height: 100%;
     max-height: 105px;
-    width: 100%
 }

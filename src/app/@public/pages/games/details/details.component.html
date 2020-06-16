@@ -3,13 +3,13 @@
 
   <!-- Portfolio Item Row -->
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-1" id="screens-section">
         <img class="img-fluid mini" *ngFor="let miniImg of screens; let i = index;"
         [src]="miniImg" alt="Screen {{ i }}"
         (click)="selectImgMain(i)" />
       </div>
     <div class="col-md-7">
-      <img class="img-fluid" [src]="selectImage" alt="" />
+      <img class="img-fluid main-img" [src]="selectImage" alt="" />
     </div>
     <div class="col-md-4">
       <h4 class="my-3">{{ product.name }} ( {{ product.description }})</h4>
@@ -52,7 +52,7 @@
     </div>
   </div>
   <!-- /.row -->
-
+  <hr />
   <!-- Random items Shop Producs -->
   <h3 class="my-4">Juegos que te puedan interesar</h3>
 
