@@ -28,6 +28,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  open() {
+    console.log('navbar open cart');
+  }
+
   logout() {
     this.authService.resetSession();
   }
