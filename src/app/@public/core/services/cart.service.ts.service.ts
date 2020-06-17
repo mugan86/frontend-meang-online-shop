@@ -56,6 +56,7 @@ export class CartService {
     this.checkoutTotal();
   }
 
+  /** Añadir la información final antes de hacer el pedido */
   checkoutTotal() {
     let subtotal = 0;
     let total = 0;
@@ -67,6 +68,22 @@ export class CartService {
     this.cart.total = total;
     this.cart.subtotal = subtotal;
     console.log(this.cart, 'calculado');
+    this.setInfo();
+  }
+
+  clear() {
+    this.products =  [];
+    this.cart  = {
+      total: 0,
+      subtotal: 0,
+      products: this.products
+    };
+    this.setInfo();
+    console.log('Hemos borrado la información');
+    return this.cart;
+  }
+
+  private setInfo() {
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
