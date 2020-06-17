@@ -1,3 +1,4 @@
+import { ICart } from './shoppin-cart.interface';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
 
@@ -7,9 +8,13 @@ import { CartService } from '@shop/core/services/cart.service.ts.service';
   styleUrls: ['./shopping-cart.component.scss'],
 })
 export class ShoppingCartComponent implements OnInit {
+  cart: ICart;
   constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cart = this.cartService.initialize();
+    console.log('carrito', this.cart);
+  }
 
 
   closeNav() {
