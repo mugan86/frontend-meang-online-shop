@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '@shop/core/services/cart.service.ts.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -6,21 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.scss'],
 })
 export class ShoppingCartComponent implements OnInit {
-  constructor() {}
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {}
 
-  openNav() {
-    console.log('Open nav');
-    document.getElementById('mySidenav').style.width = '250px';
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('app').style.overflow = 'hidden';
-  }
 
   closeNav() {
-    console.log('Close nav');
-    document.getElementById('mySidenav').style.width = '0';
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('app').style.overflow = 'auto';
+    this.cartService.close();
   }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { IMeData } from '@core/interfaces/session.interface';
 import shopMenuItems from '@data/menus/shop.json';
+import { CartService } from '@shop/core/services/cart.service.ts.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
   access = false;
   role: string;
   userLabel = '';
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private cartService: CartService) {
     this.authService.accessVar$.subscribe((result) => {
       this.session = result;
       this.access = this.session.status;
@@ -30,6 +31,7 @@ export class NavbarComponent implements OnInit {
 
   open() {
     console.log('navbar open cart');
+    this.cartService.open();
   }
 
   logout() {
