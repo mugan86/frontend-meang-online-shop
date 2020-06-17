@@ -53,6 +53,20 @@ export class CartService {
         this.cart.products.push(product);
       }
     }
+    this.checkoutTotal();
+  }
+
+  checkoutTotal() {
+    let subtotal = 0;
+    let total = 0;
+    this.cart.products.map((product: IProduct) => {
+      subtotal += product.qty; // subtotal = subtotal + product.qty
+      total  += (product.qty * product.price);
+    });
+
+    this.cart.total = total;
+    this.cart.subtotal = subtotal;
+    console.log(this.cart, 'calculado');
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
