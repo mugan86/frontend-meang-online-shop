@@ -11,8 +11,8 @@
     <div class="row">
       <div class="col-lg-2">
         <img class="img-fluid" [src]="product.img" [alt]="product.name" />
-        <button (click)="clearItem(product)" class="btn btn-sm btn-danger">
-          X
+        <button (click)="clearItem(product)" class="btn btn-sm btn-danger mt-2">
+          <i class="fas fa-times"></i>
         </button>
       </div>
       <div class="col-lg">
@@ -41,16 +41,19 @@
       </div>
     </div>
   </div>
-  <div class="row product">
-    <div class="col-lg-5">
-      Subtotal ({{ cart.subtotal }})
+  <div *ngIf="cart.total > 0">
+    <div class="row product" >
+      <div class="col-lg-5">
+        Subtotal ({{ cart.subtotal }})
+      </div>
+      <div class="col-lg">
+        Total a pagar: <span class="text-primary float-right price-total">{{ currencySelect }} {{ cart.total | number}}</span>
+      </div>
     </div>
-    <div class="col-lg">
-      Total a pagar: <span class="text-primary float-right price-total">{{ currencySelect }} {{ cart.total }}</span>
-    </div>
+    <hr />
+    <button class="btn btn-success float-right mr-3" (click)="proccess()"> Tramitar Pedido</button>
+    <button class="btn btn-danger float-right mr-2" (click)="clear()"><i class="fas fa-trash-alt"></i>&nbsp; Vaciar carrito</button>
   </div>
-  <hr />
-  <button class="btn btn-success float-right" (click)="proccess()"> Tramitar Pedido</button>
-  <button class="btn btn-danger float-right" (click)="clear()"> Vaciar carrito</button>
+  
 </div>
 <div id="overlay"></div>
