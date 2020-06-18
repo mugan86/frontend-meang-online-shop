@@ -9,7 +9,13 @@ import { CartService } from '@shop/core/services/cart.service.ts.service';
 })
 export class ShoppingCartComponent implements OnInit {
   cart: ICart;
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) {
+    this.cartService.itemsVar$.subscribe((data: ICart) => {
+      if (data !== undefined && data !== null) {
+        this.cart = data;
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.cart = this.cartService.initialize();

@@ -1,6 +1,7 @@
 import { ICart } from './../components/shopping-cart/shoppin-cart.interface';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,9 @@ export class CartService {
     subtotal: 0,
     products: this.products
   };
+  // Para gestionar los productos con las notificaciones cuando se realizan acciones como borrar
+  public itemsVar = new Subject<ICart>();
+  public itemsVar$ = this.itemsVar.asObservable();
   constructor() { }
 
   /**
@@ -23,6 +27,10 @@ export class CartService {
       this.cart = storeData;
     }
     return this.cart;
+  }
+
+  public updateItemsInCart(newValue: ICart) {
+    this.itemsVar.next(newValue);
   }
 
   manageProduct(product: IProduct) {
@@ -85,6 +93,7 @@ export class CartService {
 
   private setInfo() {
     localStorage.setItem('cart', JSON.stringify(this.cart));
+    this.updateItemsInCart(this.cart);
   }
 
   open() {
