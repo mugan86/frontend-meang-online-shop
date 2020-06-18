@@ -1,5 +1,8 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <h5>Carrito de compra</h5>
+  <hr>
+  {{  cart | json }}
   <a (click)="clear()">Borrar</a>
 </div>
 <div id="overlay"></div>
