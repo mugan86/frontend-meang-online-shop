@@ -12,6 +12,7 @@ export class ProductCategoryListComponent {
   @Input() title = 'Título de la categoría';
   @Input() productsList: Array<IProduct> = [];
   @Input() description = '';
+  @Input() showDesc: boolean;
   constructor(private router: Router, private cartService: CartService) { }
   addToCart($event: IProduct) {
     console.log('Add to cart', $event);

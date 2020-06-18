@@ -26,8 +26,8 @@ export class ProductsService extends ApiService{
     ).pipe(map((result: any) => {
       return {
         carousel: result.carousel,
-        ps4: this.manageInfo(result.ps4.shopProducts, false),
-        pc: this.manageInfo(result.pc.shopProducts, false),
+        ps4: this.manageInfo(result.ps4.shopProducts, true),
+        pc: this.manageInfo(result.pc.shopProducts, true),
         topPrice: this.manageInfo(result.topPrice35.shopProducts, true)
       };
     }));

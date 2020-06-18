@@ -10,7 +10,7 @@
         style="margin-bottom: 12px;"
       >
         <shop-product-item
-          [showDesc]="p.description != ''"
+          [showDesc]="p.description != '' && showDesc"
           [product]="p"
           (add)="addToCart($event)"
           (itemDetails)="showProductDetails($event)"
