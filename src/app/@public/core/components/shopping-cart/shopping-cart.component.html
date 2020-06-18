@@ -1,22 +1,36 @@
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
   <h5>Carrito de compra</h5>
-  <hr>
+  <hr />
   <!--{{  cart | json }}-->
   <div class="card product" *ngIf="cart.total === 0">
-    No tienes elementos guardados en el carrito de compra. Añádelos desde los productos con la opción de Añadir a la cesta
+    No tienes elementos guardados en el carrito de compra. Añádelos desde los
+    productos con la opción de Añadir a la cesta
   </div>
   <div class="card product" *ngFor="let product of cart.products">
     <div class="row">
       <div class="col-lg-2">
         <img class="img-fluid" [src]="product.img" [alt]="product.name" />
-        <button (click)="clearItem(product)" class="btn btn-sm btn-danger">X</button>
+        <button (click)="clearItem(product)" class="btn btn-sm btn-danger">
+          X
+        </button>
       </div>
       <div class="col-lg">
-        {{ product.name }}
+        <div class="row">
+          <div class="col-lg-9">
+            <h6>{{ product.name }}</h6>
+            <shop-qty-selector
+              [qty]="product.qty"
+              [stock]="product.stock"
+              (updateValue)="changeValue($event, product)"
+            ></shop-qty-selector>
+          </div>
+          <div class="col-lg">
+            {{ currencySelect }} {{ product.price }}
+          </div>
+        </div>
       </div>
     </div>
-    
   </div>
   <a (click)="clear()">Borrar</a>
 </div>

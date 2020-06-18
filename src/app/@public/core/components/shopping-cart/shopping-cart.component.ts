@@ -2,6 +2,7 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ICart } from './shoppin-cart.interface';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { CURRENCY_SELECT } from '@core/constants/config';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,6 +11,7 @@ import { CartService } from '@shop/core/services/cart.service.ts.service';
 })
 export class ShoppingCartComponent implements OnInit {
   cart: ICart;
+  currencySelect = CURRENCY_SELECT;
   constructor(private cartService: CartService) {
     this.cartService.itemsVar$.subscribe((data: ICart) => {
       if (data !== undefined && data !== null) {
@@ -28,10 +30,16 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   clearItem(product: IProduct) {
-    product.qty = 0;
-    this.cartService.manageProduct(product);
+    this.manageProductUnitInfo(0, product);
+  }
+  changeValue(qty: number, product: IProduct) {
+    this.manageProductUnitInfo(qty, product);
   }
 
+  manageProductUnitInfo(qty: number, product: IProduct) {
+    product.qty = qty;
+    this.cartService.manageProduct(product);
+  }
 
   closeNav() {
     this.cartService.close();
