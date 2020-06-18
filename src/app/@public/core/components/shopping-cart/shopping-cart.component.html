@@ -18,7 +18,7 @@
       <div class="col-lg">
         <div class="row">
           <div class="col-lg-9">
-            <h6>{{ product.name }}</h6>
+            <h6>{{ product.name }} ({{ product.description}})</h6>
             <shop-qty-selector
               [qty]="product.qty"
               [stock]="product.stock"
@@ -26,7 +26,16 @@
             ></shop-qty-selector>
           </div>
           <div class="col-lg">
-            {{ currencySelect }} {{ product.price }}
+            <ng-template #noDiscount>
+              <div class="price">{{ currencySelect }} {{ product.price }}</div>
+            </ng-template>
+            <div class="price" *ngIf="product.discount; else noDiscount">
+              {{ currencySelect }} {{ product.priceDiscount | number }} <br/>
+              <span> {{ currencySelect }} {{ product.price | number }} </span>
+              <span class="discount-percentage">
+                ({{ product.discount }} %)
+              </span>
+            </div>
           </div>
         </div>
       </div>

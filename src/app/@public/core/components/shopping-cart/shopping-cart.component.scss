@@ -1,3 +1,4 @@
+@import './../../../../../assets/styles/prices.scss';
  /* The side navigation menu */
  .sidenav {
     height: 100%; /* 100% Full-height */
@@ -59,6 +60,10 @@
   .product {
     margin: 10px;
     padding: 12px
+  }
+
+  .price {
+    font-size: 17px;
   }
   
   /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
