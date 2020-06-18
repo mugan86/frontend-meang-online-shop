@@ -1,26 +1,32 @@
-@import './colors.scss';
+@import "./colors.scss";
 
 /** Estilos de los precios **/
 
 .price {
-    font-size: 22px;
-    font-weight: 800;
-    color: $price-primary;
-    text-align: left;
-    margin-left: 5px;
-    margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: 800;
+  color: $price-primary;
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: 12px;
 }
 
 .price span {
-    font-size: 18px;
-    font-weight: 400;
-    color: $price-discount;
-    text-align: left;
-    margin-left: 5px;
-    margin-bottom: 12px;
-    text-decoration: line-through;
+  font-size: 18px;
+  font-weight: 400;
+  color: $price-discount;
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: 12px;
+  text-decoration: line-through;
 }
 
 .price span.discount-percentage {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+.price-total {
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: -7px;
 }

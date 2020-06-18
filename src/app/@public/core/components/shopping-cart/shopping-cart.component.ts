@@ -41,6 +41,10 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.manageProduct(product);
   }
 
+  proccess() {
+    console.log(this.cart);
+  }
+
   closeNav() {
     this.cartService.close();
   }

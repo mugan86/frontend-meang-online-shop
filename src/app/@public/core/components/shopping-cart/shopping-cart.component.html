@@ -41,6 +41,16 @@
       </div>
     </div>
   </div>
-  <a (click)="clear()">Borrar</a>
+  <div class="row product">
+    <div class="col-lg-5">
+      Subtotal ({{ cart.subtotal }})
+    </div>
+    <div class="col-lg">
+      Total a pagar: <span class="text-primary float-right price-total">{{ currencySelect }} {{ cart.total }}</span>
+    </div>
+  </div>
+  <hr />
+  <button class="btn btn-success float-right" (click)="proccess()"> Tramitar Pedido</button>
+  <button class="btn btn-danger float-right" (click)="clear()"> Vaciar carrito</button>
 </div>
 <div id="overlay"></div>
