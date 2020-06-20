@@ -9,18 +9,18 @@
       <form class="needs-validation" novalidate="">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="firstName">Nombre</label><br/>
-            <span>Anartz</span>
+            <label>Nombre</label><br/>
+            <span>{{ meData.user.name }}</span>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="lastName">Apellido/s</label><br/>
-            <span>Mugika Ledo</span>
+            <label>Apellido/s</label><br/>
+            <span>{{ meData.user.lastname }}</span>
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="username">Username</label><br/>
-          <span>mugan86@gmail.com</span>
+          <label>Email</label><br/>
+          <span>{{ meData.user.email }}</span>
         </div>
 
 
