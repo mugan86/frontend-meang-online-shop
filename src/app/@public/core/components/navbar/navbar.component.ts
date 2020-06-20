@@ -4,6 +4,8 @@ import { AuthService } from '@core/services/auth.service';
 import { IMeData } from '@core/interfaces/session.interface';
 import shopMenuItems from '@data/menus/shop.json';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { REDIRECTS_ROUTES } from '@core/constants/config';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -17,7 +19,8 @@ export class NavbarComponent implements OnInit {
   access = false;
   role: string;
   userLabel = '';
-  constructor(private authService: AuthService, private cartService: CartService) {
+  constructor(private authService: AuthService, private cartService: CartService,
+              private router: Router) {
     this.authService.accessVar$.subscribe((result) => {
       this.session = result;
       this.access = this.session.status;
@@ -35,6 +38,11 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    // rutas que usaremos para redireccionar
+    if (REDIRECTS_ROUTES.includes(this.router.url)) {
+      // En el caso de encontrarla marcamos para que redireccione
+      localStorage.setItem('route_after_login', this.router.url);
+    }
     this.authService.resetSession();
   }
 
