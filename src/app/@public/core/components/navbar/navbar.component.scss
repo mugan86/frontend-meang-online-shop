@@ -5,3 +5,10 @@
 .dropdown-item, .fas {
     cursor: pointer;
 }
+
+.badge.badge-success.notification {
+    position: relative;
+    top: -12px;
+    left: -2px;
+    border-radius: 10px;
+}
