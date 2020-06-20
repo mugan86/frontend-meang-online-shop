@@ -24,7 +24,9 @@ export class LoginComponent {
           if (result.token !== null) {
             this.auth.setSession(result.token);
             this.auth.updateSession(result);
+            console.log(localStorage.getItem('route_after_login'));
             if (localStorage.getItem('route_after_login')) {
+              console.log('route');
               this.router.navigate([localStorage.getItem('route_after_login')]);
               localStorage.removeItem('route_after_login');
               return;
