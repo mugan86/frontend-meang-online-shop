@@ -23,6 +23,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.start();
+    localStorage.removeItem('route_after_login');
   }
 
 }
