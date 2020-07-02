@@ -26,6 +26,7 @@ export class CheckoutComponent implements OnInit {
         return;
       }
       this.meData = data;
+      console.log(this.meData);
     });
 
     this.stripePaymentService.cardTokenVar$.subscribe((token: string) => {
