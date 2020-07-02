@@ -109,10 +109,13 @@ export const closeAlert = () => {
   Swal.close();
 };
 
-export const infoEventAlert = (title: string, html: string, icon: TYPE_ALERT = TYPE_ALERT.WARNING) => {
-  Swal.fire({
+export const infoEventAlert = async (title: string, html: string, icon: TYPE_ALERT = TYPE_ALERT.WARNING) => {
+  return await Swal.fire({
     title,
     html,
-    icon
+    icon,
+    preConfirm: () => {
+      return true;
+    }
   });
 };
