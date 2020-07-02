@@ -1,4 +1,4 @@
-import { CustomerService } from '@core/services/customer.service';
+import { CustomerService } from '@core/services/stripe/customer.service';
 import { environment } from '@envs/environment.prod';
 import { IMeData } from '@core/interfaces/session.interface';
 import { Component, OnInit } from '@angular/core';
@@ -10,8 +10,6 @@ import { infoEventAlert } from '@shared/alerts/alerts';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 import { take } from 'rxjs/internal/operators/take';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
-import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
-import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
 
 @Component({
   selector: 'app-checkout',
