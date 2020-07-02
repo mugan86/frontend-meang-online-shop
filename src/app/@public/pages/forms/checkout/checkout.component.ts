@@ -5,10 +5,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { StripePaymentService } from '@mugan86/stripe-payment-form';
-import { CURRENCY_CODE, REDIRECTS_ROUTES } from '@core/constants/config';
+import { CURRENCY_CODE } from '@core/constants/config';
 import { infoEventAlert } from '@shared/alerts/alerts';
-import { TYPE_OPERATION } from '@shop/pages/games/game.constants';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
+import { take } from 'rxjs/internal/operators/take';
+import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
+import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
 
 @Component({
   selector: 'app-checkout',
@@ -23,7 +26,8 @@ export class CheckoutComponent implements OnInit {
   currencyCode = CURRENCY_CODE;
   constructor(private auth: AuthService, private router: Router,
               private stripePaymentService: StripePaymentService,
-              private customerStripe: CustomerService) {
+              private customerStripe: CustomerService,
+              private cartService: CartService) {
     this.auth.accessVar$.subscribe((data: IMeData) => {
       if (!data.status) {
         // Ir a login
@@ -33,21 +37,28 @@ export class CheckoutComponent implements OnInit {
       this.meData = data;
     });
 
-    this.stripePaymentService.cardTokenVar$.subscribe((token: string) => {
+    this.stripePaymentService.cardTokenVar$.pipe(take(1)).subscribe((token: string) => {
       this.token = token;
       if (this.token.indexOf('tok_') > -1 && this.meData.status && this.address !== '') {
         console.log('Preparado para enviar la info del pedido');
         // Datos que tenemos que tener, la divisa seleccionada
+        console.log('Divisa', this.currencyCode);
         // ID del cliente,
+        console.log('Customer', this.meData.user.stripeCustomer);
         // Descripción de lo que vamos a pagar
-        // Token ( o no, dependiendo si ya tenemos)
+        const description = this.cartService.orderDescription();
+        console.log('Description: \n', description);
+        // Token ( o no, dependiendo si ya tenemos) OK
         // Lo que vamos a pagar
+        const amount = String(this.cartService.cart.total);
+        console.log('Total pay: ', amount, this.currencyCode);
       }
     });
   }
 
   ngOnInit(): void {
     this.auth.start();
+    this.cartService.initialize();
     if (localStorage.getItem('checkout_address')) {
       this.address = localStorage.getItem('checkout_address');
       localStorage.removeItem('checkout_address');

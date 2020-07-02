@@ -24,6 +24,7 @@
               "rxjs/internal/operators/map",
               "@core/guards/admin.guard",
               "rxjs/internal/Subject",
+              "rxjs/internal/operators/take",
               "zen-observable"
             ],
             "outputPath": "dist/meang-frontend",

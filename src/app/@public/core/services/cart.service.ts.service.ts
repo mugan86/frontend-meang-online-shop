@@ -4,19 +4,28 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   products: Array<IProduct> = [];
   cart: ICart = {
     total: 0,
     subtotal: 0,
-    products: this.products
+    products: this.products,
   };
+  description;
   // Para gestionar los productos con las notificaciones cuando se realizan acciones como borrar
   public itemsVar = new Subject<ICart>();
   public itemsVar$ = this.itemsVar.asObservable();
-  constructor() { }
+  constructor() {}
+
+  orderDescription() {
+    let description = '';
+    this.cart.products.map((product: IProduct) => {
+      description += `${product.name} (${product.description}) x ${product.qty} \n`;
+    });
+    console.log('Description', description);
+  }
 
   /**
    * Inicializar el carrito de compra para tener la información almacenada
@@ -40,7 +49,8 @@ export class CartService {
     if (productTotal === 0) {
       console.log('Añadiendo primer producto');
       this.cart.products.push(product);
-    } else { // Si tenemos productos hacer lo siguiente
+    } else {
+      // Si tenemos productos hacer lo siguiente
       let actionUpdateOk = false;
       for (let i = 0; i < productTotal; i++) {
         // COmprobar que coincide el producto con alguno de la lista
@@ -50,7 +60,8 @@ export class CartService {
             console.log('Borrar item seleccionado');
             // Quitar elemento
             this.cart.products.splice(i, 1);
-          } else { // Actualizar con la nueva información
+          } else {
+            // Actualizar con la nueva información
             this.cart.products[i] = product;
           }
           actionUpdateOk = true;
@@ -70,7 +81,7 @@ export class CartService {
     let total = 0;
     this.cart.products.map((product: IProduct) => {
       subtotal += product.qty; // subtotal = subtotal + product.qty
-      total  += (product.qty * product.price);
+      total += product.qty * product.price;
     });
 
     this.cart.total = total;
@@ -80,11 +91,11 @@ export class CartService {
   }
 
   clear() {
-    this.products =  [];
-    this.cart  = {
+    this.products = [];
+    this.cart = {
       total: 0,
       subtotal: 0,
-      products: this.products
+      products: this.products,
     };
     this.setInfo();
     console.log('Hemos borrado la información');
