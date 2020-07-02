@@ -10,7 +10,7 @@ import { CURRENCY_CODE } from '@core/constants/config';
 import { infoEventAlert } from '@shared/alerts/alerts';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 import { take } from 'rxjs/internal/operators/take';
-import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { CartService } from '@shop/core/services/cart.service';
 import { IPayment } from '@core/interfaces/stripe/payment.interface';
 
 @Component({

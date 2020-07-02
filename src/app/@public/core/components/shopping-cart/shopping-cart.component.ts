@@ -1,7 +1,7 @@
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ICart } from './shoppin-cart.interface';
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { CartService } from '@shop/core/services/cart.service';
 import { CURRENCY_SELECT } from '@core/constants/config';
 import { Router } from '@angular/router';
 

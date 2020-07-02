@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { Router } from '@angular/router';
-import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { CartService } from '@shop/core/services/cart.service';
 
 @Component({
   selector: 'app-product-category-list',

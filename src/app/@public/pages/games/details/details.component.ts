@@ -4,7 +4,7 @@ import { ProductsService } from '@core/services/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { loadData, closeAlert } from '@shared/alerts/alerts';
 import { CURRENCY_SELECT } from '@core/constants/config';
-import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { CartService } from '@shop/core/services/cart.service';
 import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
 @Component({
   selector: 'app-details',

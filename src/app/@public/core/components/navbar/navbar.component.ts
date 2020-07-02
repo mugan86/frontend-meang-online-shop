@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { IMeData } from '@core/interfaces/session.interface';
 import shopMenuItems from '@data/menus/shop.json';
-import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { CartService } from '@shop/core/services/cart.service';
 import { REDIRECTS_ROUTES } from '@core/constants/config';
 import { Router } from '@angular/router';
 @Component({
