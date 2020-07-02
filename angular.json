@@ -17,6 +17,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "rxjs-compat",
+              "graphql-tag",
+              "jwt-decode",
+              "rxjs/internal/operators/map",
+              "@core/guards/admin.guard",
+              "rxjs/internal/Subject",
+              "zen-observable"
+            ],
             "outputPath": "dist/meang-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
