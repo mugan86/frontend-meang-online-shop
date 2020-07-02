@@ -1,5 +1,6 @@
 import { EMAIL_PATTERN } from '@core/constants/regex';
 import Swal from 'sweetalert2';
+import { TYPE_ALERT } from './values.config';
 
 const swalWithBasicOptions = (title: string, html: string) =>
   Swal.mixin({
@@ -106,4 +107,12 @@ export const loadData = (title: string, html: string) => {
 
 export const closeAlert = () => {
   Swal.close();
+};
+
+export const infoEventAlert = (title: string, html: string, icon: TYPE_ALERT = TYPE_ALERT.WARNING) => {
+  Swal.fire({
+    title,
+    html,
+    icon
+  });
 };

@@ -1,10 +1,12 @@
-import { environment } from '@envs/environment';
+import { CustomerService } from '@core/services/customer.service';
+import { environment } from '@envs/environment.prod';
 import { IMeData } from '@core/interfaces/session.interface';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { StripePaymentService } from '@mugan86/stripe-payment-form';
 import { CURRENCY_CODE } from '@core/constants/config';
+import { infoEventAlert } from '@shared/alerts/alerts';
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +20,8 @@ export class CheckoutComponent implements OnInit {
   token = '';
   currencyCode = CURRENCY_CODE;
   constructor(private auth: AuthService, private router: Router,
-              private stripePaymentService: StripePaymentService) {
+              private stripePaymentService: StripePaymentService,
+              private customerStripe: CustomerService) {
     this.auth.accessVar$.subscribe((data: IMeData) => {
       if (!data.status) {
         // Ir a login
@@ -26,7 +29,6 @@ export class CheckoutComponent implements OnInit {
         return;
       }
       this.meData = data;
-      console.log(this.meData);
     });
 
     this.stripePaymentService.cardTokenVar$.subscribe((token: string) => {
@@ -48,6 +50,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   sendData() {
+    if (this.meData.user.stripeCustomer === null) {
+      console.log('No tenemos cliente de stipe asociado');
+      infoEventAlert('Confirmar datos de cliente', 'Debemos de confirmar los datos para poder realizar el pago');
+      return;
+    }
     // Enviar par obtener token de la tarjeta, para hacer uso de ese valor para el proceso del pago
     this.stripePaymentService.takeCardToken(true);
   }
