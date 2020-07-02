@@ -1,4 +1,5 @@
-import { ICart } from './../components/shopping-cart/shoppin-cart.interface';
+import { CURRENCY_SELECT } from '@core/constants/config';
+import { ICart } from '../components/shopping-cart/shoppin-cart.interface';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
@@ -22,9 +23,10 @@ export class CartService {
   orderDescription() {
     let description = '';
     this.cart.products.map((product: IProduct) => {
-      description += `${product.name} (${product.description}) x ${product.qty} \n`;
+      description += `${product.name} (${product.description}) x ${product.qty} \n ${product.price * product.qty} ${CURRENCY_SELECT} \n`;
     });
     console.log('Description', description);
+    return description;
   }
 
   /**

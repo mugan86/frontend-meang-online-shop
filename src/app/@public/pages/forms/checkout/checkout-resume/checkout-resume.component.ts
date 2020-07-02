@@ -1,7 +1,7 @@
 import { take } from 'rxjs/internal/operators/take';
 import { Component, OnInit } from '@angular/core';
 import { CURRENCY_SELECT, CURRENCY_CODE } from '@core/constants/config';
-import { CartService } from '@shop/core/services/cart.service.ts.service';
+import { CartService } from '@shop/core/services/cart.service';
 import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
 
 @Component({

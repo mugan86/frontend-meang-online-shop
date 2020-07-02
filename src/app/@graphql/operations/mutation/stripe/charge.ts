@@ -1,3 +1,4 @@
+import { CHARGE_FRAGMENT } from './../../fragment/stripe/charge';
 import gql from 'graphql-tag';
 
 export const PROCCESS_ORDER_PAY = gql`
@@ -10,4 +11,5 @@ export const PROCCESS_ORDER_PAY = gql`
       }
     }
   }
+  ${CHARGE_FRAGMENT}
 `;
