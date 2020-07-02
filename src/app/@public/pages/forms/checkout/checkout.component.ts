@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { StripePaymentService } from '@mugan86/stripe-payment-form';
+import { CURRENCY_CODE } from '@core/constants/config';
 
 @Component({
   selector: 'app-checkout',
@@ -15,6 +16,7 @@ export class CheckoutComponent implements OnInit {
   key = environment.stripeKey;
   address = '';
   token = '';
+  currencyCode = CURRENCY_CODE;
   constructor(private auth: AuthService, private router: Router,
               private stripePaymentService: StripePaymentService) {
     this.auth.accessVar$.subscribe((data: IMeData) => {
@@ -30,6 +32,11 @@ export class CheckoutComponent implements OnInit {
       this.token = token;
       if (this.token.indexOf('tok_') > -1 && this.meData.status && this.address !== '') {
         console.log('Preparado para enviar la info del pedido');
+        // Datos que tenemos que tener, la divisa seleccionada
+        // ID del cliente,
+        // Descripción de lo que vamos a pagar
+        // Token ( o no, dependiendo si ya tenemos)
+        // Lo que vamos a pagar
       }
     });
   }
