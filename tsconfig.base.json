@@ -10,7 +10,8 @@
       "@graphql/*": ["src/app/@graphql/*"],
       "@core/*": ["src/app/@core/*"],
       "@shared/*": ["src/app/@shared/*"],
-      "@data/*": ["src/assets/@data/*"]
+      "@data/*": ["src/assets/@data/*"],
+      "@envs/*": ["src/environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
