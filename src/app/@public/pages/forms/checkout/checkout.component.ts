@@ -1,3 +1,5 @@
+import { IStripeCharge } from './../../../../@core/interfaces/stripe/charge.interface';
+import { MailService } from './../../../../@core/services/mail.service';
 import { ChargeService } from './../../../../@core/services/stripe/charge.service';
 import { CustomerService } from '@core/services/stripe/customer.service';
 import { environment } from '@envs/environment.prod';
@@ -7,11 +9,13 @@ import { AuthService } from '@core/services/auth.service';
 import { Router } from '@angular/router';
 import { StripePaymentService } from '@mugan86/stripe-payment-form';
 import { CURRENCY_CODE } from '@core/constants/config';
-import { infoEventAlert } from '@shared/alerts/alerts';
+import { infoEventAlert, loadData } from '@shared/alerts/alerts';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 import { take } from 'rxjs/internal/operators/take';
 import { CartService } from '@shop/core/services/cart.service';
 import { IPayment } from '@core/interfaces/stripe/payment.interface';
+import { IMail } from '@core/interfaces/mail.interface';
+import { CURRENCIES_SYMBOL } from '@mugan86/ng-shop-ui';
 
 @Component({
   selector: 'app-checkout',
@@ -29,7 +33,8 @@ export class CheckoutComponent implements OnInit {
     private stripePaymentService: StripePaymentService,
     private customerStripe: CustomerService,
     private cartService: CartService,
-    private chargeService: ChargeService
+    private chargeService: ChargeService,
+    private mailService: MailService
   ) {
     this.auth.accessVar$.subscribe((data: IMeData) => {
       if (!data.status) {
@@ -67,17 +72,35 @@ export class CheckoutComponent implements OnInit {
             customer: this.meData.user.stripeCustomer,
             currency: this.currencyCode,
           };
+          loadData('Realizando el pago del pedido', 'Espera mientras completa el proceso. ¡¡Muchas gracias!!');
           this.chargeService
             .chargeOrder(payment)
             .pipe(take(1))
-            .subscribe((result: {
+            .subscribe(async (result: {
               status: boolean;
               message: string;
-              charge: { receiptUrl: string }
+              charge: IStripeCharge
             }) => {
               console.log(result.status, result.message, result.charge.receiptUrl);
               if (result.status) {
+                const resultCharge = result.charge;
+                const mail: IMail = {
+                  to: resultCharge.receiptEmail,
+                  subject: `Pedido Gamezonia Online - ${ resultCharge.amount } ${CURRENCIES_SYMBOL[CURRENCY_CODE]}`,
+                  html: `Para ver más detalles de tu pedido, accede al siguiente <a href="${resultCharge.receiptUrl}" target="_blank">enlace</a>`
+                };
+                // Reducir stock
+                
+                this.mailService.send(mail).subscribe( (mailResult) => {
+                  console.log(mailResult.status);
+                });
                 this.cartService.clear();
+                // Mostrar mensaje de que el pedido se ha realizado correctamente
+                await infoEventAlert(
+                  '¡¡Pedido realizado!!',
+                  'Comprueba tu bandeja de entrada para más detalles sobre el producto',
+                  TYPE_ALERT.SUCCESS
+                );
               }
             });
         }
