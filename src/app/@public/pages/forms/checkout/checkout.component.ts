@@ -23,6 +23,7 @@ import { CURRENCIES_SYMBOL } from '@mugan86/ng-shop-ui';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
+  blockButton = false;
   meData: IMeData;
   key = environment.stripeKey;
   address = '';
@@ -72,38 +73,50 @@ export class CheckoutComponent implements OnInit {
             customer: this.meData.user.stripeCustomer,
             currency: this.currencyCode,
           };
-          loadData('Realizando el pago del pedido', 'Espera mientras completa el proceso. ¡¡Muchas gracias!!');
+          loadData(
+            'Realizando el pago del pedido',
+            'Espera mientras completa el proceso. ¡¡Muchas gracias!!'
+          );
           this.chargeService
             .chargeOrder(payment)
             .pipe(take(1))
-            .subscribe(async (result: {
-              status: boolean;
-              message: string;
-              charge: IStripeCharge
-            }) => {
-              console.log(result.status, result.message, result.charge.receiptUrl);
-              if (result.status) {
-                const resultCharge = result.charge;
-                const mail: IMail = {
-                  to: resultCharge.receiptEmail,
-                  subject: `Pedido Gamezonia Online - ${ resultCharge.amount } ${CURRENCIES_SYMBOL[CURRENCY_CODE]}`,
-                  html: `Para ver más detalles de tu pedido, accede al siguiente <a href="${resultCharge.receiptUrl}" target="_blank">enlace</a>`
-                };
-                // Reducir stock
-                
-                this.mailService.send(mail).subscribe( (mailResult) => {
-                  console.log(mailResult.status);
-                });
-                this.cartService.clear();
-                // Mostrar mensaje de que el pedido se ha realizado correctamente
-                await infoEventAlert(
-                  '¡¡Pedido realizado!!',
-                  'Comprueba tu bandeja de entrada para más detalles sobre el producto',
-                  TYPE_ALERT.SUCCESS
+            .subscribe(
+              async (result: {
+                status: boolean;
+                message: string;
+                charge: IStripeCharge;
+              }) => {
+                console.log(
+                  result.status,
+                  result.message,
+                  result.charge.receiptUrl
                 );
+                if (result.status) {
+                  const resultCharge = result.charge;
+                  const mail: IMail = {
+                    to: resultCharge.receiptEmail,
+                    subject: `Pedido Gamezonia Online - ${resultCharge.amount} ${CURRENCIES_SYMBOL[CURRENCY_CODE]}`,
+                    html: `Para ver más detalles de tu pedido, accede al siguiente <a href="${resultCharge.receiptUrl}" target="_blank">enlace</a>`,
+                  };
+                  // Reducir stock
+                  // Guardar datos del pedido general
+                  this.mailService.send(mail).subscribe((mailResult) => {
+                    console.log(mailResult.status);
+                  });
+                  this.cartService.clear();
+                  // Mostrar mensaje de que el pedido se ha realizado correctamente
+                  await infoEventAlert(
+                    '¡¡Pedido realizado!!',
+                    'Comprueba tu bandeja de entrada para más detalles sobre el producto',
+                    TYPE_ALERT.SUCCESS
+                  );
+                  this.router.navigate(['/home']);
+                }
               }
-            });
+            );
+          return;
         }
+        this.blockButton = false;
       });
   }
 
@@ -146,6 +159,7 @@ export class CheckoutComponent implements OnInit {
         });
       return;
     }
+    this.blockButton = true;
     // Enviar par obtener token de la tarjeta, para hacer uso de ese valor para el proceso del pago
     this.stripePaymentService.takeCardToken(true);
   }

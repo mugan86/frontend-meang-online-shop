@@ -57,7 +57,7 @@
           
         </div>
         <hr class="mb-4" />
-        <button class="signup-btn" [disabled]="!forma.valid" (click)="sendData()">
+        <button class="signup-btn" [disabled]="!forma.valid || blockButton" (click)="sendData()">
           Continue to checkout
         </button>
       </form>
