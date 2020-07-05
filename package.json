@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
     "@mugan86/ng-shop-ui": "^0.2.2",
+    "@mugan86/stripe-payment-form": "^0.2.5",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "apollo-angular": "^1.9.0",
     "apollo-angular-link-http": "^1.10.0",
