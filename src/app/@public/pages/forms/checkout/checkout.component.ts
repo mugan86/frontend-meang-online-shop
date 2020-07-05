@@ -8,6 +8,8 @@ import { take } from 'rxjs/internal/operators/take';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
 import { CURRENCY_SELECT, CURRENCY_CODE } from '@core/constants/config';
 import { infoEventAlert } from '@shared/alerts/alerts';
+import { CustomerService } from '@shop/core/services/stripe/customer.service';
+import { TYPE_ALERT } from '@shared/alerts/values.config';
 
 @Component({
   selector: 'app-checkout',
@@ -20,7 +22,8 @@ export class CheckoutComponent implements OnInit {
   address = '';
   constructor(private auth: AuthService, private router: Router,
               private stripePayment: StripePaymentService,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private customerService: CustomerService) {
     this.auth.accessVar$.subscribe((data: IMeData) => {
       if (!data.status) {
         // Ir a login
@@ -47,14 +50,32 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.start();
+    if ( localStorage.getItem('address')) {
+      this.address = localStorage.getItem('address');
+      localStorage.removeItem('address');
+    }
     this.cartService.initialize();
     localStorage.removeItem('route_after_login');
   }
 
-  sendData() {
+  async sendData() {
     if (this.meData.user.stripeCustomer === null) {
       // Alerta para mostrar info
-      infoEventAlert('Cliente no existe', 'Necesitamos un cliente para realizar el pago');
+      await infoEventAlert('Cliente no existe', 'Necesitamos un cliente para realizar el pago');
+      const stripeName = `${this.meData.user.name} ${this.meData.user.lastname}`;
+      this.customerService.add(
+        stripeName,
+        this.meData.user.email
+      ).pipe(take(1)).subscribe(async (result: { status: boolean, message: string}) => {
+        if (result.status) {
+          await infoEventAlert('Cliente añadido al usuario', 'Reiniciar la sesión', TYPE_ALERT.SUCCESS);
+          localStorage.setItem('address', this.address);
+          localStorage.setItem('route_after_login', this.router.url);
+          this.auth.resetSession();
+        } else {
+          await infoEventAlert('Cliente no añadido', result.message, TYPE_ALERT.WARNING);
+        }
+      });
       return;
     }
     this.stripePayment.takeCardToken(true);
