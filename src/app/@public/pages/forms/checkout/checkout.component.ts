@@ -7,7 +7,7 @@ import { StripePaymentService } from '@mugan86/stripe-payment-form';
 import { take } from 'rxjs/internal/operators/take';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
 import { CURRENCY_SELECT, CURRENCY_CODE } from '@core/constants/config';
-import { infoEventAlert } from '@shared/alerts/alerts';
+import { infoEventAlert, loadData } from '@shared/alerts/alerts';
 import { CustomerService } from '@shop/core/services/stripe/customer.service';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 
@@ -37,13 +37,14 @@ export class CheckoutComponent implements OnInit {
       if (token.indexOf('tok_') > -1 && this.meData.status && this.address !== '') {
         // Podemos enviar los datos
         console.log('Podemos enviar la info correctamente: ', token);
-        // Descripción del pedido (tenemos que crear función en el carrito)
         // Divisa
         console.log('Símbolo', CURRENCY_SELECT, 'Código: ', CURRENCY_CODE);
         // Client de stripe
         console.log(this.meData.user.stripeCustomer);
         // Total a pagar
         console.log('Total pagar: ', this.cartService.cart.total);
+        // Descripción del pedido (tenemos que crear función en el carrito)
+        console.log(this.cartService.orderDescription());
       }
     });
   }
@@ -63,6 +64,7 @@ export class CheckoutComponent implements OnInit {
       // Alerta para mostrar info
       await infoEventAlert('Cliente no existe', 'Necesitamos un cliente para realizar el pago');
       const stripeName = `${this.meData.user.name} ${this.meData.user.lastname}`;
+      loadData('Procesando la información', 'Creando el cliente...');
       this.customerService.add(
         stripeName,
         this.meData.user.email
