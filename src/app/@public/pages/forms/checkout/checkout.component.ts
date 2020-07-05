@@ -10,6 +10,8 @@ import { CURRENCY_SELECT, CURRENCY_CODE } from '@core/constants/config';
 import { infoEventAlert, loadData } from '@shared/alerts/alerts';
 import { CustomerService } from '@shop/core/services/stripe/customer.service';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
+import { ChargeService } from '@shop/core/services/stripe/charge.service';
+import { IPayment } from '@core/interfaces/stripe/payment.interface';
 
 @Component({
   selector: 'app-checkout',
@@ -23,7 +25,8 @@ export class CheckoutComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router,
               private stripePayment: StripePaymentService,
               private cartService: CartService,
-              private customerService: CustomerService) {
+              private customerService: CustomerService,
+              private chargeService: ChargeService) {
     this.auth.accessVar$.subscribe((data: IMeData) => {
       if (!data.status) {
         // Ir a login
@@ -35,16 +38,28 @@ export class CheckoutComponent implements OnInit {
 
     this.stripePayment.cardTokenVar$.pipe(take(1)).subscribe((token: string) => {
       if (token.indexOf('tok_') > -1 && this.meData.status && this.address !== '') {
-        // Podemos enviar los datos
-        console.log('Podemos enviar la info correctamente: ', token);
-        // Divisa
-        console.log('Símbolo', CURRENCY_SELECT, 'Código: ', CURRENCY_CODE);
-        // Client de stripe
-        console.log(this.meData.user.stripeCustomer);
-        // Total a pagar
-        console.log('Total pagar: ', this.cartService.cart.total);
-        // Descripción del pedido (tenemos que crear función en el carrito)
-        console.log(this.cartService.orderDescription());
+        // Almacenar la información para enviar
+        const payment: IPayment = {
+          token,
+          amount: this.cartService.cart.total.toString(),
+          description: this.cartService.orderDescription(),
+          customer: this.meData.user.stripeCustomer,
+          currency: CURRENCY_CODE
+        };
+        // Enviar la información y procesar el pago
+        this.chargeService.pay(payment).pipe(take(1))
+        .subscribe((result: {
+          status: boolean,
+          message: string,
+          charge: object
+        }) => {
+          if (result.status) {
+            console.log('OK');
+            console.log(result.charge);
+          } else {
+            console.log(result.message);
+          }
+        });
       }
     });
   }
