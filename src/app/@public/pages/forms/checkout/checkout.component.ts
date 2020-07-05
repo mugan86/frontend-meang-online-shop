@@ -7,6 +7,7 @@ import { StripePaymentService } from '@mugan86/stripe-payment-form';
 import { take } from 'rxjs/internal/operators/take';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
 import { CURRENCY_SELECT, CURRENCY_CODE } from '@core/constants/config';
+import { infoEventAlert } from '@shared/alerts/alerts';
 
 @Component({
   selector: 'app-checkout',
@@ -51,6 +52,11 @@ export class CheckoutComponent implements OnInit {
   }
 
   sendData() {
+    if (this.meData.user.stripeCustomer === null) {
+      // Alerta para mostrar info
+      infoEventAlert('Cliente no existe', 'Necesitamos un cliente para realizar el pago');
+      return;
+    }
     this.stripePayment.takeCardToken(true);
   }
 
