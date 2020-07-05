@@ -6,7 +6,7 @@
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Información de pago</h4>
       <hr>
-      <form class="needs-validation" novalidate="">
+      <form class="needs-validation" (ngSubmit)="sendData()" #forma="ngForm">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label>Nombre</label><br/>
@@ -27,10 +27,13 @@
         <div class="mb-3">
           <label for="address">Dirección de entrega</label>
           <textarea
-          cols="50" rows="4"
+            cols="50" rows="4"
             class="form-control"
             id="address"
-            placeholder="1234 Main St"
+            #addressData="ngModel"
+            [(ngModel)]="address"
+            name="address"
+            [ngClass]="{'is-valid': !addressData.invalid, 'is-invalid': addressData.invalid}"
             required=""
           ></textarea>
           <div class="invalid-feedback">
@@ -54,7 +57,7 @@
         <hr class="mb-4" />
        
       </form>
-      <button class="btn btn-primary btn-lg btn-block" (click)="sendData()"type="submit">
+      <button class="signup-btn" [disabled]="!forma.valid" (click)="sendData()"type="submit">
         Continue to checkout
       </button>
     </div>
