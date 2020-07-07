@@ -6,13 +6,16 @@ import { environment } from 'src/environments/environment';
 import { StripePaymentService } from '@mugan86/stripe-payment-form';
 import { take } from 'rxjs/internal/operators/take';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
-import { CURRENCY_SELECT, CURRENCY_CODE } from '@core/constants/config';
+import { CURRENCY_CODE } from '@core/constants/config';
 import { infoEventAlert, loadData } from '@shared/alerts/alerts';
 import { CustomerService } from '@shop/core/services/stripe/customer.service';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 import { ChargeService } from '@shop/core/services/stripe/charge.service';
 import { IPayment } from '@core/interfaces/stripe/payment.interface';
 import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
+import { ICharge } from '@core/interfaces/stripe/charge.interface';
+import { IMail } from '@core/interfaces/mail.interface';
+import { MailService } from '@core/services/mail.service';
 
 @Component({
   selector: 'app-checkout',
@@ -30,7 +33,8 @@ export class CheckoutComponent implements OnInit {
     private stripePayment: StripePaymentService,
     private cartService: CartService,
     private customerService: CustomerService,
-    private chargeService: ChargeService
+    private chargeService: ChargeService,
+    private mailService: MailService
   ) {
     this.auth.accessVar$.subscribe((data: IMeData) => {
       if (!data.status) {
@@ -41,7 +45,7 @@ export class CheckoutComponent implements OnInit {
       this.meData = data;
     });
 
-    this.cartService.itemsVar$.pipe(take(1)).subscribe((cart: ICart) => {
+    this.cartService.itemsVar$.pipe(take(1)).subscribe(() => {
       if (this.cartService.cart.total === 0) {
         this.available = false;
         this.notAvailableProducts();
@@ -80,7 +84,7 @@ export class CheckoutComponent implements OnInit {
               async (result: {
                 status: boolean;
                 message: string;
-                charge: object;
+                charge: ICharge;
               }) => {
                 if (result.status) {
                   console.log('OK');
@@ -90,6 +94,7 @@ export class CheckoutComponent implements OnInit {
                     'Has efectuado correctamente el pedido. ¡¡Muchas gracias!!',
                     TYPE_ALERT.SUCCESS
                   );
+                  this.sendEmail(result.charge);
                   this.cartService.clear();
                 } else {
                   console.log(result.message);
@@ -103,6 +108,17 @@ export class CheckoutComponent implements OnInit {
             );
         }
       });
+  }
+  sendEmail(charge: ICharge) {
+    const mail: IMail = {
+      to: charge.receiptEmail,
+      subject: 'Confirmación del pedido',
+      html: `
+      El pedido se ha realizado correctamente.
+      Puedes consultarlo en <a href="${charge.receiptUrl}" target="_blank">esta url</a>
+      `
+    };
+    this.mailService.send(mail).pipe(take(1)).subscribe();
   }
 
  async notAvailableProducts() {
