@@ -57,7 +57,7 @@
         <hr class="mb-4" />
        
       </form>
-      <button class="signup-btn" [disabled]="!forma.valid" (click)="sendData()"type="submit">
+      <button class="signup-btn" [disabled]="!forma.valid || block" (click)="sendData()"type="submit">
         Pagar pedido
       </button>
     </div>

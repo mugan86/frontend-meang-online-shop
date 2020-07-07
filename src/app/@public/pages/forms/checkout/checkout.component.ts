@@ -27,6 +27,7 @@ export class CheckoutComponent implements OnInit {
   key = environment.stripePublicKey;
   address = '';
   available = false;
+  block = false;
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -72,6 +73,7 @@ export class CheckoutComponent implements OnInit {
             customer: this.meData.user.stripeCustomer,
             currency: CURRENCY_CODE,
           };
+          this.block = true;
           loadData(
             'Realizando el pago',
             'Espera mienytras se procesa la información de pago'
@@ -104,6 +106,7 @@ export class CheckoutComponent implements OnInit {
                     TYPE_ALERT.SUCCESS
                   );
                 }
+                this.block = false;
               }
             );
         }
@@ -139,6 +142,7 @@ export class CheckoutComponent implements OnInit {
     }
     this.cartService.initialize();
     localStorage.removeItem('route_after_login');
+    this.block = false;
     if (this.cartService.cart.total === 0) {
       this.available = false;
       this.notAvailableProducts();

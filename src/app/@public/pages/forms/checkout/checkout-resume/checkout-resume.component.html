@@ -11,7 +11,7 @@
         <h6 class="my-0">{{ product.name }}</h6>
         <small class="text-muted">{{ product.description }} - {{ product.qty }} uds.</small>
       </div>
-      <div class="col-lg"><span class="text-muted float-right">{{ currencySelect }} {{ product.price }}</span></div>
+      <div class="col-lg"><span class="text-muted float-right">{{ currencySelect }} {{ product.price * product.qty }}</span></div>
       
     </div>
   </div>
