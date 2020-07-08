@@ -1,28 +1,35 @@
-<div class="container">
-    <p>Table is just a mapping of objects to table rows with <code>ngFor</code></p>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Descripción</th>
-    <th scope="col">Precio ({{currencySymbol}})</th>
-    <th scope="col">Fecha</th>
-    <th scope="col">Más detalles</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let data of charges; let i = index">
-    <th scope="row">{{ i + 1 }}</th>
-    <td>{{ data.description}}</td>
-    <td>
-      {{ data.amount }}
-    </td>
-    <td>{{data.created | date:'yyyy-MM-dd HH:MM:ss'}}</td>
-    <td>
-        <a [href]="data.receiptUrl" target="_blank">Factura</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="container" *ngIf="!load">
+  <p>
+    Estos son los pedidos que has realizado y pagado desde el más reciente al más antiguo
+  </p>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Descripción</th>
+          <th scope="col">Precio ({{ currencySymbol }})</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Más detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let data of charges">
+          <td>{{ data.description }}</td>
+          <td>
+            {{ data.amount }}
+          </td>
+          <td>{{ data.created | date: "yyyy-MM-dd HH:MM:ss" }}</td>
+          <td>
+            <a [href]="data.receiptUrl" target="_blank">Factura</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg text-center"><button *ngIf="loadMoreButtonShow" class="btn btn-dark" (click)="loadData()" id="load-more">Cargar +</button></div>
+  </div>
 </div>
