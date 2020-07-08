@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!loading">
     <p>En este apartado encontraremos nuestros pedidos desde el más reciente</p>
     <table class="table table-striped">
         <thead>
@@ -20,4 +20,9 @@
             </tr>
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-lg text-center">
+            <button *ngIf="loadMoreBtn" class="btn btn-dark" (click)="loadChargesData()">Cargar más datos</button>
+        </div>
+    </div>
 </div>
