@@ -5,6 +5,7 @@ export const CHARGE_FRAGMENT_OBJECT = gql`
     id
     card
     paid
+    description
     customer
     created
     amount

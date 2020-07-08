@@ -1,3 +1,4 @@
+import { CHARGES_CUSTOMERS_LIST } from '@graphql/operations/query/stripe/charge';
 import { Injectable } from '@angular/core';
 import { ApiService } from '@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
@@ -20,6 +21,22 @@ export class ChargeService extends ApiService{
       { payment }
     ).pipe(map((result: any) => {
       return result.chargeOrder;
+    }));
+  }
+
+  listByCustomer(
+    customer: string,
+    limit: number,
+    startingAfter: string,
+    endingBefore: string
+  ) {
+    return this.get(
+      CHARGES_CUSTOMERS_LIST,
+      {
+        customer, limit, startingAfter, endingBefore
+      }
+    ).pipe(map((result: any) => {
+      return result.chargesByCustomer;
     }));
   }
 }
