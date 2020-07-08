@@ -42,6 +42,7 @@ export class OrdersComponent implements OnInit {
       10, this.startingAfter, ''
     ).pipe(take(1)).subscribe((data: {hasMore: boolean, charges: Array<ICharge>}) => {
       console.log(data);
+      this.charges = data.charges;
     });
   }
 }
