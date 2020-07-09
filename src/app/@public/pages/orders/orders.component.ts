@@ -20,10 +20,7 @@ export class OrdersComponent implements OnInit {
   charges: Array<ICharge> = [];
   loading = true;
   loadMoreBtn = false;
-  constructor(
-    private auth: AuthService,
-    private chargeService: ChargeService
-  ) {
+  constructor(private auth: AuthService, private chargeService: ChargeService) {
     this.auth.accessVar$.pipe(take(1)).subscribe((meData: IMeData) => {
       this.meData = meData;
       // Si tenemos información cargar con el cliente
@@ -40,23 +37,26 @@ export class OrdersComponent implements OnInit {
 
   loadChargesData() {
     loadData('Cargando...', 'Espera mientras carga los pedidos...');
-    this.chargeService.listByCustomer(
-      this.meData.user.stripeCustomer,
-      10, this.startingAfter, ''
-    ).pipe(take(1)).subscribe((data: {hasMore: boolean, charges: Array<ICharge>}) => {
-      /*console.log(data);
-      this.charges = data.charges;*/
-      data.charges.map((item: ICharge) => this.charges.push(item));
-      this.hasMore = data.hasMore;
-      if (this.hasMore) {
-        this.startingAfter = data.charges[data.charges.length - 1].id;
-        this.loadMoreBtn = true;
-      } else {
-        this.loadMoreBtn = false;
-        this.startingAfter = '';
-      }
-      closeAlert();
-      this.loading = false;
-    });
+    this.chargeService
+      .listByCustomer(
+        this.meData.user.stripeCustomer,
+        10,
+        this.startingAfter,
+        ''
+      )
+      .pipe(take(1))
+      .subscribe((data: { hasMore: boolean; charges: Array<ICharge> }) => {
+        data.charges.map((item: ICharge) => this.charges.push(item));
+        this.hasMore = data.hasMore;
+        if (this.hasMore) {
+          this.startingAfter = data.charges[data.charges.length - 1].id;
+          this.loadMoreBtn = true;
+        } else {
+          this.loadMoreBtn = false;
+          this.startingAfter = '';
+        }
+        closeAlert();
+        this.loading = false;
+      });
   }
 }
