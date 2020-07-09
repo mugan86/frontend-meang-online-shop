@@ -1,7 +1,7 @@
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '@core/services/products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { loadData, closeAlert } from '@shared/alerts/alerts';
 import { CURRENCY_SELECT } from '@core/constants/config';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
@@ -25,7 +25,7 @@ export class DetailsComponent implements OnInit {
     private productService: ProductsService,
     private activatedRoute: ActivatedRoute,
     private cartService: CartService,
-    private api: ApiService
+    private router: Router
   ) {}
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -33,7 +33,7 @@ export class DetailsComponent implements OnInit {
       loadData('Cargando datos', 'Espera mientras carga la información');
       this.loading = true;
       this.loadDataValue(+params.id);
-      // this.updateListener(+params.id);
+      this.updateListener(+params.id);
     });
 
     this.cartService.itemsVar$.subscribe((data: ICart) => {
@@ -46,6 +46,27 @@ export class DetailsComponent implements OnInit {
       this.product.qty = this.findProduct(+this.product.id).qty;
     });
   }
+
+  updateListener(id: number) {
+    this.productService.productListener(+id)
+    .subscribe((result) => {
+      // Asignar el valor recibido
+      this.product.stock = result.stock;
+
+      // Comprobar si la cantidad seleccionada es mayor que el stock
+      // Si es así, asignarle el valor del stock a la cantidad
+      if (this.product.qty > this.product.stock) {
+        this.product.qty = this.product.stock;
+        return;
+      }
+      // Si la cantidad queda en 0 porque no hay stock
+      // Asignarle 1
+      if (this.product.qty === 0) {
+        this.product.qty = 1;
+      }
+    });
+  }
+
 
   findProduct(id: number) {
     return this.cartService.cart.products.find( item => +item.id === id);
@@ -70,8 +91,10 @@ export class DetailsComponent implements OnInit {
   }
 
   selectOtherPlatform($event) {
-    console.log($event.target.value);
-    this.loadDataValue(+$event.target.value);
+    const id = +$event.target.value;
+    window.history.replaceState({}, '', `/games/details/${id}`);
+    this.loadDataValue(id);
+    this.updateListener(id);
   }
 
   selectImgMain(i: number) {
