@@ -7,6 +7,7 @@ import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM, SHOP_PRODUCT_DETAILS,
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { HOME_PAGE } from '@graphql/operations/query/home-page';
 import { DETAILS_PAGE } from '@graphql/operations/query/details-page';
+import { SUBSCRIPTION_PRODUCT_STOCK } from '@graphql/operations/subscription/shop-product';
 
 @Injectable({
   providedIn: 'root'
@@ -137,5 +138,15 @@ export class ProductsService extends ApiService{
         resultList.push(this.setInObject(shopObject, showDescription));
       });
       return resultList;
+  }
+
+  productListener(id: number) {
+    return this.subscription(
+      SUBSCRIPTION_PRODUCT_STOCK,
+      {id}
+    ).pipe(map((result) => {
+      console.log(result);
+      return result.updateStockSelectProduct;
+    }));
   }
 }

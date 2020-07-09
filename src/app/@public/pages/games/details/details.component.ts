@@ -6,6 +6,8 @@ import { loadData, closeAlert } from '@shared/alerts/alerts';
 import { CURRENCY_SELECT } from '@core/constants/config';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
 import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
+import { ApiService } from '@graphql/services/api.service';
+import { SUBSCRIPTION_PRODUCT_STOCK } from '@graphql/operations/subscription/shop-product';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -22,7 +24,8 @@ export class DetailsComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private activatedRoute: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private api: ApiService
   ) {}
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -30,6 +33,7 @@ export class DetailsComponent implements OnInit {
       loadData('Cargando datos', 'Espera mientras carga la información');
       this.loading = true;
       this.loadDataValue(+params.id);
+      // this.updateListener(+params.id);
     });
 
     this.cartService.itemsVar$.subscribe((data: ICart) => {
