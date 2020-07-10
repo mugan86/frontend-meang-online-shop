@@ -12,10 +12,11 @@ import { CustomerService } from '@shop/core/services/stripe/customer.service';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 import { ChargeService } from '@shop/core/services/stripe/charge.service';
 import { IPayment } from '@core/interfaces/stripe/payment.interface';
-import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
 import { ICharge } from '@core/interfaces/stripe/charge.interface';
 import { IMail } from '@core/interfaces/mail.interface';
 import { MailService } from '@core/services/mail.service';
+import { IStock } from '@core/interfaces/stripe/stock.interface';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 
 @Component({
   selector: 'app-checkout',
@@ -28,6 +29,7 @@ export class CheckoutComponent implements OnInit {
   address = '';
   available = false;
   block = false;
+  stockManage: Array<IStock> = [];
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -73,6 +75,14 @@ export class CheckoutComponent implements OnInit {
             customer: this.meData.user.stripeCustomer,
             currency: CURRENCY_CODE,
           };
+          // Obtener la información que vamos a usar para actualizar el stock
+          this.cartService.cart.products.map((item: IProduct) => {
+            this.stockManage.push({
+              id: +item.id,
+              increment: item.qty * (-1)
+            });
+          });
+          console.log('stock change', this.stockManage);
           this.block = true;
           loadData(
             'Realizando el pago',
@@ -80,7 +90,7 @@ export class CheckoutComponent implements OnInit {
           );
           // Enviar la información y procesar el pago
           this.chargeService
-            .pay(payment)
+            .pay(payment, this.stockManage)
             .pipe(take(1))
             .subscribe(
               async (result: {
