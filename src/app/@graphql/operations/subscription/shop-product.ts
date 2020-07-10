@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const SUBSCRIPTION_PRODUCT_STOCK = gql`
   subscription selectProductUpdate($id: Int!) {
-    updateStockSelectProduct(id: $id) {
+    selectProductStockUpdate(id: $id) {
       id
       stock
     }

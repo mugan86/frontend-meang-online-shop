@@ -146,7 +146,7 @@ export class ProductsService extends ApiService{
       {id}
     ).pipe(map((result) => {
       console.log(result);
-      return result.updateStockSelectProduct;
+      return result.selectProductStockUpdate;
     }));
   }
 }
