@@ -53,6 +53,8 @@ export class DetailsComponent implements OnInit {
       // Asignar el valor recibido
       this.product.stock = result.stock;
 
+      this.cartService.clear();
+
       // Comprobar si la cantidad seleccionada es mayor que el stock
       // Si es así, asignarle el valor del stock a la cantidad
       if (this.product.qty > this.product.stock) {
