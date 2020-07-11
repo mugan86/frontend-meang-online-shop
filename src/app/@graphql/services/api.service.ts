@@ -35,23 +35,12 @@ export class ApiService {
   }
 
   subscription(subscription: DocumentNode, variables: object = {}) {
-    console.log(variables);
-    console.log(subscription);
     return this.apollo.subscribe({
       query: subscription,
       variables,
     }).pipe(map((result: any) => {
       console.log(result);
       return result.data;
-    }));
-
-  }
-  listener(subscription: DocumentNode, variables: object = {}) {
-    return this.apollo.subscribe({
-      query: subscription,
-      variables,
-    }).pipe(map((result: any) => {
-      return result.data.updateStockSelectProduct;
     }));
   }
 

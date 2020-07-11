@@ -1,19 +1,19 @@
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsService } from '@core/services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { loadData, closeAlert } from '@shared/alerts/alerts';
 import { CURRENCY_SELECT } from '@core/constants/config';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
 import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
-import { ApiService } from '@graphql/services/api.service';
-import { SUBSCRIPTION_PRODUCT_STOCK } from '@graphql/operations/subscription/shop-product';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
+  listener$: Subscription;
   product: IProduct;
   selectImage: string;
   currencySelect = CURRENCY_SELECT;
@@ -24,8 +24,7 @@ export class DetailsComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private activatedRoute: ActivatedRoute,
-    private cartService: CartService,
-    private router: Router
+    private cartService: CartService
   ) {}
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -37,18 +36,16 @@ export class DetailsComponent implements OnInit {
     });
 
     this.cartService.itemsVar$.subscribe((data: ICart) => {
-      console.log(data);
       if (data.subtotal === 0) {
         this.product.qty = 1;
         return;
       }
-
       this.product.qty = this.findProduct(+this.product.id).qty;
     });
   }
 
   updateListener(id: number) {
-    this.productService.productListener(+id)
+    this.listener$ = this.productService.productListener(+id)
     .subscribe((result) => {
       // Asignar el valor recibido
       this.product.stock = result.stock;
@@ -105,5 +102,9 @@ export class DetailsComponent implements OnInit {
 
   addToCart() {
     this.cartService.manageProduct(this.product);
+  }
+
+  ngOnDestroy(): void {
+    this.listener$.unsubscribe();
   }
 }
