@@ -7,6 +7,7 @@ import shopMenuItems from '@data/menus/shop.json';
 import { CartService } from '@shop/core/services/cart.service.ts.service';
 import { REDIRECTS_ROUTES } from '@core/constants/config';
 import { Router } from '@angular/router';
+import { optionsWithDetails } from '@shared/alerts/alerts';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -46,7 +47,17 @@ export class NavbarComponent implements OnInit {
     this.cartService.open();
   }
 
-  logout() {
+  async logout() {
+    const result = await optionsWithDetails(
+      'Sesión',
+      `¿Estás seguro que quieres cerrar sesión?`,
+      400,
+      'Si, cerrar', // true
+      'No'
+    );
+    if (!result) {
+      return;
+    }
     // rutas que usaremos para redireccionar
     if (REDIRECTS_ROUTES.includes(this.router.url)) {
       // En el caso de encontrarla marcamos para que redireccione
