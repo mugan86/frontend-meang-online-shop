@@ -36,7 +36,9 @@
         <div class="col-lg-12">
           Stock: {{ product.stock }}
           <hr>
+          <span *ngIf="product.stock == 0">No hay stock. Producto no disponible en este momento.</span>
           <shop-qty-selector
+              *ngIf="product.stock > 0"
               [qty]="product.qty"
               [stock]="product.stock"
               (updateValue)="changeValue($event)"
@@ -48,8 +50,8 @@
       <select (change)="selectOtherPlatform($event)">
         <option [value]="product.id">{{ product.description }}</option>
         <option [value]="opt.id" *ngFor="let opt of relationalProducts">{{ opt.platform.name }}</option>
-      </select>
-      <button (click)="addToCart()" class="btn btn-dark mt-3"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp; Añadir</button>
+      </select><br/>
+      <button (click)="addToCart()" *ngIf="product.stock > 0" class="btn btn-dark mt-3"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp; Añadir</button>
     </div>
   </div>
   <!-- /.row -->

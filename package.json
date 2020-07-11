@@ -29,11 +29,13 @@
     "apollo-client": "^2.6.8",
     "apollo-link": "^1.2.14",
     "apollo-link-error": "^1.1.13",
+    "apollo-link-ws": "^1.0.20",
     "bootstrap": "^4.4.0",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "jwt-decode": "^2.2.0",
     "rxjs": "~6.5.4",
+    "subscriptions-transport-ws": "^0.9.16",
     "sweetalert2": "^9.10.12",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

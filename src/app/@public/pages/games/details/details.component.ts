@@ -30,6 +30,7 @@ export class DetailsComponent implements OnInit {
       loadData('Cargando datos', 'Espera mientras carga la información');
       this.loading = true;
       this.loadDataValue(+params.id);
+      this.updateListener(+params.id);
     });
 
     this.cartService.itemsVar$.subscribe((data: ICart) => {
@@ -41,6 +42,26 @@ export class DetailsComponent implements OnInit {
 
       this.product.qty = this.findProduct(+this.product.id).qty;
     });
+  }
+
+  updateListener(id: number) {
+    console.log('escuchando', id);
+    this.productService.stockUpdateListener(id).subscribe(
+      (result) => {
+        console.log('Actualización', result);
+        this.product.stock = result.stock;
+
+        // COmprobar que cantidad seleccionada es mayor que stock.
+        // Si se da esta situación, el toope pasarña al valor del stock
+        if (this.product.qty > this.product.stock) {
+          this.product.qty = this.product.stock;
+        }
+
+        if (this.product.stock === 0) {
+          this.product.qty = 1;
+        }
+      }
+    );
   }
 
   findProduct(id: number) {
@@ -67,7 +88,10 @@ export class DetailsComponent implements OnInit {
 
   selectOtherPlatform($event) {
     console.log($event.target.value);
-    this.loadDataValue(+$event.target.value);
+    const id = +$event.target.value;
+    this.loadDataValue(id);
+    this.updateListener(id);
+    window.history.replaceState({}, '', `/#/games/details/${id}`);
   }
 
   selectImgMain(i: number) {

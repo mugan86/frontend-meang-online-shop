@@ -16,6 +16,8 @@ import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interfac
 import { ICharge } from '@core/interfaces/stripe/charge.interface';
 import { IMail } from '@core/interfaces/mail.interface';
 import { MailService } from '@core/services/mail.service';
+import { IStock } from '@core/interfaces/stock.interface';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 
 @Component({
   selector: 'app-checkout',
@@ -73,6 +75,15 @@ export class CheckoutComponent implements OnInit {
             customer: this.meData.user.stripeCustomer,
             currency: CURRENCY_CODE,
           };
+          const stockManage: Array<IStock> = [];
+          this.cartService.cart.products.map((item: IProduct) => {
+            stockManage.push(
+              {
+                id: +item.id,
+                increment: item.qty * (-1)
+              }
+            );
+          });
           this.block = true;
           loadData(
             'Realizando el pago',
@@ -80,7 +91,7 @@ export class CheckoutComponent implements OnInit {
           );
           // Enviar la información y procesar el pago
           this.chargeService
-            .pay(payment)
+            .pay(payment, stockManage)
             .pipe(take(1))
             .subscribe(
               async (result: {
