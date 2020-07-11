@@ -12,7 +12,6 @@ import { CustomerService } from '@shop/core/services/stripe/customer.service';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
 import { ChargeService } from '@shop/core/services/stripe/charge.service';
 import { IPayment } from '@core/interfaces/stripe/payment.interface';
-import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
 import { ICharge } from '@core/interfaces/stripe/charge.interface';
 import { IMail } from '@core/interfaces/mail.interface';
 import { MailService } from '@core/services/mail.service';

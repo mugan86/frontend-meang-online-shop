@@ -31,6 +31,10 @@ const routes: Routes = [
         canActivate: [ShopGuard]
       },
       {
+        path: 'faq',
+        loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
+      },
+      {
         path: 'contact',
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
       },

@@ -1,15 +1,22 @@
 <div class="container-fluid navbar-dark bg-dark">
     <div class="d-flex justify-content-between">
-        <div>
+        <div >
             <img class="logotype" src="/assets/img/logos/gamezonia.png" alt="Logotipo de la tienda" />
         </div>
-        <div>
-            <p>mugan86@gmail.com</p>
+        <div class="flex-fill">
+            <span class="data-delivery"><i class="fas fa-truck"></i>&nbsp;&nbsp;Gastos de envío gratis en todas tus reservas</span>
         </div>
-        <div class="d-flex flex-row-reverse">
-            <a class="nav-link active" href="#">Active link</a>      
-            <a class="nav-link" href="#">Link</a>      
-            <a class="nav-link disabled" href="#">Disabled link</a>      
+        <div class="d-flex flex-fill ">   
+            <ul class="navbar-nav ml-auto mt-2 mr-3">
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    [routerLink]="['/faq']"
+                    routerLinkActive="router-link-active"
+                    >Ayuda - Preguntas frecuentes</a
+                  >
+                </li>
+              </ul>     
         </div>
     </div>
 </div>
