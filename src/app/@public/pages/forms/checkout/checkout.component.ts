@@ -86,7 +86,7 @@ export class CheckoutComponent implements OnInit {
           this.block = true;
           loadData(
             'Realizando el pago',
-            'Espera mienytras se procesa la información de pago'
+            'Espera mientras se procesa la información de pago'
           );
           // Enviar la información y procesar el pago
           this.chargeService
