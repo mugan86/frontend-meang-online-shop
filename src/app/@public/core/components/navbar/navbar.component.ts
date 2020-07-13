@@ -1,3 +1,4 @@
+import { optionsWithDetails } from '@shared/alerts/alerts';
 import { ICart } from '@shop/core/components/shopping-cart/shoppin-cart.interface';
 import { IMenuItem } from '@core/interfaces/menu-item.interface';
 import { Component, OnInit } from '@angular/core';
@@ -46,7 +47,17 @@ export class NavbarComponent implements OnInit {
     this.cartService.open();
   }
 
-  logout() {
+  async logout() {
+    const result = await optionsWithDetails(
+      'Cerrar sesión',
+      `¿Estás seguro que quieres cerrar la sesión?`,
+      400,
+      'Si, cerrar', // true
+      'No'
+    ); // false
+    if (!result) {
+      return;
+    }
     // rutas que usaremos para redireccionar
     if (REDIRECTS_ROUTES.includes(this.router.url)) {
       // En el caso de encontrarla marcamos para que redireccione

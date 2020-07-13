@@ -8,6 +8,8 @@ import { ITableColumns } from '@core/interfaces/table-columns.interface';
 import { formBasicDialog, optionsWithDetails } from '@shared/alerts/alerts';
 import { GenresService } from './genres.service';
 import { TYPE_ALERT } from '@shared/alerts/values.config';
+import { TitleService } from '@admin/core/services/title.service';
+import { LABEL } from '@admin/core/constants/title.constants';
 
 @Component({
   selector: 'app-genres',
@@ -22,8 +24,11 @@ export class GenresComponent implements OnInit {
   include: boolean;
   columns: Array<ITableColumns>;
   filterActiveValues = ACTIVE_FILTERS.ALL;
-  constructor(private service: GenresService) {}
+  constructor(private service: GenresService,
+              private titleService: TitleService) {}
+
   ngOnInit(): void {
+    this.titleService.updateTitle(LABEL.GENRES);
     this.context = {};
     this.itemsPage = 10;
     this.resultData = {
