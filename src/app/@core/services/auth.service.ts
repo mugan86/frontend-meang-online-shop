@@ -6,6 +6,8 @@ import { LOGIN_QUERY, ME_DATA_QUERY } from '@graphql/operations/query/user';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/internal/operators/map';
 import { Subject } from 'rxjs';
+import { optionsWithDetails } from '@shared/alerts/alerts';
+import { REDIRECTS_ROUTES } from '@core/constants/config';
 @Injectable({
   providedIn: 'root'
 })
@@ -76,7 +78,22 @@ export class AuthService extends ApiService{
     return JSON.parse(localStorage.getItem('session'));
   }
 
-  resetSession() {
+  async resetSession(routeUrl: string = '') {
+    const result = await optionsWithDetails(
+      'Cerrar sesión',
+      `¿Estás seguro que quieres cerrar la sesión?`,
+      400,
+      'Si, cerrar', // true
+      'No'
+    ); // false
+    if (!result) {
+      return;
+    }
+    // rutas que usaremos para redireccionar
+    if (REDIRECTS_ROUTES.includes(routeUrl) && routeUrl !== '') {
+      // En el caso de encontrarla marcamos para que redireccione
+      localStorage.setItem('route_after_login', routeUrl);
+    }
     localStorage.removeItem('session');
     this.updateSession({status: false});
   }

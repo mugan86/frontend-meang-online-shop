@@ -48,22 +48,7 @@ export class NavbarComponent implements OnInit {
   }
 
   async logout() {
-    const result = await optionsWithDetails(
-      'Cerrar sesión',
-      `¿Estás seguro que quieres cerrar la sesión?`,
-      400,
-      'Si, cerrar', // true
-      'No'
-    ); // false
-    if (!result) {
-      return;
-    }
-    // rutas que usaremos para redireccionar
-    if (REDIRECTS_ROUTES.includes(this.router.url)) {
-      // En el caso de encontrarla marcamos para que redireccione
-      localStorage.setItem('route_after_login', this.router.url);
-    }
-    this.authService.resetSession();
+    this.authService.resetSession(this.router.url);
   }
 
 }
