@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!load">
     <div class="row">
         <div class="col-md-3" *ngFor="let item of items">
             <app-general-info [item]="item"></app-general-info>
