@@ -1,1 +1,3 @@
-<p>dashboard works!</p>
+<p *ngFor="let item of items">
+    <app-general-info [item]="item"></app-general-info>
+</p>
