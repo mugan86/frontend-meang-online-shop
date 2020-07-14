@@ -19,6 +19,26 @@ export class DashboardComponent implements OnInit {
       icon: 'fas fa-store-alt',
       title: 'Productos en venta',
       value: 'shopProducts'
+    },
+    {
+      icon: 'fas fa-tags',
+      title: 'Tags',
+      value: 'tags'
+    },
+    {
+      icon: 'fas fa-atlas',
+      title: 'Géneros',
+      value: 'genres'
+    },
+    {
+      icon: 'fas fa-gamepad',
+      title: 'Juegos',
+      value: 'games'
+    },
+    {
+      icon: 'fas fa-archive',
+      title: 'Plataformas',
+      value: 'platforms'
     }
   ];
   constructor(private titleService: TitleService) { }

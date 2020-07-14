@@ -1,3 +1,7 @@
-<p *ngFor="let item of items">
-    <app-general-info [item]="item"></app-general-info>
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3" *ngFor="let item of items">
+            <app-general-info [item]="item"></app-general-info>
+        </div>
+    </div>
+</div>
