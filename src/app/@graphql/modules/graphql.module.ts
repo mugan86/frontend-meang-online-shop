@@ -27,7 +27,7 @@ export class GraphqlModule {
     const uri = environment.backend;
     const urlLink = ApolloLink.from([errorLink, httpLink.create({ uri })]);
     const subscriptionLink = new WebSocketLink({
-      uri: 'ws://localhost:2002/graphql',
+      uri: environment.backendWs,
       options: {
         reconnect: true
       }
