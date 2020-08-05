@@ -8,6 +8,7 @@ import { map } from 'rxjs/internal/operators/map';
 import { Subject } from 'rxjs';
 import { optionsWithDetails } from '@shared/alerts/alerts';
 import { REDIRECTS_ROUTES } from '@core/constants/config';
+const jwtDecode = require('jwt-decode');
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +24,13 @@ export class AuthService extends ApiService{
   }
 
   start() {
-
+    const dataDecode = this.decodeToken();
+    // COmprobar que no está caducado el token
+    if (dataDecode.exp < new Date().getTime() / 1000) {
+      console.log('Sesión caducada');
+      localStorage.removeItem('session');
+      return;
+    }
     if (this.getSession() !== null) {
       this.getMe().subscribe((result: IMeData) => {
         if (!result.status) {
@@ -96,5 +103,9 @@ export class AuthService extends ApiService{
     }
     localStorage.removeItem('session');
     this.updateSession({status: false});
+  }
+
+  decodeToken() {
+    return jwtDecode(this.getSession().token);
   }
 }
