@@ -82,7 +82,11 @@ export class AuthService extends ApiService{
   }
 
   getSession(): ISession {
-    return JSON.parse(localStorage.getItem('session'));
+    return (localStorage.getItem('session') !== null) ?
+        JSON.parse(localStorage.getItem('session')) : {
+          expiresIn: '',
+          token: ''
+        };
   }
 
   async resetSession(routesUrl: string = '') {
@@ -106,6 +110,6 @@ export class AuthService extends ApiService{
   }
 
   decodeToken() {
-    return jwtDecode(this.getSession().token);
+    return (this.getSession().token !== '') ? jwtDecode(this.getSession().token) : '';
   }
 }
