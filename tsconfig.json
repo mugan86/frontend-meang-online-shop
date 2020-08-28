@@ -23,7 +23,8 @@
     "target": "es2015",
     "lib": [
       "es2018",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
     "resolveJsonModule": true,
     "esModuleInterop": true
